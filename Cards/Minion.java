@@ -4,6 +4,7 @@ import Utility.Effects.Property;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
+import Utility.Keywords.Keywords;
 
 import Player.Player;
 
@@ -44,11 +45,34 @@ public abstract class Minion extends Card {
         this.properties = properties;
     }
 
-    public boolean combatSickness(int turnsPast) {
+    public boolean canTarget(int atk, Player player) {
         return true;
     }
 
-    public boolean canTarget(int atk, Player player) {
+    public boolean canAttack(int atk, Player player,
+                             int turnsPast, int timesAttacked) {
+        if (!(summonSickness(turnsPast))) {
+            if (!(hasAttacked(timesAttacked))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean summonSickness(int turnsPast) {
+        return true;
+    }
+
+    public boolean hasAttacked(int timesAttacked) {
+        if (timesAttacked >= 1) {
+            if (properties.contains(Keywords.WINDFURY)) {
+                if (timesAttacked == 2) {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
         return true;
     }
 
@@ -56,8 +80,17 @@ public abstract class Minion extends Card {
         return false;
     }
 
-    public boolean canPlay(int cost, int mana) {
+    @Override
+    public boolean isPlayed() {
         return false;
+    }
+
+    public boolean onBoard() {
+        return false;
+    }
+
+    public boolean inHand() {
+        return true;
     }
 }
 

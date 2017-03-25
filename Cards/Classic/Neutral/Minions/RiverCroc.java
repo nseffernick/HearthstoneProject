@@ -1,16 +1,17 @@
-package Cards.Classic;
+package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
 import Utility.Effects.Property;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
+import Utility.Keywords.Keywords;
 
 
 import java.util.ArrayList;
 
 /**
- *
+ * Representation of the River Crocolisk Minion
  */
 public class RiverCroc extends Minion {
 

@@ -45,5 +45,10 @@ public abstract class Weapon extends Card {
         return name;
     }
 
+    @Override
+    public boolean isPlayed() {
+        return false;
+    }
+
 
 }

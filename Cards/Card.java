@@ -34,15 +34,18 @@ public abstract class Card {
     }
 
     public boolean canPlay(int cost, int mana) {
+        if (mana >= cost) {
+            return true;
+        }
         return false;
     }
+
+    public abstract boolean isPlayed();
 
     public String toString(String name) {
         return name;
     }
 
-    public boolean canTarget(int atk, Player player) {
-        return true;
-    }
+    public abstract boolean canTarget(int atk, Player player);
 
 }

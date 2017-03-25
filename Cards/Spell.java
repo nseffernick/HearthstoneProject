@@ -41,6 +41,12 @@ public abstract class Spell extends Card {
     public boolean canPlay(int cost, int mana) {
         return true;
     }
+
+    @Override
+    public boolean isPlayed() {
+        return false;
+    }
+
 }
 
 
