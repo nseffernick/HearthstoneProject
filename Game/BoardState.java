@@ -1,5 +1,7 @@
-import deque;
-import random;
+package Game;
+
+import Player.*;
+import
 
 
 /**
@@ -17,16 +19,15 @@ public class BoardState {
     private Player p2;
     private int turn;
 
-    public BoardState(Player p1, Player p2) {
+    public BoardState(String deck1, String deck2, String hero1, String hero2) {
         this.turn = STARTING_TURN;
-        Player p1 = new Player(deck1);
-        Player p2 = new Player(deck2);
+        Player p1 = new Player(deck1, hero1);
+        Player p2 = new Player(deck2, hero2);
 
         startMulligan(p1, p2);
     }
 
     private void startMulligan(Player p1, Player p2) {
-
         p1.mulligan("first");
         p2.mulligan("second");
     }

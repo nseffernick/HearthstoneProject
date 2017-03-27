@@ -16,17 +16,17 @@ import java.util.ArrayList;
 public class RiverCroc extends Minion {
 
     // State
-    private int hp = 3;
-    private int atk = 2;
-    private int cost = 2;
-    private String name = "River Crocolisk";
+    public int hp = 3;
+    public int atk = 2;
+    public int cost = 2;
+    public String name = "River Crocolisk";
     private String text = "";
-    private ArrayList<Property> properties = new ArrayList<>();
+    private ArrayList<Keywords> properties = new ArrayList<>();
 
     public RiverCroc(int hp, int atk, int cost, String name, String text,
-                     ArrayList<Property> properties) {
+                     ArrayList<Keywords> properties) {
 
-        super(hp, atk, cost, name, text, Rarity.BASIC,
+        super(3, 2, cost, name, text, Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, properties);
     }
 

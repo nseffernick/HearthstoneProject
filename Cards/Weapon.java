@@ -1,5 +1,6 @@
 package Cards;
 
+import Player.Player;
 import Utility.Effects.Property;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -12,22 +13,22 @@ import java.util.ArrayList;
 public abstract class Weapon extends Card {
 
     // State
-    private int cost;
-    private int charges;
-    private int atk;
-    private String name;
+    public int cost;
+    public int durability;
+    public int atk;
+    public String name;
     private String text;
     private Rarity rarity;
     private HeroClass heroClass;
     private ArrayList<Property> properties;
 
-    public Weapon(int cost, String name, String text,
+    public Weapon(int cost, int atk, int durability, String name, String text,
                   Rarity rarity, HeroClass heroClass, ArrayList properties) {
 
         super(cost, name, text, rarity, heroClass, properties);
 
         this.cost = cost;
-        this.charges = charges;
+        this.durability = durability;
         this.atk = atk;
         this.name = name;
         this.text = text;
@@ -35,6 +36,10 @@ public abstract class Weapon extends Card {
         this.heroClass = heroClass;
 
         this.properties = properties;
+    }
+
+    public boolean canTarget(int atk, Player player) {
+        return false;
     }
 
     public boolean canPlay(int cost, int mana) {
