@@ -3,6 +3,7 @@ package Cards;
 
 import Player.Player;
 import Utility.Effects.Property;
+import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
 
@@ -14,12 +15,12 @@ import java.util.ArrayList;
 public abstract class Card {
 
     // State
-    private int cost;
-    private String name;
-    private String text;
-    private Rarity rarity;
-    private HeroClass heroClass;
-    private ArrayList<Property> properties;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public Card(int cost, String name, String text,
                 Rarity rarity, HeroClass heroClass, ArrayList properties) {
@@ -31,6 +32,30 @@ public abstract class Card {
         this.heroClass = heroClass;
 
         this.properties = properties;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Rarity getRarity() {
+        return rarity;
+    }
+
+    public HeroClass getHeroClass() {
+        return heroClass;
+    }
+
+    public ArrayList<Keywords> getProperties() {
+        return properties;
     }
 
     public boolean canPlay(int cost, int mana) {

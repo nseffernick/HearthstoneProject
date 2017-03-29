@@ -18,15 +18,15 @@ import java.util.ArrayList;
 public abstract class Minion extends Card {
 
     // State
-    private int hp;
-    private int atk;
-    private int cost;
-    private String name;
-    private String text;
-    private Rarity rarity;
-    private Tribe tribe;
-    private HeroClass heroClass;
-    private ArrayList<Property> properties;
+    public int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public Minion(int hp, int atk, int cost, String name,
                   String text, Rarity rarity, Tribe tribe,
@@ -43,6 +43,18 @@ public abstract class Minion extends Card {
         this.tribe = tribe;
 
         this.properties = properties;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getAtk() {
+        return hp;
+    }
+
+    public Tribe getTribe() {
+        return tribe;
     }
 
     public boolean canTarget(int atk, Player player) {

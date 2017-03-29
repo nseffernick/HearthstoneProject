@@ -1,25 +1,34 @@
-package Player;
+package Player.HeroPowers;
 
-import Cards.Classic.Uncollectible.Weapons.BloodFury;
-import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
-import Utility.Rarities.Rarity;
-
-import java.util.ArrayList;
+import Player.Player;
 
 /**
  * ME 3/19/17
  */
-public class HeroPower {
+public interface HeroPower {
+
+    void Cast(Player player);
+
+    int cost = 2;
+    String name = "";
+    boolean exhausted = false;
+
+
+
+    /*
+
+    -----  Old code, Still usable just not in this way  -----
+
 
     // State
-    private int cost;
+    int cost;
     private String name;
     private boolean castable;
 
     public HeroPower(String name) {
         initializeHeroPower(name);
     }
+
 
     private void initializeHeroPower(String name) {
         if (name.equals("Life Tap")) {
@@ -79,24 +88,39 @@ public class HeroPower {
         }
     }
 
-    public void Cast(String name, boolean castable, Player player) {
-        if (castable) {
-            switch (name) {
-                case "Shapeshift": player.hero.atk += 1; player.hero.armor += 1;
-                case "Reinforce":;
-                case "Dagger Mastery":;
-                case "Totemic Call":;
-                case "Fireblast":;
-                case "Armor Up": player.hero.armor += 2;
-                case "Life Tap": player.hero.hp -= 2;
-                case "Steady Shot":;
-                case "Lesser Heal":;
-                case "DIE, INSECT":;
-                case "INFERNO!":;
+
+     * All the hero powers
+     * Also still need to account for things like velen, justicar,
+     * 2 mana 3/2 heropower damage +1
+     * @param name
+     * @param castable
+     * @param player
+     * @param target
+     * @param index
+    public void Cast(String name, boolean castable,
+                     Player player, Player target, int index) {
+        if (player.mana >= cost) {
+            if (castable) {
+                switch (name) {
+                    case "Shapeshift": player.hero.atk += 1; player.hero.armor += 1;
+                    case "Reinforce": player.summonCard(new SilverHand());
+                    case "Dagger Mastery": player.hero.weapon = new WickedKnife();
+                    case "Totemic Call": shamanHeroPowerRoll(player);
+                    case "Fireblast": player.damageCharacter(target, index, 1);
+                    case "Armor Up": player.hero.armor += 2;
+                    case "Life Tap": player.hero.hp -= 2;
+                    case "Steady Shot": player.damageCharacter(target, 0, 2);
+                    case "Lesser Heal": player.damageCharacter(target, index, -2);
+                    case "DIE, INSECT":;
+                    case "INFERNO!": player.summonCard(new Infernal());
+                }
+                this.castable = false;
             }
-            this.castable = false;
         }
         System.out.println("Cannot cast Hero Power");
     }
+
+
+    */
 
 }

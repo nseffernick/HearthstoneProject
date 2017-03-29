@@ -1,7 +1,16 @@
 package Player;
 
 import Cards.Card;
+import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.HealingTotem;
+import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.SearingTotem;
+import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.StoneclawTotem;
+import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.WrathOfAir;
+import Cards.Minion;
+import Cards.Spell;
+import Utility.Keywords.Keywords;
+import Utility.UtilityMethods.hsCeption;
 
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -17,12 +26,14 @@ public class Player {
     private final int MAX_HAND_SIZE = 10;
 
     // State
-    public int mana;
-    public LinkedList<Card> playerSide;
-    public LinkedList<Card> deck;
-    public LinkedList<Card> hand;
-    public Hero hero;
+    private int manaCyrstals;
+    private int mana;
+    private LinkedList<Minion> playerSide;
+    private LinkedList<Card> deck;
+    private LinkedList<Card> hand;
+    private Hero hero;
     private int fatigue;
+    private hsCeption rng;
     // private AI type;
 
     public Player(String decklist, String Hero) {
@@ -31,6 +42,7 @@ public class Player {
         this.hero = hero;
         this.playerSide = new LinkedList<>();
         this.deck = initializeDeck(decklist);
+        rng = new hsCeption();
     }
 
     private LinkedList<Card> initializeDeck(String decklist) {
@@ -47,54 +59,40 @@ public class Player {
                 e.printStackTrace();
             }
         }
+        rng.shuffle(this);
         return deck;
     }
 
-    public Queue getDeck() {
+    public int getManaCyrstals() {
+        return manaCyrstals;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public int getFatigue() {
+        return fatigue;
+    }
+
+    public LinkedList<Minion> getPlayerSide() {
+        return playerSide;
+    }
+
+    public LinkedList<Card> getDeck() {
         return deck;
     }
 
-    public Queue getHand() {
+    public LinkedList<Card> getHand() {
         return hand;
     }
 
-    public void endTurn() {
-
+    public Hero getHero() {
+        return hero;
     }
 
-    /**
-     * Pre-Condition gives a correct index
-     * Very rough, will definitely need to update
-     * @param card - card player is playing from hand
-     */
-    public void playCard(Card card, int index) {
-        if (playerSide.size() < BOARD_SLOTS) {
-            hand.remove(card);
-            if (playerSide.isEmpty()) {
-                playerSide.add(card);
-            }
-            else playerSide.add(index, card);
-        }
-    }
-
-    public void drawCard() {
-        if (!deck.isEmpty()) {
-            Card card = deck.remove();
-            if (hand.size() < MAX_HAND_SIZE) {
-                hand.add(card);
-            }
-            else {
-                System.out.println(card + " was burned!");
-            }
-        }
-        else {
-            fatigue += 1;
-            hero.hp -= fatigue;
-        }
-    }
-
-    public void heroPower(Hero hero) {
-
+    public hsCeption getRng() {
+        return rng;
     }
 
     public void mulligan(String position) {
@@ -118,6 +116,7 @@ public class Player {
                 drawCard();
                 drawMore -= 1;
             }
+            rng.shuffle(this);
         }
         else {
             System.out.println("You are going second.");
@@ -137,6 +136,7 @@ public class Player {
                 drawCard();
                 drawMore -= 1;
             }
+            rng.shuffle(this);
         }
     }
 
@@ -151,5 +151,83 @@ public class Player {
         System.out.println("Use correct response next time.");
         return false;
     }
+
+
+    public boolean endTurn() {
+        return true;
+    }
+
+    /**
+     * Pre-Condition gives a correct index
+     * Very rough, will definitely need to update
+     * @param card - card player is playing from hand
+     */
+    public void playCard(Card card, int index) {
+        if (playerSide.size() < BOARD_SLOTS) {
+            hand.remove(card);
+            // If card is a minion
+            if (card instanceof Minion) {
+                Minion minion = (Minion)(card);
+                if (playerSide.isEmpty()) {
+                    playerSide.add(minion);
+                }
+                else playerSide.add(index, minion);
+            }
+            // If card is a spell
+            else if (card instanceof Spell) {
+
+            }
+        }
+    }
+
+    public void summonCard(Minion minion) {
+        if (playerSide.size() < BOARD_SLOTS) {
+            playerSide.add(minion);
+        }
+    }
+
+    /**
+     * For now will be only for things that deal damage,
+     * and can target anything, so fireblast and a lot of spells.
+     *
+     * @param playerAtked
+     * @param index
+     * @param dmg
+     */
+    public void damageCharacter(Player playerAtked, int index, int dmg) {
+        if (index < 0) {
+            if (!(playerAtked.hero.properties.contains(Keywords.IMMUNE))) {
+                playerAtked.hero.hp -= dmg;
+            }
+            System.out.println("Hero is immune, can't attack");
+        }
+        if (index >= 0 || index <= playerAtked.playerSide.size() - 1) {
+            if (!(playerAtked.playerSide.get(index).
+                    getProperties().contains(Keywords.IMMUNE))) {
+                playerAtked.playerSide.get(index).hp -= dmg;
+            }
+        }
+    }
+
+    public void drawCard() {
+        if (!deck.isEmpty()) {
+            Card card = deck.remove();
+            if (hand.size() < MAX_HAND_SIZE) {
+                hand.add(card);
+            }
+            else {
+                System.out.println(card + " was burned!");
+            }
+        }
+        else {
+            fatigue += 1;
+            hero.hp -= fatigue;
+        }
+    }
+
+    public void heroPower() {
+
+    }
+
 
 }

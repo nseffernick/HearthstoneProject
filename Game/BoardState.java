@@ -1,7 +1,6 @@
 package Game;
 
 import Player.*;
-import
 
 
 /**
@@ -33,6 +32,10 @@ public class BoardState {
     }
 
     public void startTurn(Player player) {
+        player.drawCard();
+        if (!(player.mana == 10)) {
+            player.mana += 1;
+        }
 
     }
 

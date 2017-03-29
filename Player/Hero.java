@@ -2,6 +2,8 @@ package Player;
 
 import Cards.Weapon;
 import Cards.Classic.Uncollectible.Weapons.*;
+import Player.HeroPowers.HeroPower;
+import Player.HeroPowers.LifeTap;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -11,20 +13,23 @@ import java.util.ArrayList;
 /**
  * ME 3/19/17
  */
-public abstract class Hero {
+public class Hero {
 
     // State
     public int hp;
     public int atk;
     public int armor;
+    public int spellDamage;
     private String name;
     private String who;
     private HeroPower heroPower;
-    private Weapon weapon;
+    public Weapon weapon;
+    public ArrayList<Keywords> properties;
 
     public Hero(String name) {
         initializeHero(name);
         this.atk = atk + weapon.atk;
+        this.properties = new ArrayList<>();
     }
 
     private void initializeHero(String who) {
@@ -32,7 +37,7 @@ public abstract class Hero {
             this.hp = 30;
             this.atk = 0;
             this.armor = 0;
-            this.heroPower = new HeroPower("Life Tap");
+            this.heroPower = new LifeTap();
             this.name = "Gul'Dan";
         }
         if (who.equals("Warrior")) {
@@ -102,9 +107,7 @@ public abstract class Hero {
             this.hp = 15;
             this.atk = 0;
             this.armor = 0;
-            this.weapon = new BloodFury(3, 3, 8, "Blood Fury",
-                    "", Rarity.BASIC, HeroClass.WARLOCK,
-                    new ArrayList<Keywords>());
+            this.weapon = new BloodFury();
             this.heroPower = new HeroPower("INFERNO!");
             this.name = "Lord Jaraxxus";
         }

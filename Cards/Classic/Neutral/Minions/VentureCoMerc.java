@@ -1,7 +1,6 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
-//import Utility.Effects.Property;
 import Utility.UtilityMethods.UtilityMethods;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -38,11 +37,10 @@ public class VentureCoMerc extends Minion {
     private String text = "Your minions cost 3 more.";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public VentureCoMerc(int hp, int atk, int cost, String name, String text,
-                         ArrayList<Keywords> properties) {
-
-        super(hp, atk, cost, name, text, Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, properties);
+    public VentureCoMerc() {
+        super(6, 7, 5, "Venture Co. Mercenary",
+                "Your minions cost 3 more.", Rarity.BASIC,
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
 
         properties.add(Keywords.DELTACOST);
 

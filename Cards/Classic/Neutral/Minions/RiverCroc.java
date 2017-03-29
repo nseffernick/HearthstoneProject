@@ -1,12 +1,10 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
-import Utility.Effects.Property;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.Keywords.Keywords;
-
 
 import java.util.ArrayList;
 
@@ -23,11 +21,10 @@ public class RiverCroc extends Minion {
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public RiverCroc(int hp, int atk, int cost, String name, String text,
-                     ArrayList<Keywords> properties) {
+    public RiverCroc() {
 
-        super(3, 2, cost, name, text, Rarity.BASIC,
-                Tribe.BEAST, HeroClass.NEUTRAL, properties);
+        super(3, 2, 2, "River Crocolisk", "", Rarity.BASIC,
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
 

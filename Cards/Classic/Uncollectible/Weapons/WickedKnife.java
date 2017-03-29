@@ -8,21 +8,22 @@ import Utility.Rarities.Rarity;
 import java.util.ArrayList;
 
 /**
- * Created by Cheech on 3/26/2017.
+ * Created by Cheech on 3/27/2017. nxs1720@g.rit.edu
  */
-public class BloodFury extends Weapon {
+public class WickedKnife extends Weapon{
 
-    public int cost = 3;
-    public int atk = 3;
-    public int durability = 8;
-    public String name = "Blood Fury";
+    public int cost = 1;
+    public int atk = 1;
+    public int durability = 2;
+    public String name = "Wicked Knife";
     private String text = "";
     private Rarity rarity = Rarity.BASIC;
     private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public BloodFury() {
-        super(3, 3, 8, "Blood Fury", "", Rarity.BASIC,
+    public WickedKnife() {
+        super(1, 1, 2, "Wicked Knife", "", Rarity.BASIC,
                 HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
+
 }
