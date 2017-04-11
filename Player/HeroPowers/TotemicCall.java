@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TotemicCall implements HeroPower {
 
     @Override
-    public void Cast(Player player) {
+    public void Cast(Player player, int index) {
         shamanHeroPowerRoll(player);
     }
 

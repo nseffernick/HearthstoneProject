@@ -8,7 +8,7 @@ import Player.Player;
  */
 public class DaggerMastery implements HeroPower {
     @Override
-    public void Cast(Player player) {
+    public void Cast(Player player, int index) {
         player.getHero().weapon = new WickedKnife();
     }
 }

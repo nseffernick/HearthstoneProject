@@ -8,7 +8,7 @@ import Player.Player;
 public class Shapeshift implements HeroPower {
 
     @Override
-    public void Cast(Player player) {
+    public void Cast(Player player, int index) {
         player.getHero().atk += 1; player.getHero().armor += 1;
     }
 }

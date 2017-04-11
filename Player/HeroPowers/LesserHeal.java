@@ -1,14 +1,14 @@
 package Player.HeroPowers;
 
 import Player.Player;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
 
 /**
  * Created by Cheech on 3/29/2017.
  */
 public class LesserHeal implements HeroPower {
     @Override
-    public void Cast(Player player) {
-        int index = 1;
-        player.damageCharacter(player, index, -2);
+    public void Cast(Player player, int index) {
+        MasterTargeter.Main(player, index, -2, null);
     }
 }

@@ -9,6 +9,7 @@ public enum Keywords {
     WHENEVER,
     STEALTH,
     TAUNT,
+    ELUSIVE,
     INSPIRE,
     DISCOVER,
     SPELLDAMAGE,
@@ -25,8 +26,8 @@ public enum Keywords {
     SILENCE,
     COUNTER,
     COMBO,
+    ELECOMBO,
     CHOOSEONE,
     OVERLOAD,
     DELTACOST;
-
 }

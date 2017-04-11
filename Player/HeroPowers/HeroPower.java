@@ -7,11 +7,10 @@ import Player.Player;
  */
 public interface HeroPower {
 
-    void Cast(Player player);
+    void Cast(Player player, int index);
+    boolean isExhausted(Player player);
 
     int cost = 2;
-    String name = "";
-    boolean exhausted = false;
 
 
 

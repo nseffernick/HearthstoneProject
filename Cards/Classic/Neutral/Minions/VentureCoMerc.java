@@ -43,9 +43,15 @@ public class VentureCoMerc extends Minion {
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
 
         properties.add(Keywords.DELTACOST);
+        int deltaCost = 3;
 
     }
 
+    /**
+     *
+     * @param text
+     * @param properties
+     */
     private void debuff(String text, ArrayList<Keywords> properties) {
         if (properties.contains(Keywords.DELTACOST)) {
             String[] stringArr = UtilityMethods.textParser(text);

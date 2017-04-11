@@ -28,4 +28,18 @@ public class RiverCroc extends Minion {
     }
 
 
+    @Override
+    public void onDeath() {
+
+    }
+
+    @Override
+    public void onSummon() {
+
+    }
+
+    @Override
+    public void onTurnStart() {
+
+    }
 }

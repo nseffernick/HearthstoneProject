@@ -1,17 +1,10 @@
 package Player;
 
 import Cards.Card;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.HealingTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.SearingTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.StoneclawTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.WrathOfAir;
 import Cards.Minion;
 import Cards.Spell;
-import Utility.Keywords.Keywords;
 import Utility.UtilityMethods.hsCeption;
 
-import java.util.ArrayList;
-import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -28,6 +21,7 @@ public class Player {
     // State
     private int manaCyrstals;
     private int mana;
+    private int spellDamage;
     private LinkedList<Minion> playerSide;
     private LinkedList<Card> deck;
     private LinkedList<Card> hand;
@@ -93,6 +87,10 @@ public class Player {
 
     public hsCeption getRng() {
         return rng;
+    }
+
+    public int getSpellDamage() {
+        return spellDamage;
     }
 
     public void mulligan(String position) {
@@ -186,28 +184,6 @@ public class Player {
         }
     }
 
-    /**
-     * For now will be only for things that deal damage,
-     * and can target anything, so fireblast and a lot of spells.
-     *
-     * @param playerAtked
-     * @param index
-     * @param dmg
-     */
-    public void damageCharacter(Player playerAtked, int index, int dmg) {
-        if (index < 0) {
-            if (!(playerAtked.hero.properties.contains(Keywords.IMMUNE))) {
-                playerAtked.hero.hp -= dmg;
-            }
-            System.out.println("Hero is immune, can't attack");
-        }
-        if (index >= 0 || index <= playerAtked.playerSide.size() - 1) {
-            if (!(playerAtked.playerSide.get(index).
-                    getProperties().contains(Keywords.IMMUNE))) {
-                playerAtked.playerSide.get(index).hp -= dmg;
-            }
-        }
-    }
 
     public void drawCard() {
         if (!deck.isEmpty()) {
@@ -225,8 +201,8 @@ public class Player {
         }
     }
 
-    public void heroPower() {
-
+    public void heroPower(Player player, int index) {
+        getHero().getHeroPower().Cast(player, index);
     }
 
 

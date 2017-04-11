@@ -7,7 +7,7 @@ import Player.Player;
  */
 public class LifeTap implements HeroPower {
     @Override
-    public void Cast(Player player) {
+    public void Cast(Player player, int index) {
         player.getHero().hp -= 2;
         player.drawCard();
     }

@@ -8,7 +8,7 @@ import Player.Player;
  */
 public class Inferno implements HeroPower{
     @Override
-    public void Cast(Player player) {
+    public void Cast(Player player, int index) {
         player.summonCard(new Infernal());
     }
 }
