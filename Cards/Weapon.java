@@ -1,6 +1,6 @@
 package Cards;
 
-import Player.Player;
+import Game.Player.Player;
 import Utility.Effects.Property;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;

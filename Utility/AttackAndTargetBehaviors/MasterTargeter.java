@@ -1,6 +1,6 @@
 package Utility.AttackAndTargetBehaviors;
 
-import Player.Player;
+import Game.Player.Player;
 import Cards.Minion;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;

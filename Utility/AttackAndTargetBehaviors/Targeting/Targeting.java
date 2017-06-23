@@ -1,7 +1,7 @@
 package Utility.AttackAndTargetBehaviors.Targeting;
 
 import Cards.Minion;
-import Player.Player;
+import Game.Player.Player;
 import Utility.Keywords.Keywords;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Targeting {
             }
             if (index >= -1 || index <= target.getPlayerSide().size()) {
                 if (index == -1) {
-                    if (target.getHero().properties.contains(Keywords.IMMUNE)) {
+                    if (target.getHero().getProperties().contains(Keywords.IMMUNE)) {
                         System.out.println("The enemy is immune.");
                         return false;
                     }
@@ -40,7 +40,7 @@ public class Targeting {
         }
         else {
             if (index == -1) {
-                if (target.getHero().properties.contains(Keywords.IMMUNE)) {
+                if (target.getHero().getProperties().contains(Keywords.IMMUNE)) {
                     System.out.println("The enemy is immune.");
                     return false;
                 }
@@ -65,7 +65,7 @@ public class Targeting {
             }
             if (index >= -1 || index <= target.getPlayerSide().size()) {
                 if (index == -1) {
-                    if (target.getHero().properties.contains(Keywords.IMMUNE)) {
+                    if (target.getHero().getProperties().contains(Keywords.IMMUNE)) {
                         System.out.println("The enemy is immune.");
                         return false;
                     }
@@ -84,7 +84,7 @@ public class Targeting {
         }
         else {
             if (index == -1) {
-                if (target.getHero().properties.contains(Keywords.IMMUNE)) {
+                if (target.getHero().getProperties().contains(Keywords.IMMUNE)) {
                     System.out.println("The enemy is immune.");
                     return false;
                 }

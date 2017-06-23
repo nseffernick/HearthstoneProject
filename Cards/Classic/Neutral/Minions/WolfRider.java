@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class WolfRider extends Minion {
-    // State 
+    // State
     public int hp = 1;
     public int atk = 3;
     public int cost = 3;

@@ -1,10 +1,13 @@
 package Game;
 
-import Player.*;
+import Game.Player.*;
 
 
 /**
  * ME 3/19/17
+ * Class that will run the game essentially
+ * Takes care of time constraints, starts and ends turns, access to all
+ * players, mulligan phase.
  */
 public class BoardState {
 
@@ -31,10 +34,15 @@ public class BoardState {
         p2.mulligan("second");
     }
 
+    /**
+     * Gain mana and draw a card
+     * Probably will need to trigger start of turn effects as well
+     * @param player
+     */
     public void startTurn(Player player) {
         player.drawCard();
-        if (!(player.mana == 10)) {
-            player.mana += 1;
+        if (!(player.getMana() == 10)) {
+            player.setMana(1);
         }
 
     }

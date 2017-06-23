@@ -1,8 +1,7 @@
 package Cards;
 
 
-import Player.Player;
-import Utility.Effects.Property;
+import Game.Player.Player;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
@@ -30,7 +29,6 @@ public abstract class Card {
         this.text = text;
         this.rarity = rarity;
         this.heroClass = heroClass;
-
         this.properties = properties;
     }
 

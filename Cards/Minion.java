@@ -5,7 +5,7 @@ import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.Keywords.Keywords;
 
-import Player.Player;
+import Game.Player.Player;
 
 import java.util.ArrayList;
 

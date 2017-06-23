@@ -1,7 +1,7 @@
 package Utility.AttackAndTargetBehaviors.Damaging;
 
 import Cards.Minion;
-import Player.Player;
+import Game.Player.Player;
 import Utility.Keywords.Keywords;
 
 /**
@@ -21,12 +21,12 @@ public class Damaging {
         if (index < 0) {
             if (dmg < 0) {
                 // if the character is getting healed
-                if (dmg + target.getHero().hp >
-                        target.getHero().maxHP) {
-                    dmg = target.getHero().maxHP -
-                            target.getHero().hp;
+                if (dmg + target.getHero().getHp() >
+                        target.getHero().getMaxHP()) {
+                    dmg = target.getHero().getMaxHP() -
+                            target.getHero().getHp();
                 }
-                target.getHero().hp -= dmg;
+                target.getHero().setHp(-dmg);
             }
             if (index >= 0 || index <= target.getPlayerSide().size() - 1) {
                 // If the character is getting healed
@@ -46,7 +46,7 @@ public class Damaging {
     
     public static void minionCombat(Player target, int index, Minion minion) {
         if (index < 0) {
-            target.getHero().hp -= minion.getAtk();
+            target.getHero().setHp(-minion.getAtk());
         }
         else {
             target.getPlayerSide().get(index).hp -= minion.getAtk();

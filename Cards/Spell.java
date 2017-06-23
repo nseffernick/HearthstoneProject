@@ -3,7 +3,7 @@ package Cards;
 import Utility.Effects.Property;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
-import Player.Player;
+import Game.Player.Player;
 
 import java.util.ArrayList;
 

@@ -1,19 +1,17 @@
 package Utility.UtilityMethods;
 
 import Cards.Card;
-import Player.Player;
+import Game.Player.Player;
 import Cards.Classic.Neutral.Minions.RiverCroc;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Cheech on 3/27/2017. nxs1720@g.rit.edu
+ * Basically the random number generator used by the player
  */
 public class hsCeption {
 
@@ -24,10 +22,19 @@ public class hsCeption {
         randomEffect = new Random(3);
     }
 
-    public void shuffle(Player player) {
-        Collections.shuffle(player.deck, randomEffect);
+    /**
+     * Shuffles deck
+     * @param deck
+     */
+    public void shuffle(LinkedList<Card> deck) {
+        Collections.shuffle(deck, randomEffect);
     }
 
+    /**
+     * Randomly generated number 0 to inclusive bound
+     * @param bound
+     * @return
+     */
     public int randomNum(int bound) {
         return randomEffect.nextInt(bound);
     }
@@ -36,9 +43,7 @@ public class hsCeption {
         return new RiverCroc();
     }
 
-    public void joust() {
-
-    }
+    public void joust() {}
 
     public int firstOrSecond() {
         return randomNum(1);
