@@ -23,8 +23,8 @@ public class AcidicSwampOoze extends Minion {
 
     public AcidicSwampOoze() {
 
-        super(3, 2, 2, "Acidic Swamp Ooze",
-                "Battlecry: Destroy the opponent'w weapon", Rarity.BASIC,
+        super(2, 3, 2, "Acidic Swamp Ooze",
+                "Battlecry: Destroy the opponent's weapon", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
@@ -45,10 +45,13 @@ public class AcidicSwampOoze extends Minion {
 
     }
 
+    /**
+     * Destroy the opponent's weapon
+     */
     @Override
     public void battlecry() {
         if (properties.contains(Keywords.BATTLECRY)) {
-            // If player has weapon then remove it lol
+            findPlayer(2).getHero().setWeapon(null);
         }
     }
 }

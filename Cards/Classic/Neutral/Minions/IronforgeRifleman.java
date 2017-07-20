@@ -1,6 +1,8 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -42,5 +44,12 @@ public class IronforgeRifleman extends Minion {
     @Override
     public void onTurnStart() {
 
+    }
+
+    // Deal one damage
+    public void battlecry(Player player, int index) {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            MasterTargeter.Main(player, index, 1, null);
+        }
     }
 }

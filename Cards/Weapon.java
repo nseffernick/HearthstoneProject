@@ -55,5 +55,8 @@ public abstract class Weapon extends Card {
         return false;
     }
 
+    public boolean isBroken() {
+        return durability <= 0;
+    }
 
 }

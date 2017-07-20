@@ -1,6 +1,8 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -42,5 +44,12 @@ public class Nightblade extends Minion {
     @Override
     public void onTurnStart() {
 
+    }
+
+    // Deal two damage
+    public void battlecry() {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            MasterTargeter.Main(findPlayer(2), -1, 3, null);
+        }
     }
 }

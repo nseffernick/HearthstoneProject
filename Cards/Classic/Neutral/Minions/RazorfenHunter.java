@@ -1,6 +1,9 @@
 package Cards.Classic.Neutral.Minions;
 
+import Cards.Classic.Uncollectible.Tokens.Boar;
+import Cards.Classic.Uncollectible.Tokens.MurlocScout;
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -42,5 +45,12 @@ public class RazorfenHunter extends Minion {
     @Override
     public void onTurnStart() {
 
+    }
+
+    // Summon a 1/1 boar
+    public void battlecry() {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            findPlayer(1).summonCard(new Boar());
+        }
     }
 }

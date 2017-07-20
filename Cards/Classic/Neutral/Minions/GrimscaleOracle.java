@@ -1,6 +1,9 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Auras.Aura;
+import Game.Auras.GrimscaleOracleAura;
+import Game.BoardState;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -25,8 +28,14 @@ public class GrimscaleOracle extends Minion {
         super(1, 1, 1, "Grimscale Oracle",
                 "Your other murlocs have +1 Attack", Rarity.BASIC,
                 Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+
     }
 
+    @Override
+    public void createAura() {
+        Aura thisAura = new GrimscaleOracleAura(this, "Grimscale Oracle Aura");
+        BoardState.addAura(thisAura);
+    }
 
     @Override
     public void onDeath() {

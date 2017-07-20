@@ -2,6 +2,7 @@ package Cards;
 
 
 import Game.Player.Player;
+import Game.BoardState;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
@@ -63,12 +64,22 @@ public abstract class Card {
         return false;
     }
 
-    public abstract boolean isPlayed();
-
     public String toString(String name) {
         return name;
     }
 
-    public abstract boolean canTarget(int atk, Player player);
+    /**
+     * Who = 1 will return your player
+     * Who = 2 will return the enemy
+     * @return
+     */
+    protected Player findPlayer(int who) {
+        if (who == 1) {
+            return BoardState.getP1();
+        }
+        else {
+            return BoardState.getP2();
+        }
+    }
 
 }

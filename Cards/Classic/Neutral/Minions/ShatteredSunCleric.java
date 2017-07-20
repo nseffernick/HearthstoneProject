@@ -1,6 +1,9 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -42,5 +45,17 @@ public class ShatteredSunCleric extends Minion {
     @Override
     public void onTurnStart() {
 
+    }
+
+    // Give +1/+1 to a friendly
+    public void battlecry(int index) {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            if (Targeting.characterTargeting(findPlayer(1),index)) {
+                Minion minion = findPlayer(1).getPlayerSide().get(index);
+                minion.addAtk(1);
+                minion.addMaxHP(1);
+                minion.addHp(1);
+            }
+        }
     }
 }
