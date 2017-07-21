@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,14 +20,16 @@ public class CoreHound extends Minion {
     public int cost = 7;
     public String name = "Core Hound";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.BEAST;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public CoreHound() {
+    public CoreHound(Player owner) {
 
-        super(5, 9, 7, "Core Hound", "", Rarity.BASIC,
+        super(5, 9, 7, "Core Hound", owner,"", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
-
 
     @Override
     public void onDeath() {

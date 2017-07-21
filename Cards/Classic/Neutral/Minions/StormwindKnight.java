@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,9 +21,9 @@ public class StormwindKnight extends Minion {
     private String text = "Charge";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public StormwindKnight() {
+    public StormwindKnight(Player owner) {
 
-        super(5, 2, 4, "Stormwind Knight", "Charge", Rarity.BASIC,
+        super(5, 2, 4, "Stormwind Knight", owner, "Charge", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.CHARGE);
     }

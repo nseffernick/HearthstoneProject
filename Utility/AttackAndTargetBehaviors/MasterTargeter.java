@@ -47,25 +47,32 @@ public class MasterTargeter {
         }
     }
 
-    public static LinkedList<Minion> CustomTarget(Player player, String where,
+    public static LinkedList<Card> CustomTarget(Player player, String where,
                                                 Tribe tribe, Minion link) {
 
-        LinkedList<Minion> collection = new LinkedList<>();
+        LinkedList<Card> collection = new LinkedList<>();
 
         if (player == null) {
 
         }
         else {
+            LinkedList<Card> side = new LinkedList<>();
             if (where.equals("Board")) {
-                LinkedList<Minion> side = player.getPlayerSide();
-                for(int i = 0; i < side.size(); i++) {
-                    if (side.get(i) == link); // is the minion the one with the aura
+                side.addAll(player.getPlayerSide());
+            }
+            else if (where.equals("Hand")) {
+                side.addAll(player.getHand());
+            }
+            for(int i = 0; i < side.size(); i++) {
+                if (side.get(i) == link); // is the minion the one with the aura
+                else {
+                    if (tribe == null) {
+                        collection.add(side.get(i));
+                    }
                     else {
-                        if (tribe == null) {
-                            collection.add(side.get(i));
-                        }
-                        else {
-                            if (side.get(i).getTribe() == tribe) {
+                        if (side.get(i) instanceof Minion) {
+                            Minion minion = (Minion) side.get(i);
+                            if (minion.getTribe() == tribe) {
                                 collection.add(side.get(i));
                             }
                         }
@@ -75,4 +82,5 @@ public class MasterTargeter {
         }
         return collection;
     }
+
 }

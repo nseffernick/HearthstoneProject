@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
@@ -20,11 +21,14 @@ public class Nightblade extends Minion {
     public int cost = 5;
     public String name = "Nightblade";
     private String text = "Battlecry: Deal 3 damage to the enemy hero";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public Nightblade() {
+    public Nightblade(Player owner) {
 
-        super(4, 4, 5, "Nightblade",
+        super(4, 4, 5, "Nightblade", owner,
                 "Battlecry: Deal 3 damage to the enemy hero", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
@@ -47,9 +51,9 @@ public class Nightblade extends Minion {
     }
 
     // Deal two damage
-    public void battlecry() {
+    public void battlecry(BoardState board) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(findPlayer(2), -1, 3, null);
+            MasterTargeter.Main(board.findEnemy(owner), -1, 3, null);
         }
     }
 }

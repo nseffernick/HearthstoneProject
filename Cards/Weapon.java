@@ -34,7 +34,6 @@ public abstract class Weapon extends Card {
         this.text = text;
         this.rarity = rarity;
         this.heroClass = heroClass;
-
         this.properties = properties;
     }
 
@@ -50,7 +49,6 @@ public abstract class Weapon extends Card {
         return name;
     }
 
-    @Override
     public boolean isPlayed() {
         return false;
     }

@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -18,11 +19,14 @@ public class KoboldGeomancer extends Minion{
     public int cost = 2;
     public String name = "Kobold Geomancer";
     private String text = "Spell Damage +1";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public KoboldGeomancer() {
+    public KoboldGeomancer(Player owner) {
 
-        super(2, 2, 2, "Kobold Geomancer", "Spell Damage +1", Rarity.BASIC,
+        super(2, 2, 2, "Kobold Geomancer", owner, "Spell Damage +1", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.SPELLDAMAGE);
     }

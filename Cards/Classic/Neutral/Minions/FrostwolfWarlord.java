@@ -1,6 +1,8 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.BoardState;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -18,11 +20,14 @@ public class FrostwolfWarlord extends Minion {
     public int cost = 5;
     public String name = "Frostwolf Warlord";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public FrostwolfWarlord() {
+    public FrostwolfWarlord(Player owner) {
 
-        super(4, 4, 5, "Frostwolf Warlord", "", Rarity.BASIC,
+        super(4, 4, 5, "Frostwolf Warlord", owner,"", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
@@ -43,10 +48,9 @@ public class FrostwolfWarlord extends Minion {
 
     }
 
-    @Override
-    public void battlecry() {
+    public void battlecry(BoardState board) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            int set = findPlayer(1).getPlayerSide().size();
+            int set = board.findEnemy(owner).getPlayerSide().size();
             addAtk(set);
             addMaxHP(set);
             addHp(set);

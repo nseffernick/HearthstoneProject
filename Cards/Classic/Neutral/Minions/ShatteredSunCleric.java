@@ -21,11 +21,14 @@ public class ShatteredSunCleric extends Minion {
     public int cost = 3;
     public String name = "Shattered Sun Cleric";
     private String text = "Battlecry: Give a friendly minion +1/+1.";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public ShatteredSunCleric() {
+    public ShatteredSunCleric(Player owner) {
 
-        super(2, 3, 3, "Shattered Sun Cleric",
+        super(2, 3, 3, "Shattered Sun Cleric", owner,
                 "Battlecry: Give a friendly minion +1/+1", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
@@ -50,8 +53,8 @@ public class ShatteredSunCleric extends Minion {
     // Give +1/+1 to a friendly
     public void battlecry(int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            if (Targeting.characterTargeting(findPlayer(1),index)) {
-                Minion minion = findPlayer(1).getPlayerSide().get(index);
+            if (Targeting.characterTargeting(owner,index)) {
+                Minion minion = owner.getPlayerSide().get(index);
                 minion.addAtk(1);
                 minion.addMaxHP(1);
                 minion.addHp(1);

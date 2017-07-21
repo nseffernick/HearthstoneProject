@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -21,9 +22,9 @@ public class BloodfenRaptor extends Minion {
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public BloodfenRaptor() {
+    public BloodfenRaptor(Player owner) {
 
-        super(2, 3, 2, "Bloodfen Raptor", "", Rarity.BASIC,
+        super(2, 3, 2, "Bloodfen Raptor", owner, "", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

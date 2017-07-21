@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,11 +20,14 @@ public class BoulderfistOgre extends Minion {
     public int cost = 6;
     public String name = "Boulderfist Ogre";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public BoulderfistOgre() {
+    public BoulderfistOgre(Player owner) {
 
-        super(7, 6, 6, "Boulderfist Ogre", "", Rarity.BASIC,
+        super(7, 6, 6, "Boulderfist Ogre", owner, "", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

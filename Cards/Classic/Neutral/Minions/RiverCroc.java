@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,11 +20,14 @@ public class RiverCroc extends Minion {
     public int cost = 2;
     public String name = "River Crocolisk";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.BEAST;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public RiverCroc() {
+    public RiverCroc(Player owner) {
 
-        super(3, 2, 2, "River Crocolisk", "", Rarity.BASIC,
+        super(3, 2, 2, "River Crocolisk", owner,"", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

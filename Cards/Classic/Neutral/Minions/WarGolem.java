@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -18,11 +19,14 @@ public class WarGolem extends Minion {
     public int cost = 7;
     public String name = "War Golem";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public WarGolem() {
+    public WarGolem(Player owner) {
 
-        super(7, 7, 7, "War Golem", "", Rarity.BASIC,
+        super(7, 7, 7, "War Golem", owner,"", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

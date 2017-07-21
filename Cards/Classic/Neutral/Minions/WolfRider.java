@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -18,11 +19,14 @@ public class WolfRider extends Minion {
     public int cost = 3;
     public String name = "Wolf Rider";
     private String text = "Charge";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public WolfRider() {
+    public WolfRider(Player owner) {
 
-        super(1, 3, 3, "Wolf Rider", "Charge", Rarity.BASIC,
+        super(1, 3, 3, "Wolf Rider", owner,"Charge", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.CHARGE);
     }

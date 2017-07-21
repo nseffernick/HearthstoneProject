@@ -20,11 +20,14 @@ public class IronforgeRifleman extends Minion {
     public int cost = 3;
     public String name = "Ironforge Rifleman";
     private String text = "Battlecry: Deal one damage";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public IronforgeRifleman() {
+    public IronforgeRifleman(Player owner) {
 
-        super(2, 2, 3, "Ironforge Rifleman",
+        super(2, 2, 3, "Ironforge Rifleman", owner,
                 "Battlecry: Deal one damage", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);

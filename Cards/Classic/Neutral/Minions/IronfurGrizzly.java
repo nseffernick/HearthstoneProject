@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -18,11 +19,14 @@ public class IronfurGrizzly extends Minion {
     public int cost = 3;
     public String name = "Ironfur Grizzly";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.BEAST;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public IronfurGrizzly() {
+    public IronfurGrizzly(Player owner) {
 
-        super(3, 3, 3, "Ironfur Grizzly", "", Rarity.BASIC,
+        super(3, 3, 3, "Ironfur Grizzly", owner,"", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

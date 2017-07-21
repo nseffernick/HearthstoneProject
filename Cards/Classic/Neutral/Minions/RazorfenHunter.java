@@ -21,11 +21,14 @@ public class RazorfenHunter extends Minion {
     public int cost = 3;
     public String name = "Razorfen Hunter";
     private String text = "Battlecry: Summon a 1/1 Boar";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public RazorfenHunter() {
+    public RazorfenHunter(Player owner) {
 
-        super(3, 2, 3, "Razorfen Hunter",
+        super(3, 2, 3, "Razorfen Hunter", owner,
                 "Battlecry: Summon a 1/1 Boar", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
@@ -50,7 +53,7 @@ public class RazorfenHunter extends Minion {
     // Summon a 1/1 boar
     public void battlecry() {
         if (properties.contains(Keywords.BATTLECRY)) {
-            findPlayer(1).summonCard(new Boar());
+            owner.summonCard(new Boar(owner));
         }
     }
 }

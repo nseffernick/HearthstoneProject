@@ -1,6 +1,7 @@
 package Cards.Classic.Uncollectible.Tokens;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -21,9 +22,9 @@ public class Infernal extends Minion {
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public Infernal() {
+    public Infernal(Player owner) {
 
-        super(6, 6, 6, "Infernal", "", Rarity.BASIC,
+        super(6, 6, 6, "Infernal", owner,"", Rarity.BASIC,
                 Tribe.DEMON, HeroClass.WARLOCK, new ArrayList<Keywords>());
     }
 }

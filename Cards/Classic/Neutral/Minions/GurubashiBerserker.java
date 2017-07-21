@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -18,11 +19,14 @@ public class GurubashiBerserker extends Minion {
     public int cost = 5;
     public String name = "Gurubashi Berserker";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public GurubashiBerserker() {
+    public GurubashiBerserker(Player owner) {
 
-        super(7, 2, 5, "Gurubashi Berserker",
+        super(7, 2, 5, "Gurubashi Berserker", owner,
                 "Whenever this minion takes damage, gain +3 Attack", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.WHENEVER);

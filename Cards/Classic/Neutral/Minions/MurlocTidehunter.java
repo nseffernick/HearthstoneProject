@@ -21,11 +21,14 @@ public class MurlocTidehunter extends Minion {
     public int cost = 2;
     public String name = "Murloc Tidehunter";
     private String text = "Battlecry: Summon a 1/1 Murloc";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.MURLOC;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public MurlocTidehunter() {
+    public MurlocTidehunter(Player owner) {
 
-        super(1, 2, 2, "Murloc Tidehunter",
+        super(1, 2, 2, "Murloc Tidehunter", owner,
                 "Battlecry: Summon a 1/1 Murloc", Rarity.BASIC,
                 Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
@@ -48,9 +51,9 @@ public class MurlocTidehunter extends Minion {
     }
 
     // Summon a 1/1 murloc
-    public void battlecry(Player player, int index) {
+    public void battlecry() {
         if (properties.contains(Keywords.BATTLECRY)) {
-            findPlayer(1).summonCard(new MurlocScout());
+            owner.summonCard(new MurlocScout(owner));
         }
     }
 }

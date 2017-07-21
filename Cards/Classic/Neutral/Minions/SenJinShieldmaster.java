@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -24,9 +25,9 @@ public class SenJinShieldmaster extends Minion {
     public HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public SenJinShieldmaster() {
+    public SenJinShieldmaster(Player owner) {
 
-        super(5, 3, 4, "Sen'Jin Shieldmaster", "Taunt", Rarity.BASIC,
+        super(5, 3, 4, "Sen'Jin Shieldmaster", owner,"Taunt", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -24,9 +25,9 @@ public class StonetuskBoar extends Minion {
     public HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public StonetuskBoar() {
+    public StonetuskBoar(Player owner) {
 
-        super(1, 1, 1, "Stonetusk Boar", "Charge", Rarity.BASIC,
+        super(1, 1, 1, "Stonetusk Boar", owner,"Charge", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.CHARGE);
     }

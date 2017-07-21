@@ -1,6 +1,8 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.BoardState;
+import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -20,11 +22,14 @@ public class DarkscaleHealer extends Minion {
     public int cost = 5;
     public String name = "Darkscale Healer";
     private String text = "Battlecry: Restore two Health to friendly characters";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public DarkscaleHealer() {
+    public DarkscaleHealer(Player owner) {
 
-        super(5, 4, 5, "Darkscale Healer",
+        super(5, 4, 5, "Darkscale Healer", owner,
                 "Battlecry: Restore two Health to friendly characters", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
@@ -47,10 +52,9 @@ public class DarkscaleHealer extends Minion {
     }
 
     // Heal all friendly characters for two health
-    @Override
-    public void battlecry() {
+    public void battlecry(BoardState board) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.TargetAll(true, findPlayer(1), -2);
+            MasterTargeter.TargetAll(true, board.findEnemy(owner), -2);
         }
     }
 }

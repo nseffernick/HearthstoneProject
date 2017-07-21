@@ -20,11 +20,14 @@ public class VoodooDoctor extends Minion {
     public int cost = 1;
     public String name = "Voodoo Doctor";
     private String text = "Battlecry: Restore 2 health";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public VoodooDoctor() {
+    public VoodooDoctor(Player owner) {
 
-        super(1, 2, 1, "Voodoo Doctor", "Battlecry: Restore 2 health", Rarity.BASIC,
+        super(1, 2, 1, "Voodoo Doctor", owner,"Battlecry: Restore 2 health", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }

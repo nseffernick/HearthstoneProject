@@ -1,6 +1,10 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Auras.Aura;
+import Game.Auras.RaidLeaderAura;
+import Game.BoardState;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,12 +23,21 @@ public class RaidLeader extends Minion {
     public int cost = 3;
     public String name = "Raid Leader";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public RaidLeader() {
+    public RaidLeader(Player owner) {
 
-        super(2, 2, 3, "Raid Leader", "", Rarity.BASIC,
+        super(2, 2, 3, "Raid Leader", owner,"", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        properties.add(Keywords.AURA);
+    }
+
+    public void createAura(BoardState board) {
+        Aura thisAura = new RaidLeaderAura(this, "Raid Leader Aura");
+        board.addAura(thisAura);
     }
 
 

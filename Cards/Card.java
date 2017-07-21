@@ -21,8 +21,9 @@ public abstract class Card {
     protected Rarity rarity;
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
+    protected Player owner;
 
-    public Card(int cost, String name, String text,
+    public Card(int cost, String name, String text, Player owner,
                 Rarity rarity, HeroClass heroClass, ArrayList properties) {
 
         this.cost = cost;
@@ -31,10 +32,15 @@ public abstract class Card {
         this.rarity = rarity;
         this.heroClass = heroClass;
         this.properties = properties;
+        this.owner = owner;
     }
 
     public int getCost() {
         return cost;
+    }
+
+    public void addCost(int set) {
+        cost += set;
     }
 
     public String getName() {
@@ -66,20 +72,6 @@ public abstract class Card {
 
     public String toString(String name) {
         return name;
-    }
-
-    /**
-     * Who = 1 will return your player
-     * Who = 2 will return the enemy
-     * @return
-     */
-    protected Player findPlayer(int who) {
-        if (who == 1) {
-            return BoardState.getP1();
-        }
-        else {
-            return BoardState.getP2();
-        }
     }
 
 }

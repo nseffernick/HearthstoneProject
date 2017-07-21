@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -19,11 +20,14 @@ public class LordOfTheArena extends Minion {
     public int cost = 6;
     public String name = "Lord of the Arena";
     private String text = "Taunt";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public LordOfTheArena() {
+    public LordOfTheArena(Player owner) {
 
-        super(5, 6, 6, "Lord of the Arena", "Taunt", Rarity.BASIC,
+        super(5, 6, 6, "Lord of the Arena", owner,"Taunt", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

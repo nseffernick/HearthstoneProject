@@ -17,7 +17,7 @@ import Utility.Tribes.Tribe;
 public abstract class Aura {
 
     // State
-    protected static Minion link;
+    protected Minion link;
     protected String name;
     protected String where;
     protected String effect;

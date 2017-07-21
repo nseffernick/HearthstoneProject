@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,11 +20,14 @@ public class OasisSnapjaw extends Minion {
     public int cost = 4;
     public String name = "Oasis Snapjaw";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.BEAST;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public OasisSnapjaw() {
+    public OasisSnapjaw(Player owner) {
 
-        super(7, 2, 4, "Oasis Snapjaw", "", Rarity.BASIC,
+        super(7, 2, 4, "Oasis Snapjaw", owner,"", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

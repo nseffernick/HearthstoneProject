@@ -1,6 +1,7 @@
 package Cards.Classic.Uncollectible.Tokens;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -21,9 +22,9 @@ public class MurlocScout extends Minion {
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public MurlocScout() {
+    public MurlocScout(Player owner) {
 
-        super(1, 1, 1, "Murloc Scout", "", Rarity.BASIC,
+        super(1, 1, 1, "Murloc Scout", owner,"", Rarity.BASIC,
                 Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 }

@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,11 +20,14 @@ public class Archmage extends Minion {
     public int cost = 6;
     public String name = "Archmage";
     private String text = "Spell Damage +1";
+    public Rarity rarity = Rarity.BASIC;
+    public Tribe tribe = Tribe.GENERAL;
+    public HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public Archmage() {
+    public Archmage(Player owner) {
 
-        super(7, 4, 6, "Archmage", "Spell Damage +1", Rarity.BASIC,
+        super(7, 4, 6, "Archmage", owner, "Spell Damage +1", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.SPELLDAMAGE);
     }

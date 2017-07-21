@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -24,9 +25,9 @@ public class ArgentCommander extends Minion {
     public HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public ArgentCommander() {
+    public ArgentCommander(Player owner) {
 
-        super(2, 4, 6, "Argent Commander",
+        super(2, 4, 6, "Argent Commander", owner,
                 "Charge\n Divine Shield", Rarity.RARE,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.CHARGE);

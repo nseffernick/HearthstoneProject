@@ -1,5 +1,6 @@
 package Cards;
 
+import Game.BoardState;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -26,11 +27,11 @@ public abstract class Minion extends Card {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public Minion(int hp, int atk, int cost, String name,
+    public Minion(int hp, int atk, int cost, String name, Player owner,
                   String text, Rarity rarity, Tribe tribe,
                   HeroClass heroClass, ArrayList properties) {
 
-        super(cost, name, text, rarity, heroClass, properties);
+        super(cost, name, text, owner, rarity, heroClass, properties);
 
         this.atk = atk;
         this.hp = hp;
@@ -56,10 +57,6 @@ public abstract class Minion extends Card {
         return hp;
     }
 
-    public int getCost() {
-        return cost;
-    }
-
     public Tribe getTribe() {
         return tribe;
     }
@@ -82,10 +79,6 @@ public abstract class Minion extends Card {
 
     public void addAtk(int set) {
         atk += set;
-    }
-
-    public void addCost(int set) {
-        cost += set;
     }
 
     // Checks various properties that would prevent the minion from attacking.
@@ -138,14 +131,6 @@ public abstract class Minion extends Card {
         return hp <= 0;
     }
 
-    public boolean onBoard() {
-        return findPlayer(1).getPlayerSide().contains(this);
-    }
-
-    public boolean inHand() {
-        return findPlayer(1).getHand().contains(this);
-    }
-
     public boolean comboActivated() {
         return false;
     }
@@ -154,7 +139,7 @@ public abstract class Minion extends Card {
         return false;
     }
 
-    public void createAura() {}
+    public void createAura(BoardState board) {}
 
     public void onDeath() {
 
@@ -181,6 +166,24 @@ public abstract class Minion extends Card {
     }
 
     public void battlecry() {
+
+    }
+
+    public String toString() {
+        return  " ____________________________________\n" +
+                "| Cost: " + cost + "                         |\n" +
+                "| Name:    " + name + "                        |\n" +
+                "|                                    |\n" +
+                "|                                    |\n" +
+                "|                                    |\n" +
+                "|                                    |\n" +
+                "| " + text + "                                    |\n" +
+                "| " + tribe + "                                |\n" +
+                "|                                    |\n" +
+                "| Attack: " + atk + "                                    |\n" +
+                "| Health: " + hp + "                                  |\n" +
+                "|                                    |\n" +
+                "|____________________________________|\n";
 
     }
 

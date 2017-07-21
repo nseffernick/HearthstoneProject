@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -18,11 +19,14 @@ public class SilverbackPatriarch extends Minion {
     public int cost = 3;
     public String name = "Silverback Patriarch";
     private String text = "Taunt";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.BEAST;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public SilverbackPatriarch() {
+    public SilverbackPatriarch(Player owner) {
 
-        super(4, 1, 3, "Silverback Patriarch", "Taunt", Rarity.BASIC,
+        super(4, 1, 3, "Silverback Patriarch", owner,"Taunt", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

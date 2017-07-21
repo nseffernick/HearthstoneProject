@@ -19,10 +19,11 @@ public abstract class Spell extends Card {
     private Rarity rarity;
     private HeroClass heroClass;
     private ArrayList<Property> properties;
+    private Player owner;
 
-    public Spell(int cost, String name, String text, Rarity rarity,
+    public Spell(int cost, String name, String text, Player owner, Rarity rarity,
                  HeroClass heroClass, ArrayList<Property> properties) {
-        super(cost, name, text, rarity, heroClass, properties);
+        super(cost, name, text, owner, rarity, heroClass, properties);
 
 
         this.cost = cost;
@@ -30,19 +31,13 @@ public abstract class Spell extends Card {
         this.text = text;
         this.rarity = rarity;
         this.heroClass = heroClass;
-
         this.properties = properties;
     }
 
-    public boolean canTarget(int atk, Card aCard, Player aPlayer) {
-        return true;
-    }
-
     public boolean canPlay(int cost, int mana) {
-        return true;
+        return mana <= cost;
     }
 
-    @Override
     public boolean isPlayed() {
         return false;
     }

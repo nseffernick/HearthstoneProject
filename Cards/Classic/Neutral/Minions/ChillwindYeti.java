@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -22,9 +23,9 @@ public class ChillwindYeti extends Minion {
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public ChillwindYeti() {
+    public ChillwindYeti(Player owner) {
 
-        super(1, 5, 3, "Chillwind Yeti", "", Rarity.BASIC,
+        super(1, 5, 3, "Chillwind Yeti", owner,"", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,11 +20,14 @@ public class BootyBayBodyguard extends Minion {
     public int cost = 5;
     public String name = "Booty Bay Bodyguard";
     private String text = "Taunt";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public BootyBayBodyguard() {
+    public BootyBayBodyguard(Player owner) {
 
-        super(4, 5, 5, "Booty Bay Bodyguard", "Taunt", Rarity.BASIC,
+        super(4, 5, 5, "Booty Bay Bodyguard", owner,"Taunt", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

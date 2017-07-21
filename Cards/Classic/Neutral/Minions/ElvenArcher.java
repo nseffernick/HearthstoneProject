@@ -21,11 +21,14 @@ public class ElvenArcher extends Minion {
     public int cost = 1;
     public String name = "Elven Archer";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public ElvenArcher() {
+    public ElvenArcher(Player owner) {
 
-        super(1, 1, 1, "Elven Archer", "Taunt", Rarity.BASIC,
+        super(1, 1, 1, "Elven Archer", owner, "Taunt", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }

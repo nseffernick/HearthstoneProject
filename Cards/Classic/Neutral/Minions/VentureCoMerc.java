@@ -1,6 +1,10 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Auras.Aura;
+import Game.Auras.GrimscaleOracleAura;
+import Game.BoardState;
+import Game.Player.Player;
 import Utility.UtilityMethods.UtilityMethods;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -35,65 +39,23 @@ public class VentureCoMerc extends Minion {
     private int cost = 5;
     private String name = "Venture Co. Mercenary";
     private String text = "Your minions cost 3 more.";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public VentureCoMerc() {
-        super(6, 7, 5, "Venture Co. Mercenary",
+    public VentureCoMerc(Player owner) {
+
+        super(6, 7, 5, "Venture Co. Mercenary", owner,
                 "Your minions cost 3 more.", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-
-        properties.add(Keywords.DELTACOST);
-        int deltaCost = 3;
-
+        properties.add(Keywords.AURA);
     }
 
-    /**
-     *
-     * @param text
-     * @param properties
-     */
-    private void debuff(String text, ArrayList<Keywords> properties) {
-        if (properties.contains(Keywords.DELTACOST)) {
-            String[] stringArr = UtilityMethods.textParser(text);
-            int deltaCost = Integer.parseInt(stringArr[3]);
-            if (stringArr[0].equals("Your")) {
-                if (stringArr[1].equals("minions")) {
-                    if (stringArr[4].equals("more")) {
-                        // Affect your minions in this way
+    public void createAura(BoardState board) {
 
-                    }
-                    else {
-
-                    }
-                }
-                else if (stringArr[1].equals("cards")) {
-                    if (stringArr[4].equals("more")) {
-                        // Affect your minions in this way
-
-                    }
-                    else {
-
-                    }
-                }
-                else if (stringArr[1].equals("spells")) {
-                    if (stringArr[4].equals("more")) {
-                        // Affect your minions in this way
-
-                    }
-                    else {
-
-                    }
-                }
-                else if (stringArr[1].equals("secrets")) {
-                    if (stringArr[4].equals("more")) {
-                        // Affect your secrets in this way
-
-                    }
-                    else {
-
-                    }
-                }
-            }
-        }
+        Aura thisAura = new GrimscaleOracleAura(this, "Grimscale Oracle Aura");
+        board.addAura(thisAura);
     }
+
 }

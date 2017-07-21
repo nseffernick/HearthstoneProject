@@ -22,11 +22,14 @@ public class DragonlingMechanic extends Minion {
     public int cost = 4;
     public String name = "Dragonling Mechanic";
     private String text = "Battlecry: Summon a 2/1 Mechanical Dragonling";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public DragonlingMechanic() {
+    public DragonlingMechanic(Player owner) {
 
-        super(4, 2, 4, "Dragonling Mechanic",
+        super(4, 2, 4, "Dragonling Mechanic", owner,
                 "Battlecry: Summon a 2/1 Mechanical Dragonling", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
@@ -49,9 +52,9 @@ public class DragonlingMechanic extends Minion {
     }
 
     // Summon a 2/1 dragonling
-    public void battlecry(Player player, int index) {
+    public void battlecry() {
         if (properties.contains(Keywords.BATTLECRY)) {
-            findPlayer(1).summonCard(new MechanicalDragonling());
+            owner.summonCard(new MechanicalDragonling(owner));
         }
     }
 }

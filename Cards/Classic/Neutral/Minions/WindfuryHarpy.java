@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,11 +20,14 @@ public class WindfuryHarpy extends Minion {
     private int cost = 6;
     private String name = "Windfury Harpy";
     private String text = "Windfury";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.GENERAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public WindfuryHarpy() {
+    public WindfuryHarpy(Player owner) {
 
-        super(5, 4, 6, "Windfury Harpy", "Windfury", Rarity.BASIC,
+        super(5, 4, 6, "Windfury Harpy", owner,"Windfury", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
 
         properties.add(Keywords.WINDFURY);

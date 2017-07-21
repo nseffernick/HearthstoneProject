@@ -1,6 +1,7 @@
 package Cards.Classic.Uncollectible.Tokens;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -21,9 +22,9 @@ public class SilverHand extends Minion {
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public SilverHand() {
+    public SilverHand(Player owner) {
 
-        super(1, 1, 1, "Silver Hand Recruit", "", Rarity.BASIC,
+        super(1, 1, 1, "Silver Hand Recruit", owner, "", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.PALADIN, new ArrayList<Keywords>());
     }
 }

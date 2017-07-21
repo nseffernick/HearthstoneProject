@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -19,12 +20,15 @@ public class MagmaRager extends Minion {
     public int cost = 3;
     public String name = "Magma Rager";
     private String text = "";
+    private Rarity rarity = Rarity.BASIC;
+    private Tribe tribe = Tribe.ELEMENTAL;
+    private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public MagmaRager() {
+    public MagmaRager(Player owner) {
 
-        super(1, 5, 3, "Magma Rager", "", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        super(1, 5, 3, "Magma Rager", owner,"", Rarity.BASIC,
+                Tribe.ELEMENTAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
 
