@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
@@ -51,7 +52,7 @@ public class ShatteredSunCleric extends Minion {
     }
 
     // Give +1/+1 to a friendly
-    public void battlecry(int index) {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             if (Targeting.characterTargeting(owner,index)) {
                 Minion minion = owner.getPlayerSide().get(index);

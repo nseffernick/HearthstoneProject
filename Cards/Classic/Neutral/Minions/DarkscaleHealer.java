@@ -52,7 +52,7 @@ public class DarkscaleHealer extends Minion {
     }
 
     // Heal all friendly characters for two health
-    public void battlecry(BoardState board) {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             MasterTargeter.TargetAll(true, board.findEnemy(owner), -2);
         }

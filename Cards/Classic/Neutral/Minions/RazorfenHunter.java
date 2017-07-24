@@ -3,6 +3,7 @@ package Cards.Classic.Neutral.Minions;
 import Cards.Classic.Uncollectible.Tokens.Boar;
 import Cards.Classic.Uncollectible.Tokens.MurlocScout;
 import Cards.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
@@ -51,7 +52,7 @@ public class RazorfenHunter extends Minion {
     }
 
     // Summon a 1/1 boar
-    public void battlecry() {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             owner.summonCard(new Boar(owner));
         }

@@ -53,7 +53,7 @@ public class AcidicSwampOoze extends Minion {
     /**
      * Destroy the opponent's weapon
      */
-    public void battlecry(BoardState board) {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             board.findEnemy(owner).getHero().setWeapon(null);
         }

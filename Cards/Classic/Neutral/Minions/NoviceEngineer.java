@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
@@ -47,7 +48,7 @@ public class NoviceEngineer extends Minion {
 
     }
 
-    public void battlecry() {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             owner.drawCard();
         }

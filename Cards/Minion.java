@@ -82,7 +82,7 @@ public abstract class Minion extends Card {
     }
 
     // Checks various properties that would prevent the minion from attacking.
-    public boolean canAttack(int turnsPast, int timesAttacked) {
+    private boolean canAttack(int turnsPast, int timesAttacked) {
         if (properties.contains(Keywords.CANTATTACK)) {
             if (atk > 0) {
                 if (properties.contains(Keywords.FREEZE)) {
@@ -165,10 +165,11 @@ public abstract class Minion extends Card {
 
     }
 
-    public void battlecry() {
+    public void battlecry(BoardState board, Player player, int index) {
 
     }
 
+    //14x37
     public String toString() {
         return  " ____________________________________\n" +
                 "| Cost: " + cost + "                         |\n" +

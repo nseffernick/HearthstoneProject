@@ -2,6 +2,7 @@ package Cards.Classic.Neutral.Minions;
 
 import Cards.Classic.Uncollectible.Tokens.MechanicalDragonling;
 import Cards.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
@@ -52,7 +53,7 @@ public class DragonlingMechanic extends Minion {
     }
 
     // Summon a 2/1 dragonling
-    public void battlecry() {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             owner.summonCard(new MechanicalDragonling(owner));
         }

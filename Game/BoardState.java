@@ -20,8 +20,8 @@ import java.util.Scanner;
 public class BoardState {
 
     // Constants
-    private final int TIME_LIMIT = 91;
-    private final int ROPE = 75;
+    private final int TIME_LIMIT = 1001;
+    private final int ROPE = 976;
     private final int STARTING_TURN = 0;
 
     // Commands
@@ -39,120 +39,19 @@ public class BoardState {
     public final static String ATTACK = "attack";
     /** the quit command */
     public final static String QUIT = "quit";
+    /** the pass command */
+    public final static String PASS = "pass";
 
     // State
     private Player p1;
     private Player p2;
     private LinkedList<Aura> auras;
-    private int turn;
 
     public BoardState(String deck1, String deck2, String hero1, String hero2, String name1, String name2) {
 
-        this.turn = STARTING_TURN;
         this.auras = new LinkedList<Aura>();
-        Player p1 = new Player(deck1, hero1, name1, 1, this);
-        Player p2 = new Player(deck2, hero2, name2,2, this);
-    }
-
-    private void startMulligan() {
-
-        p1.mulligan("first");
-        p2.mulligan("second");
-    }
-
-    /**
-     * Gain mana and draw a card
-     * Probably will need to trigger start of turn effects as well
-     * @param player
-     */
-    public void startTurn(Player player) {
-
-        player.drawCard();
-        if (!(player.getMana() == 10)) {
-            player.addMana(1);
-        }
-
-    }
-
-    public void endTurn() {
-
-
-    }
-
-    public Player findEnemy(Player player) {
-        if (player.equals(p1)) {
-            return p2;
-        }
-        else {
-            return p1;
-        }
-    }
-
-    private void helpMessage() {
-        System.out.println("course {id}: list a course");
-        System.out.println("courses: list all courses (by course id)");
-        System.out.println("enroll {username} {id}: enroll a student in a course");
-        System.out.println("help: this message");
-        System.out.println("professor {username}: list courses taught by professor (by course level then by course name)");
-        System.out.println("student {username}: list courses taken by student (by course name)");
-        System.out.println("enroll {username} {id}: unenroll a student from a course");
-        System.out.println("users: list all users (alphabetically by username) ");
-        System.out.println("quit: quit HearthstoneProject");
-    }
-
-    public void playerTurn(Scanner playerInput, boolean canPlay) {
-        if (canPlay) {
-            System.out.println("Type 'help' for the list of commands.");
-        }
-        System.out.print("> ");
-        // continue looping until there is no more input
-        while (playerInput.hasNext()) {
-
-            String line = playerInput.nextLine();
-
-            if (!canPlay) {
-                System.out.println(line);
-            }
-            String fields[] = line.split("\\s+");
-
-            if (fields[0].equals(HELP)) {
-                helpMessage();
-            } else if (fields[0].equals(QUIT)) {
-                break;
-            } else if (fields[0].equals(CONCEDE)) {
-
-            } else if (fields[0].equals(SETTINGS)) {
-
-            } else if (fields[0].equals(PEEK)) {
-                int id = Integer.parseInt(fields[2]);
-
-            } else if (fields[0].equals(ATTACK)) {
-
-            } else if (fields[0].equals(PLAY)) {
-
-            } else {
-                System.out.println("Unrecognized command " + fields[0]);
-            }
-        }
-    }
-
-    public void turnTime() {
-
-        long startTime = System.nanoTime();
-        long estimatedTime = System.nanoTime() - startTime;
-        while (estimatedTime <= TIME_LIMIT) {
-            if (estimatedTime == ROPE) {
-                System.out.println("tsssss");
-            }
-            // player does things
-            // unless player wins or ends turn by himself
-
-        }
-        endTurn();
-    }
-
-    public void hasWon() {
-
+        Player p1 = new Player(deck1, hero1, name1, this);
+        Player p2 = new Player(deck2, hero2, name2, this);
     }
 
     public Player getP1() {
@@ -164,6 +63,24 @@ public class BoardState {
     }
 
     public LinkedList<Aura> getAuras() { return auras;};
+
+    private boolean hasWon() {
+        return p1.getHero().isDead() || p2.getHero().isDead();
+    }
+
+    private Player whoWon() {
+        if (p1.getHero().isDead()) {
+            return p1;
+        }
+        else return p2;
+    }
+
+    public Player findEnemy(Player player) {
+        if (player.equals(p1)) {
+            return p2;
+        }
+        else return p1;
+    }
 
     private void applyAura(Aura aura) {
 
@@ -184,12 +101,9 @@ public class BoardState {
         else if (text[0].equals("Enemy")) {
             player = p2;
         }
-        else {
-            player = null;
-        }
+        else player = null;
 
-        return MasterTargeter.CustomTarget(player,text[1],
-                aura.getTribe(),aura.getLink());
+        return MasterTargeter.CustomTarget(player,text[1], aura.getTribe(),aura.getLink());
     }
 
     private void modifyWhere(LinkedList<Card> where, String[] text, int increment) {
@@ -260,18 +174,171 @@ public class BoardState {
         applyAura(aura);
     }
 
-    public static void Main(String[] args) {
+    private void startMulligan() {
+
+        p1.mulligan("first");
+        p2.mulligan("second");
+    }
+
+    /**
+     * Gain mana and draw a card
+     * Probably will need to trigger start of turn effects as well
+     * @param player
+     */
+    private void startTurn(Player player) {
+
+        player.drawCard();
+        if (!(player.getManaCyrstals() == 10)) {
+            player.addManaCrystals(1);
+        }
+        if (!(player.getMana() == player.getManaCyrstals())) {
+            int set = player.getManaCyrstals() - player.getMana();
+            player.addMana(set);
+        }
+        player.checkBoardForDead();
+    }
+
+    private void helpMessage() {
+
+        System.out.println("command () {} {} (): <--- is a command " +
+                "(optional command modifiers) {required command modifiers}");
+        System.out.println();
+        System.out.println("help: displays this message");
+        System.out.println("peek (enemy) {hand, deck, board}: see details of your/enemy hand/deck/board");
+        System.out.println("settings: display game settings (not implemented yet)");
+        System.out.println("concede: give your opponent victory");
+        System.out.println("quit: exits the program (may result, currently would, result in a loss");
+        System.out.println("pass: pass your turn to the opponent");
+        System.out.println("play {hand index, card name} (if a minion{'left', 'right', board index}):");
+        System.out.println("Hand/board index goes left ---> right starting from 1," +
+                " card name should be as displayed on the card");
+        System.out.println("'left' and 'right' put minion at the edges");
+        System.out.println("attack {board index, name} {board index, name}: " +
+                "Choose a minion or hero to attack an enemy minion or hero");
+        System.out.println("Index start at 0 as the hero, then left ---> right of the board starting at 1");
+    }
+
+    public void playerTurn(boolean canPlay) {
+
+        Player playerTurn = p2;
+        if (canPlay) {
+            playerTurn = p1;
+        }
+
+        startTurn(playerTurn);
+        helpMessage();
+        long startTime = System.nanoTime();
+        long estimatedTime = System.nanoTime() - startTime;
+        System.out.print("> ");
+        playerTurnLoop(playerTurn, canPlay, startTime, estimatedTime);
+    }
+
+    private void playerTurnLoop(Player player, boolean canPlay, long startTime, long estimatedTime) {
+
+        while (player.getPlayerInput().hasNext() && estimatedTime <= TIME_LIMIT ) {
+
+            if (estimatedTime == ROPE) {
+                System.out.println("tsssss");
+            }
+            String line = player.getPlayerInput().nextLine();
+            if (!canPlay) {
+                System.out.println(line);
+            }
+            String fields[] = line.split("\\s+");
+
+            if (fields[0].equals(PASS)) {
+                System.out.println(player.getName() + " ends their turn!");
+                break;
+            }
+            commands(player, fields);
+
+            estimatedTime = System.nanoTime() - startTime;
+        }
+    }
+
+    //Maybe TODO this entire thing but I'm prolly the only one that's going to use it so maybe it stays shitty
+    private void commands(Player player, String[] fields) {
+
+        if (fields[0].equals(HELP)) {
+            helpMessage();
+        } else if (fields[0].equals(QUIT)) {
+            System.exit(0);
+        } else if (fields[0].equals(CONCEDE)) {
+            player.concede();
+        } else if (fields[0].equals(SETTINGS)) {
+            System.out.println("Sorry there are no settings yet :(");
+        } else if (fields[0].equals(PEEK)) {
+            if (fields[1].equals("enemy")) {
+                if (fields[2].equals("hand")) {
+                    System.out.println("Your opponent has " + findEnemy(player).getHand().size() + " cards in their hand.");
+                }
+                else if (fields[2].equals("deck")) {
+                    System.out.println("Your opponent has " + findEnemy(player).getDeck().size() + " cards in their deck.");
+                }
+                else if (fields[2].equals("board")) {
+                    System.out.println("Enemy Board:");
+                    for (Card card: findEnemy(player).getPlayerSide()) {
+                        System.out.print(card);
+                    }
+                    System.out.println();
+                    System.out.println("Your Board:");
+                    for (Card card: player.getPlayerSide()) {
+                        System.out.print(card);
+                    }
+                }
+                else {
+                    System.out.println("Unrecognized command " + fields);
+                }
+            }
+            else if (fields[1].equals("hand")) {
+                System.out.println(player.getHand());
+            }
+            else if (fields[1].equals("deck")) {
+                System.out.println("You have has " + findEnemy(player).getDeck().size() + " cards in your deck.");
+            }
+            else if (fields[1].equals("board")) {
+                System.out.println("Enemy Board:");
+                for (Card card: findEnemy(player).getPlayerSide()) {
+                    System.out.print(card);
+                }
+                System.out.println();
+                System.out.println("Your Board:");
+                for (Card card: player.getPlayerSide()) {
+                    System.out.print(card);
+                }
+            }
+            else System.out.println("Unrecognized command " + fields);
+
+        } else if (fields[0].equals(ATTACK)) {
+            if (fields[1].equals("0")) {
+                player.getHero().heroAttack(findEnemy(player), Integer.parseInt(fields[2]));
+            }
+            else {
+                Minion minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
+                MasterTargeter.Main(player, Integer.parseInt(fields[2]), 0, minion);
+            }
+            //TODO Complete rework of playCard lmao
+        } else if (fields[0].equals(PLAY)) {
+            if (fields[1].matches("[0-9]")) {
+                Card card = player.getHand().get(Integer.parseInt(fields[1]) - 1);
+                player.playCard(card, Integer.parseInt(fields[2]), this);
+            }
+            else {
+                for (Card card: player.getHand()) {
+                    if (fields[1].equals(card.getName())) {
+                        player.playCard(card, Integer.parseInt(fields[2]), this);
+                    }
+                }
+            }
+        } else System.out.println("Unrecognized command " + fields[0]);
+
+    }
+
+    public void Main(String[] args) {
 
         BoardState theGame = new BoardState(args[0], args[1], args[2], args[3], args[4], args[5]);
 
-        Scanner p1Input = new Scanner(System.in);
-        Scanner p2Input = new Scanner(System.in);
-        boolean p1CanPlay;
-        boolean p2CanPlay;
-        // Scanner limitedcommandsp1;
-        // Scanner limitedcommandsp2;
-        // boolean p1CanLimited;
-        // boolean p2CanLimited;
+        boolean whoCanPlay = true;
         String p1Name = theGame.p1.getName();
         String p2Name = theGame.p2.getName();
         String p1Hero = theGame.p1.getHero().getName();
@@ -281,6 +348,16 @@ public class BoardState {
         System.out.println("Hello " + p1Name + ", you are playing as " +  p1Hero + ",\n Your enemy " +
                 p2Name + ", is playing as " + p2Hero);
         theGame.startMulligan();
+
+        while(!hasWon()) {
+
+            playerTurn(whoCanPlay);
+            whoCanPlay = !whoCanPlay;
+        }
+
+        Player theyWon = whoWon();
+        System.out.println(theyWon.getName() + " is victorious!");
+        System.out.println("(fireworks explode... confetti litters the screen)");
     }
 
 }

@@ -48,7 +48,7 @@ public class FrostwolfWarlord extends Minion {
 
     }
 
-    public void battlecry(BoardState board) {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             int set = board.findEnemy(owner).getPlayerSide().size();
             addAtk(set);

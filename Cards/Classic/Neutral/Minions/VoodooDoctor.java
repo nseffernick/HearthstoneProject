@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
@@ -49,7 +50,7 @@ public class VoodooDoctor extends Minion {
     }
 
     // Heal two health
-    public void battlecry(Player player, int index) {
+    public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             MasterTargeter.Main(player, index, -2, null);
         }

@@ -30,8 +30,13 @@ public class GurubashiBerserker extends Minion {
                 "Whenever this minion takes damage, gain +3 Attack", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.WHENEVER);
+        properties.add(Keywords.ENRAGE);
     }
 
+    @Override
+    public void enrage() {
+        this.addAtk(3);
+    }
 
     @Override
     public void onDeath() {
