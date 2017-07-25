@@ -17,15 +17,15 @@ import java.util.ArrayList;
 public class ElvenArcher extends Minion {
 
     // State
-    public int hp = 1;
-    public int atk = 1;
-    public int cost = 1;
-    public String name = "Elven Archer";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 1;
+    protected int atk = 1;
+    protected int cost = 1;
+    protected String name = "Elven Archer";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public ElvenArcher(Player owner) {
 
@@ -34,26 +34,10 @@ public class ElvenArcher extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
-
     // Deal one damage
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player, index, 1, null);
+            MasterTargeter.Main(player, index, 1, null, true);
         }
     }
 }

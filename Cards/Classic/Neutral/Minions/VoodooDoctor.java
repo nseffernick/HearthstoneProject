@@ -15,16 +15,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class VoodooDoctor extends Minion {
+
     // State
-    public int hp = 1;
-    public int atk = 2;
-    public int cost = 1;
-    public String name = "Voodoo Doctor";
-    private String text = "Battlecry: Restore 2 health";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 1;
+    protected int atk = 2;
+    protected int cost = 1;
+    protected String name = "Voodoo Doctor";
+    protected String text = "Battlecry: Restore 2 health";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public VoodooDoctor(Player owner) {
 
@@ -33,26 +34,10 @@ public class VoodooDoctor extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
-
     // Heal two health
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player, index, -2, null);
+            MasterTargeter.Main(player, index, -2, null, true);
         }
     }
 }

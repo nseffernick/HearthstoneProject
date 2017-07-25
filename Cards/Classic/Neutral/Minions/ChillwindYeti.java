@@ -16,12 +16,15 @@ import java.util.ArrayList;
 public class ChillwindYeti extends Minion {
 
     // State
-    public int hp = 5;
-    public int atk = 4;
-    public int cost = 4;
-    public String name = "Chillwind Yeti";
-    private String text = "";
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 5;
+    protected int atk = 4;
+    protected int cost = 4;
+    protected String name = "Chillwind Yeti";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public ChillwindYeti(Player owner) {
 
@@ -29,19 +32,4 @@ public class ChillwindYeti extends Minion {
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

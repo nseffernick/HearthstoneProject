@@ -32,7 +32,7 @@ public class Hero {
     public Hero(String name, Player player) {
         initializeHero(name, player);
         this.properties = new ArrayList<>();
-        this.atk = atk + weapon.atk;
+        atk = atk + weapon.getAtk();
     }
 
     /**
@@ -40,68 +40,65 @@ public class Hero {
      * @param who - the hero class
      */
     private void initializeHero(String who, Player player) {
-        if (!who.equals("Ragnaros The Firelord") ||
-                !who.equals("Lord Jaraxxus")) {
-            this.hp = 30;
-            this.maxHP = 30;
-            this.atk = 0;
-            this.armor = 0;
-        }
+        this.hp = 30;
+        this.maxHP = 30;
+        this.atk = 0;
+        this.armor = 0;
         if (who.equals("Warlock")) {
             this.heroClass = HeroClass.WARLOCK;
             HeroPower heroPower = new LifeTap();
             player.setHeroPower(heroPower);
             this.name = "Gul'Dan";
         }
-        if (who.equals("Warrior")) {
+        else if (who.equals("Warrior")) {
             this.heroClass = HeroClass.WARRIOR;
             HeroPower heroPower = new ArmorUp();
             player.setHeroPower(heroPower);
             this.name = "Garrosh Hellscream";
         }
-        if (who.equals("Hunter")) {
+        else if (who.equals("Hunter")) {
             this.heroClass = HeroClass.HUNTER;
             HeroPower heroPower = new SteadyShot();
             player.setHeroPower(heroPower);
             this.name = "Rexxar";
         }
-        if (who.equals("Druid")) {
+        else if (who.equals("Druid")) {
             this.heroClass = HeroClass.DRUID;
             HeroPower heroPower = new Shapeshift();
             player.setHeroPower(heroPower);
             this.name = "Malfurion Stormrage";
         }
-        if (who.equals("Priest")) {
+        else if (who.equals("Priest")) {
             this.heroClass = HeroClass.PRIEST;
             HeroPower heroPower = new LesserHeal();
             player.setHeroPower(heroPower);
             this.name = "Anduin Wrynn";
         }
-        if (who.equals("Rogue")) {
+        else if (who.equals("Rogue")) {
             this.heroClass = HeroClass.ROGUE;
             HeroPower heroPower = new DaggerMastery();
             player.setHeroPower(heroPower);
             this.name = "Valeera Sanguinar";
         }
-        if (who.equals("Shaman")) {
+        else if (who.equals("Shaman")) {
             this.heroClass = HeroClass.SHAMAN;
             HeroPower heroPower = new TotemicCall();
             player.setHeroPower(heroPower);
             this.name = "Thrall";
         }
-        if (who.equals("Paladin")) {
+        else if (who.equals("Paladin")) {
             this.heroClass = HeroClass.PALADIN;
             HeroPower heroPower = new Reinforce();
             player.setHeroPower(heroPower);
             this.name = "Uther Lightbringer";
         }
-        if (who.equals("Mage")) {
+        else if (who.equals("Mage")) {
             this.heroClass = HeroClass.MAGE;
             HeroPower heroPower = new Fireblast();
             player.setHeroPower(heroPower);
             this.name = "Jaina Proudmoore";
         }
-        if (who.equals("Ragnaros The Firelord")) {
+        else if (who.equals("Ragnaros The Firelord")) {
             this.hp = 8;
             this.maxHP = 8;
             this.atk = 0;
@@ -111,16 +108,19 @@ public class Hero {
             player.setHeroPower(heroPower);
             this.name = "Ragnaros The Firelord";
         }
-        if (who.equals("Lord Jaraxxus")) {
+        else if (who.equals("Lord Jaraxxus")) {
             this.hp = 15;
             this.maxHP = 15;
             this.atk = 0;
             this.armor = 0;
             this.heroClass = HeroClass.NEUTRAL;
-            this.weapon = new BloodFury();
+            this.weapon = new BloodFury(player);
             HeroPower heroPower = new Inferno();
             player.setHeroPower(heroPower);
             this.name = "Lord Jaraxxus";
+        }
+        else {
+            System.err.println("You are trying to play as a class that doesn't exist!");
         }
     }
 

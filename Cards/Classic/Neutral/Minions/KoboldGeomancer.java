@@ -13,16 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class KoboldGeomancer extends Minion{
+
     // State
-    public int hp = 2;
-    public int atk = 2;
-    public int cost = 2;
-    public String name = "Kobold Geomancer";
-    private String text = "Spell Damage +1";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 2;
+    protected int cost = 2;
+    protected String name = "Kobold Geomancer";
+    protected String text = "Spell Damage +1";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public KoboldGeomancer(Player owner) {
 
@@ -31,19 +32,4 @@ public class KoboldGeomancer extends Minion{
         properties.add(Keywords.SPELLDAMAGE);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

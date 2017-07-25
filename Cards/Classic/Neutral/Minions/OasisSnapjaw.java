@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class OasisSnapjaw extends Minion {
 
     // State
-    public int hp = 7;
-    public int atk = 2;
-    public int cost = 4;
-    public String name = "Oasis Snapjaw";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.BEAST;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 7;
+    protected int atk = 2;
+    protected int cost = 4;
+    protected String name = "Oasis Snapjaw";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.BEAST;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public OasisSnapjaw(Player owner) {
 
@@ -31,19 +31,4 @@ public class OasisSnapjaw extends Minion {
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

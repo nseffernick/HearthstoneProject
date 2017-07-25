@@ -16,16 +16,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class ShatteredSunCleric extends Minion {
+
     // State
-    public int hp = 2;
-    public int atk = 3;
-    public int cost = 3;
-    public String name = "Shattered Sun Cleric";
-    private String text = "Battlecry: Give a friendly minion +1/+1.";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 3;
+    protected int cost = 3;
+    protected String name = "Shattered Sun Cleric";
+    protected String text = "Battlecry: Give a friendly minion +1/+1.";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public ShatteredSunCleric(Player owner) {
 
@@ -35,26 +36,10 @@ public class ShatteredSunCleric extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
-
     // Give +1/+1 to a friendly
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            if (Targeting.characterTargeting(owner,index)) {
+            if (Targeting.characterTargeting(owner, index, true)) {
                 Minion minion = owner.getPlayerSide().get(index);
                 minion.addAtk(1);
                 minion.addMaxHP(1);

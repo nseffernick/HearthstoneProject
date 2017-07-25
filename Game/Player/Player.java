@@ -5,9 +5,10 @@ import Cards.Minion;
 import Cards.Spell;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
-import Utility.Keywords.Keywords;
 import Utility.UtilityMethods.hsCeption;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -29,18 +30,16 @@ public class Player {
     // State
     private int manaCyrstals; // Max mana
     private int mana; // Current mana
+    private int fatigue;
+    private HeroPower heroPower;
+    private Hero hero;
+    private hsCeption rng;
+    private String name;
+    private Scanner playerInput;
     private LinkedList<Minion> playerSide;
     private LinkedList<Card> deck;
     private LinkedList<Card> hand;
     private LinkedList<Card> graveyard;
-    private Hero hero;
-    private int fatigue;
-    private hsCeption rng;
-    private HeroPower heroPower;
-    private String name;
-    private Scanner playerInput;
-    private BoardState board;
-    // private AI type;
 
     /**
      * Constructor - only needs to take in what the player gives in the
@@ -48,18 +47,18 @@ public class Player {
      * @param decklist
      * @param Hero
      */
-    public Player(String decklist, String Hero, String name, BoardState board) {
+    public Player(String decklist, String Hero, String name) {
         this.manaCyrstals = STARTING_MANA;
         this.mana = STARTING_MANA;
         this.name = name;
         this.hero = new Hero(Hero, this);
+        this.rng = new hsCeption();
         this.playerSide = new LinkedList<Minion>();
         this.hand = new LinkedList<Card>();
         this.graveyard = new LinkedList<Card>();
-        rng = new hsCeption();
-        this.board = board;
         this.deck = initializeDeck(decklist);
         this.playerInput = new Scanner(System.in);
+        rng.shuffle(deck);
     }
 
     /**
@@ -70,18 +69,26 @@ public class Player {
     private LinkedList<Card> initializeDeck(String decklist) {
         LinkedList<Card> deck = new LinkedList<>();
         String[] decklistArr = decklist.split(" ");
-        for (String card: decklistArr) {
+        for (String card : decklistArr) {
             try {
-                // WHY HAS NO ONE TOLD ME ABOUT THIS
-                Object newCard = Class.forName(card);
-                deck.add(((Card)newCard));
-            }
-            catch (ClassNotFoundException e) {
+                /////////////////////////////////////////////////////////////////
+                // WHY HAS NO ONE TOLD ME ABOUT THIS                           //
+                Class newCard = Class.forName(card);                           //
+                Constructor constructor = newCard.getConstructor(Player.class);//
+                Object card1 = constructor.newInstance(this);         //
+                // This is the only code that matters in this entire program   //
+                /////////////////////////////////////////////////////////////////
+                if (card1 instanceof Card) {
+                    Card card2 = (Card) (card1);
+                    deck.add(card2);
+                }
+            } catch (ClassNotFoundException e) {
                 System.out.println("This is not a card!");
+                e.printStackTrace();
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
-        rng.shuffle(this.deck);
         return deck;
     }
 
@@ -104,24 +111,8 @@ public class Player {
         return name;
     }
 
-    public LinkedList<Minion> getPlayerSide() {
-        return playerSide;
-    }
-
     public Scanner getPlayerInput() {
         return playerInput;
-    }
-
-    public LinkedList<Card> getDeck() {
-        return deck;
-    }
-
-    public LinkedList<Card> getHand() {
-        return hand;
-    }
-
-    public LinkedList<Card> getGraveyard() {
-        return graveyard;
     }
 
     public Hero getHero() {
@@ -136,6 +127,22 @@ public class Player {
         return rng;
     }
 
+    public LinkedList<Minion> getPlayerSide() {
+        return playerSide;
+    }
+
+    public LinkedList<Card> getDeck() {
+        return deck;
+    }
+
+    public LinkedList<Card> getHand() {
+        return hand;
+    }
+
+    public LinkedList<Card> getGraveyard() {
+        return graveyard;
+    }
+
     public void setHeroPower(HeroPower heroPower) {
         this.heroPower = heroPower;
     }
@@ -145,10 +152,6 @@ public class Player {
     }
 
     public void addManaCrystals(int set) { manaCyrstals += set; }
-
-    public void addToGraveyard(Card card) {
-        graveyard.add(card);
-    }
 
     /**
      * Runs the mulligan phase
@@ -221,6 +224,7 @@ public class Player {
      * A player cannot play a minion if the board space will be full when summoned
      * @param card - card player is playing from hand
      */
+    //TODO promptbattlecryindex
     public void playCard(Card card, int index, BoardState board) {
 
         if (playerSide.size() < BOARD_SLOTS) {
@@ -229,7 +233,7 @@ public class Player {
             if (card instanceof Minion) {
                 Minion minion = (Minion)(card);
                 minion.createAura(board);
-                minion.battlecry(board, this, 0);
+                minion.battlecry(board, this, promptBattlecryIndex());
                 checkBoardForDead();
                 if (playerSide.isEmpty()) {
                     playerSide.add(minion);
@@ -241,6 +245,17 @@ public class Player {
                 Spell spell = (Spell)(card);
             }
         }
+    }
+
+    private int promptBattlecryIndex() {
+
+        if (playerInput.hasNext()) {
+            System.out.println("What index would you like to target:");
+            System.out.print("> ");
+            int battlecryIndex = playerInput.nextInt();
+            return battlecryIndex;
+        }
+        return 0;
     }
 
     /**
@@ -297,8 +312,18 @@ public class Player {
         for (Iterator<Minion> iter = playerSide.iterator(); iter.hasNext(); ) {
             Minion minion = iter.next();
             if (minion.isDead()) {
-                addToGraveyard(minion);
                 playerSide.remove(minion);
+                Class newMinion = minion.getClass();
+                try {
+                    Constructor constructor = newMinion.getConstructor(Player.class);
+                    Object card1 = constructor.newInstance(this);
+                    if (card1 instanceof Card) {
+                        Card card2 = (Card) (card1);
+                        graveyard.add(card2);
+                    }
+                } catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

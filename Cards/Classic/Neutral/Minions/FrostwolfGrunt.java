@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class FrostwolfGrunt extends Minion {
 
     // State
-    public int hp = 2;
-    public int atk = 2;
-    public int cost = 2;
-    public String name = "Booty Bay Bodyguard";
-    private String text = "Taunt";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 2;
+    protected int cost = 2;
+    protected String name = "Booty Bay Bodyguard";
+    protected String text = "Taunt";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public FrostwolfGrunt(Player owner) {
 
@@ -32,19 +32,4 @@ public class FrostwolfGrunt extends Minion {
         properties.add(Keywords.TAUNT);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

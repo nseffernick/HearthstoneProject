@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class CoreHound extends Minion {
 
     // State
-    public int hp = 5;
-    public int atk = 9;
-    public int cost = 7;
-    public String name = "Core Hound";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.BEAST;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 5;
+    protected int atk = 9;
+    protected int cost = 7;
+    protected String name = "Core Hound";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.BEAST;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public CoreHound(Player owner) {
 
@@ -31,18 +31,4 @@ public class CoreHound extends Minion {
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

@@ -13,16 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class RecklessRocketeer extends Minion {
+
     // State
-    public int hp = 2;
-    public int atk = 5;
-    public int cost = 6;
-    public String name = "Reckless Rocketeer";
-    private String text = "Charge";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 5;
+    protected int cost = 6;
+    protected String name = "Reckless Rocketeer";
+    protected String text = "Charge";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public RecklessRocketeer(Player owner) {
 
@@ -31,19 +32,4 @@ public class RecklessRocketeer extends Minion {
         properties.add(Keywords.CHARGE);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

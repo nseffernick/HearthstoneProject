@@ -13,16 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class GurubashiBerserker extends Minion {
+
     // State
-    public int hp = 7;
-    public int atk = 2;
-    public int cost = 5;
-    public String name = "Gurubashi Berserker";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 7;
+    protected int atk = 2;
+    protected int cost = 5;
+    protected String name = "Gurubashi Berserker";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public GurubashiBerserker(Player owner) {
 
@@ -38,18 +39,4 @@ public class GurubashiBerserker extends Minion {
         this.addAtk(3);
     }
 
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

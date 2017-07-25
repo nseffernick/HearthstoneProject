@@ -15,16 +15,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class IronforgeRifleman extends Minion {
+
     // State
-    public int hp = 2;
-    public int atk = 2;
-    public int cost = 3;
-    public String name = "Ironforge Rifleman";
-    private String text = "Battlecry: Deal one damage";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 2;
+    protected int cost = 3;
+    protected String name = "Ironforge Rifleman";
+    protected String text = "Battlecry: Deal one damage";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public IronforgeRifleman(Player owner) {
 
@@ -34,26 +35,10 @@ public class IronforgeRifleman extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
-
     // Deal one damage
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player, index, 1, null);
+            MasterTargeter.Main(player, index, 1, null, true);
         }
     }
 }

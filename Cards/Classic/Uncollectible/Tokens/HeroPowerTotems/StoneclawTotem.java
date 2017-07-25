@@ -1,6 +1,7 @@
 package Cards.Classic.Uncollectible.Tokens.HeroPowerTotems;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -21,9 +22,9 @@ public class StoneclawTotem extends Minion {
     private String text = "Taunt";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public StoneclawTotem() {
+    public StoneclawTotem(Player player) {
 
-        super(2, 0, 1, "Stoneclaw Totem", "", Rarity.BASIC, Tribe.TOTEM,
+        super(2, 0, 1, "Stoneclaw Totem", player, "", Rarity.BASIC, Tribe.TOTEM,
                 HeroClass.SHAMAN, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

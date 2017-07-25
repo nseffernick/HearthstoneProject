@@ -10,25 +10,25 @@ import Utility.Keywords.Keywords;
 import java.util.ArrayList;
 
 /**
- * Representation of the Magma Rager Minion
+ * Representation of the River Crocolisk Minion
  */
-public class MagmaRager extends Minion {
+public class RiverCrocolisk extends Minion {
 
     // State
-    protected int hp = 1;
-    protected int atk = 5;
-    protected int cost = 3;
-    protected String name = "Magma Rager";
+    protected int hp = 3;
+    protected int atk = 2;
+    protected int cost = 2;
+    protected String name = "River Crocolisk";
     protected String text = "";
     protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.ELEMENTAL;
+    protected Tribe tribe = Tribe.BEAST;
     protected HeroClass heroClass = HeroClass.NEUTRAL;
     protected ArrayList<Keywords> properties = new ArrayList<>();
 
-    public MagmaRager(Player owner) {
+    public RiverCrocolisk(Player owner) {
 
-        super(1, 5, 3, "Magma Rager", owner,"", Rarity.BASIC,
-                Tribe.ELEMENTAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        super(3, 2, 2, "River Crocolisk", owner,"", Rarity.BASIC,
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
 }

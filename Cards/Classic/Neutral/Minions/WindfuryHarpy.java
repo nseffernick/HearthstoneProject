@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class WindfuryHarpy extends Minion {
 
     // State
-    private int hp = 5;
-    private int atk = 4;
-    private int cost = 6;
-    private String name = "Windfury Harpy";
-    private String text = "Windfury";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 5;
+    protected int atk = 4;
+    protected int cost = 6;
+    protected String name = "Windfury Harpy";
+    protected String text = "Windfury";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public WindfuryHarpy(Player owner) {
 
@@ -32,7 +32,6 @@ public class WindfuryHarpy extends Minion {
 
         properties.add(Keywords.WINDFURY);
     }
-
 
 
 }

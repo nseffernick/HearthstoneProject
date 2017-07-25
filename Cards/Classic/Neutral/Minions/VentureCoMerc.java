@@ -34,15 +34,15 @@ import java.util.ArrayList;
 public class VentureCoMerc extends Minion {
 
     // State
-    private int hp = 6;
-    private int atk = 7;
-    private int cost = 5;
-    private String name = "Venture Co. Mercenary";
-    private String text = "Your minions cost 3 more.";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 6;
+    protected int atk = 7;
+    protected int cost = 5;
+    protected String name = "Venture Co. Mercenary";
+    protected String text = "Your minions cost 3 more.";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public VentureCoMerc(Player owner) {
 

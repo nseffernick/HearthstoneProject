@@ -1,6 +1,7 @@
 package Cards.WhispersOfTheOldGods.Uncollectible.Tokens;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -17,13 +18,13 @@ public class SilverHandMurloc extends Minion {
     public int hp = 1;
     public int atk = 1;
     public int cost = 1;
-    public String name = "Silver Hand Recruit";
+    public String name = "SilverHandMurloc";
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public SilverHandMurloc() {
+    public SilverHandMurloc(Player player) {
 
-        super(1, 1, 1, "Silver Hand Recruit", "", Rarity.BASIC,
+        super(1, 1, 1, "SilverHandMurloc", player, "", Rarity.BASIC,
                 Tribe.MURLOC, HeroClass.PALADIN, new ArrayList<Keywords>());
     }
 }

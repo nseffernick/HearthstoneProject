@@ -15,12 +15,15 @@ import java.util.ArrayList;
 public class BloodfenRaptor extends Minion {
 
     // State
-    public int hp = 2;
-    public int atk = 3;
-    public int cost = 2;
-    public String name = "Bloodfen Raptor";
-    private String text = "";
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 3;
+    protected int cost = 2;
+    protected String name = "Bloodfen Raptor";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.BEAST;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public BloodfenRaptor(Player owner) {
 
@@ -28,19 +31,4 @@ public class BloodfenRaptor extends Minion {
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

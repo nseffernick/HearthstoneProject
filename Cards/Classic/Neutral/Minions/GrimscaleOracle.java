@@ -16,16 +16,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class GrimscaleOracle extends Minion {
+
     // State
-    public int hp = 1;
-    public int atk = 1;
-    public int cost = 1;
-    public String name = "Grimscale Oracle";
-    private String text = "Your other murlocs have +1 Attack";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.MURLOC;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 1;
+    protected int atk = 1;
+    protected int cost = 1;
+    protected String name = "Grimscale Oracle";
+    protected String text = "Your other murlocs have +1 Attack";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.MURLOC;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public GrimscaleOracle(Player owner) {
 
@@ -40,18 +41,4 @@ public class GrimscaleOracle extends Minion {
         board.addAura(thisAura);
     }
 
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

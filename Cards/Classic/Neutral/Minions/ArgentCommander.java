@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class ArgentCommander extends Minion {
 
     // State
-    public int hp = 2;
-    public int atk = 4;
-    public int cost = 6;
-    public String name = "Argent Commander";
-    public String text = "Charge\n Divine Shield";
-    public Rarity rarity = Rarity.RARE;
-    public Tribe tribe = Tribe.GENERAL;
-    public HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 4;
+    protected int cost = 6;
+    protected String name = "Argent Commander";
+    protected String text = "Charge\n Divine Shield";
+    protected Rarity rarity = Rarity.RARE;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public ArgentCommander(Player owner) {
 
@@ -34,19 +34,4 @@ public class ArgentCommander extends Minion {
         properties.add(Keywords.DIVINESHIELD);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

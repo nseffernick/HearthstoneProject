@@ -18,15 +18,15 @@ import java.util.ArrayList;
 public class RaidLeader extends Minion {
 
     // State
-    public int hp = 2;
-    public int atk = 2;
-    public int cost = 3;
-    public String name = "Raid Leader";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 2;
+    protected int cost = 3;
+    protected String name = "Raid Leader";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public RaidLeader(Player owner) {
 
@@ -40,19 +40,4 @@ public class RaidLeader extends Minion {
         board.addAura(thisAura);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

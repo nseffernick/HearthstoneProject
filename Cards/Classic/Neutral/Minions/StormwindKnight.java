@@ -13,13 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class StormwindKnight extends Minion {
+
     // State
-    public int hp = 5;
-    public int atk = 2;
-    public int cost = 4;
-    public String name = "Stormwind Knight";
-    private String text = "Charge";
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 5;
+    protected int atk = 2;
+    protected int cost = 4;
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected String name = "Stormwind Knight";
+    protected String text = "Charge";
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public StormwindKnight(Player owner) {
 
@@ -28,19 +32,4 @@ public class StormwindKnight extends Minion {
         properties.add(Keywords.CHARGE);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

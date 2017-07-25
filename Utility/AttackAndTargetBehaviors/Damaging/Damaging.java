@@ -18,13 +18,11 @@ public class Damaging {
      * @param dmg
      */
     public static void damageCharacter(Player target, int index, int dmg) {
-        if (index < 0) {
+        if (index == -1) {
             // if the hero is getting healed
             if (dmg < 0) {
-                if (target.getHero().getHp() - dmg >
-                        target.getHero().getMaxHP()) {
-                    dmg = target.getHero().getMaxHP() -
-                            target.getHero().getHp();
+                if (target.getHero().getHp() - dmg > target.getHero().getMaxHP()) {
+                    dmg = target.getHero().getMaxHP() - target.getHero().getHp();
                 }
                 target.getHero().addHp(dmg);
             }
@@ -49,7 +47,7 @@ public class Damaging {
     }
     
     public static void minionCombat(Player target, int index, Minion minion) {
-        if (index < 0) {
+        if (index == -1) {
             target.getHero().addHp(-minion.getAtk());
         }
         else {

@@ -13,16 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class SilverbackPatriarch extends Minion {
+
     // State
-    public int hp = 4;
-    public int atk = 1;
-    public int cost = 3;
-    public String name = "Silverback Patriarch";
-    private String text = "Taunt";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.BEAST;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 4;
+    protected int atk = 1;
+    protected int cost = 3;
+    protected String name = "Silverback Patriarch";
+    protected String text = "Taunt";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.BEAST;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public SilverbackPatriarch(Player owner) {
 
@@ -31,19 +32,4 @@ public class SilverbackPatriarch extends Minion {
         properties.add(Keywords.TAUNT);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

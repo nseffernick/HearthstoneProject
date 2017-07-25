@@ -16,8 +16,8 @@ import java.util.LinkedList;
  */
 public class MasterTargeter {
 
-    public static void Main(Player player, int index,
-                            int dmg, Minion minion) {
+    public static void Main(Player player, int index, int dmg,
+                            Minion minion, boolean battlecry) {
         if (dmg == 0) {
             if (Targeting.minionTargeting(player, index)) {
                 Damaging.minionCombat(player, index, minion);
@@ -28,7 +28,7 @@ public class MasterTargeter {
             }
         }
         else {
-            if (Targeting.characterTargeting(player, index)) {
+            if (Targeting.characterTargeting(player, index, battlecry)) {
                 Damaging.damageCharacter(player, index, dmg);
             }
             else {

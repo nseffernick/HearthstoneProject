@@ -17,15 +17,15 @@ import java.util.ArrayList;
 public class DarkscaleHealer extends Minion {
 
     // State
-    public int hp = 5;
-    public int atk = 4;
-    public int cost = 5;
-    public String name = "Darkscale Healer";
-    private String text = "Battlecry: Restore two Health to friendly characters";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 5;
+    protected int atk = 4;
+    protected int cost = 5;
+    protected String name = "Darkscale Healer";
+    protected String text = "Battlecry: Restore two Health to friendly characters";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public DarkscaleHealer(Player owner) {
 
@@ -33,22 +33,6 @@ public class DarkscaleHealer extends Minion {
                 "Battlecry: Restore two Health to friendly characters", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
-    }
-
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
     }
 
     // Heal all friendly characters for two health

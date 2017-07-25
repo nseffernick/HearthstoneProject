@@ -1,6 +1,7 @@
 package Cards.Classic.Uncollectible.Weapons;
 
 import Cards.Weapon;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -21,8 +22,8 @@ public class BloodFury extends Weapon {
     private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public BloodFury() {
-        super(3, 3, 8, "Blood Fury", "", Rarity.BASIC,
+    public BloodFury(Player player) {
+        super(3, 3, 8, "Blood Fury", "", player, Rarity.BASIC,
                 HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 }

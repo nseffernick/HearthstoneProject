@@ -18,15 +18,15 @@ import java.util.ArrayList;
 public class DragonlingMechanic extends Minion {
 
     // State
-    public int hp = 4;
-    public int atk = 2;
-    public int cost = 4;
-    public String name = "Dragonling Mechanic";
-    private String text = "Battlecry: Summon a 2/1 Mechanical Dragonling";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 4;
+    protected int atk = 2;
+    protected int cost = 4;
+    protected String name = "Dragonling Mechanic";
+    protected String text = "Battlecry: Summon a 2/1 Mechanical Dragonling";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public DragonlingMechanic(Player owner) {
 
@@ -34,22 +34,6 @@ public class DragonlingMechanic extends Minion {
                 "Battlecry: Summon a 2/1 Mechanical Dragonling", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
-    }
-
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
     }
 
     // Summon a 2/1 dragonling

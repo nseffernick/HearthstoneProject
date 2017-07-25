@@ -1,11 +1,6 @@
 package Utility.UtilityMethods;
 
 import Cards.Card;
-import Game.Player.Player;
-import Cards.Classic.Neutral.Minions.RiverCroc;
-import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
-import Utility.Rarities.Rarity;
 
 import java.util.*;
 
@@ -39,9 +34,9 @@ public class hsCeption {
         return randomEffect.nextInt(bound);
     }
 
-    public Card discover() {
-        return new RiverCroc();
-    }
+    //public Card discover() {
+    //    return new RiverCroc();
+    //}
 
     public void joust() {}
 

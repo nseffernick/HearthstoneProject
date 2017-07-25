@@ -1,6 +1,7 @@
 package Cards.Classic.Uncollectible.Weapons;
 
 import Cards.Weapon;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -21,8 +22,8 @@ public class WickedKnife extends Weapon{
     private HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public WickedKnife() {
-        super(1, 1, 2, "Wicked Knife", "", Rarity.BASIC,
+    public WickedKnife(Player player) {
+        super(1, 1, 2, "Wicked Knife", "", player, Rarity.BASIC,
                 HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

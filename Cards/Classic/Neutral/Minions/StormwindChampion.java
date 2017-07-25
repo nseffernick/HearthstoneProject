@@ -16,16 +16,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class StormwindChampion extends Minion {
+
     // State
-    public int hp = 6;
-    public int atk = 6;
-    public int cost = 7;
-    public String name = "Stormwind Champion";
-    private String text = "Your other minions have +1/+1";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 6;
+    protected int atk = 6;
+    protected int cost = 7;
+    protected String name = "Stormwind Champion";
+    protected String text = "Your other minions have +1/+1";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public StormwindChampion(Player owner) {
 
@@ -40,19 +41,4 @@ public class StormwindChampion extends Minion {
         board.addAura(thisAura);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

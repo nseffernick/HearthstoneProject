@@ -1,6 +1,6 @@
 package Cards;
 
-import Utility.Effects.Property;
+import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
 import Game.Player.Player;
@@ -13,16 +13,16 @@ import java.util.ArrayList;
 public abstract class Spell extends Card {
 
     // State
-    private int cost;
-    private String name;
-    private String text;
-    private Rarity rarity;
-    private HeroClass heroClass;
-    private ArrayList<Property> properties;
-    private Player owner;
+    protected int cost;
+    protected Rarity rarity;
+    protected HeroClass heroClass;
+    protected String name;
+    protected String text;
+    protected Player owner;
+    protected ArrayList<Keywords> properties;
 
     public Spell(int cost, String name, String text, Player owner, Rarity rarity,
-                 HeroClass heroClass, ArrayList<Property> properties) {
+                 HeroClass heroClass, ArrayList<Keywords> properties) {
         super(cost, name, text, owner, rarity, heroClass, properties);
 
 

@@ -16,15 +16,15 @@ import java.util.ArrayList;
 public class AcidicSwampOoze extends Minion {
 
     // State
-    public int hp = 2;
-    public int atk = 3;
-    public int cost = 2;
-    public String name = "Acidic Swamp Ooze";
-    private String text = "Battlecry: Destroy the opponent's weapon";
-    public Rarity rarity = Rarity.BASIC;
-    public Tribe tribe = Tribe.GENERAL;
-    public HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 3;
+    protected int cost = 2;
+    protected String name = "Acidic Swamp Ooze";
+    protected String text = "Battlecry: Destroy the opponent's weapon";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public AcidicSwampOoze(Player owner) {
 
@@ -34,22 +34,6 @@ public class AcidicSwampOoze extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
-
     /**
      * Destroy the opponent's weapon
      */
@@ -57,5 +41,24 @@ public class AcidicSwampOoze extends Minion {
         if (properties.contains(Keywords.BATTLECRY)) {
             board.findEnemy(owner).getHero().setWeapon(null);
         }
+    }
+
+    public static void main(String[] args) {
+
+        BoardState board = new BoardState("Cards.Classic.Neutral.Minions.AcidicSwampOoze",
+                "Cards.Classic.Neutral.Minions.AcidicSwampOoze", "c", "d", "e", "f");
+
+        Minion ooze = new AcidicSwampOoze(board.getP1());
+        AcidicSwampOoze ooze1 = new AcidicSwampOoze(board.getP1());
+
+        System.out.println();
+        System.out.println(ooze.getClass());
+        System.out.println();
+
+        System.out.println();
+        System.out.println(ooze1.getClass());
+        System.out.println();
+
+        //Class ooze1 = (Class) (ooze);
     }
 }

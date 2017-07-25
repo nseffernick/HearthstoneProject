@@ -1,6 +1,7 @@
 package Cards.Classic.Warlock.Minions;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,10 +23,10 @@ public class Jaraxxus extends Minion {
             "Lord Jaraxxus";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public Jaraxxus(int hp, int atk, int cost, String name, String text,
+    public Jaraxxus(int hp, int atk, int cost, String name, String text, Player player,
                     ArrayList<Keywords> properties) {
 
-        super(hp, atk, cost, name, text, Rarity.BASIC,
+        super(hp, atk, cost, name, player, text, Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, properties);
 
         properties.add(Keywords.DELTACOST);

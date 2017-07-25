@@ -15,16 +15,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class StormpikeCommando extends Minion {
+
     // State
-    public int hp = 2;
-    public int atk = 4;
-    public int cost = 5;
-    public String name = "Stormpike Commando";
-    private String text = "Battlecry: Deal 2 damage";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 2;
+    protected int atk = 4;
+    protected int cost = 5;
+    protected String name = "Stormpike Commando";
+    protected String text = "Battlecry: Deal 2 damage";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public StormpikeCommando(Player owner) {
 
@@ -34,25 +35,10 @@ public class StormpikeCommando extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
     // Deal two damage
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player, index, 2, null);
+            MasterTargeter.Main(player, index, 2, null, true);
         }
     }
 }

@@ -16,16 +16,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class RazorfenHunter extends Minion {
+
     // State
-    public int hp = 3;
-    public int atk = 2;
-    public int cost = 3;
-    public String name = "Razorfen Hunter";
-    private String text = "Battlecry: Summon a 1/1 Boar";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 3;
+    protected int atk = 2;
+    protected int cost = 3;
+    protected String name = "Razorfen Hunter";
+    protected String text = "Battlecry: Summon a 1/1 Boar";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public RazorfenHunter(Player owner) {
 
@@ -33,22 +34,6 @@ public class RazorfenHunter extends Minion {
                 "Battlecry: Summon a 1/1 Boar", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
-    }
-
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
     }
 
     // Summon a 1/1 boar

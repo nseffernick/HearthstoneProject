@@ -14,38 +14,23 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class FrostwolfWarlord extends Minion {
+
     // State
-    public int hp = 4;
-    public int atk = 4;
-    public int cost = 5;
-    public String name = "Frostwolf Warlord";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 4;
+    protected int atk = 4;
+    protected int cost = 5;
+    protected String name = "Frostwolf Warlord";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public FrostwolfWarlord(Player owner) {
 
         super(4, 4, 5, "Frostwolf Warlord", owner,"", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
-    }
-
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
     }
 
     public void battlecry(BoardState board, Player player, int index) {

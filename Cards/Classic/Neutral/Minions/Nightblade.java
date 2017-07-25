@@ -15,16 +15,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class Nightblade extends Minion {
+
     // State
-    public int hp = 4;
-    public int atk = 4;
-    public int cost = 5;
-    public String name = "Nightblade";
-    private String text = "Battlecry: Deal 3 damage to the enemy hero";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 4;
+    protected int atk = 4;
+    protected int cost = 5;
+    protected String name = "Nightblade";
+    protected String text = "Battlecry: Deal 3 damage to the enemy hero";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public Nightblade(Player owner) {
 
@@ -34,26 +35,10 @@ public class Nightblade extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
-
-    // Deal two damage
+    // Deal three damage to hero
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(board.findEnemy(owner), -1, 3, null);
+            MasterTargeter.Main(board.findEnemy(owner), -1, 3, null, true);
         }
     }
 }

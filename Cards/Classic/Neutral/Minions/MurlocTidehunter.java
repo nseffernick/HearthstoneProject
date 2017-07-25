@@ -16,16 +16,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class MurlocTidehunter extends Minion {
+
     // State
-    public int hp = 1;
-    public int atk = 2;
-    public int cost = 2;
-    public String name = "Murloc Tidehunter";
-    private String text = "Battlecry: Summon a 1/1 Murloc";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.MURLOC;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 1;
+    protected int atk = 2;
+    protected int cost = 2;
+    protected String name = "Murloc Tidehunter";
+    protected String text = "Battlecry: Summon a 1/1 Murloc";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.MURLOC;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public MurlocTidehunter(Player owner) {
 
@@ -33,22 +34,6 @@ public class MurlocTidehunter extends Minion {
                 "Battlecry: Summon a 1/1 Murloc", Rarity.BASIC,
                 Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
-    }
-
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
     }
 
     // Summon a 1/1 murloc

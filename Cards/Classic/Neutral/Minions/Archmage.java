@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class Archmage extends Minion {
 
     // State
-    public int hp = 7;
-    public int atk = 4;
-    public int cost = 6;
-    public String name = "Archmage";
-    private String text = "Spell Damage +1";
-    public Rarity rarity = Rarity.BASIC;
-    public Tribe tribe = Tribe.GENERAL;
-    public HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 7;
+    protected int atk = 4;
+    protected int cost = 6;
+    protected String name = "Archmage";
+    protected String text = "Spell Damage +1";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public Archmage(Player owner) {
 
@@ -32,19 +32,4 @@ public class Archmage extends Minion {
         properties.add(Keywords.SPELLDAMAGE);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

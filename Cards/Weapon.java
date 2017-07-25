@@ -1,8 +1,8 @@
 package Cards;
 
 import Game.Player.Player;
-import Utility.Effects.Property;
 import Utility.HeroClasses.HeroClass;
+import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 
 import java.util.ArrayList;
@@ -13,19 +13,19 @@ import java.util.ArrayList;
 public abstract class Weapon extends Card {
 
     // State
-    public int cost;
-    public int durability;
-    public int atk;
-    public String name;
-    private String text;
-    private Rarity rarity;
-    private HeroClass heroClass;
-    private ArrayList<Property> properties;
+    protected int cost;
+    protected int durability;
+    protected int atk;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
-    public Weapon(int cost, int atk, int durability, String name, String text,
+    public Weapon(int cost, int atk, int durability, String name, String text, Player player,
                   Rarity rarity, HeroClass heroClass, ArrayList properties) {
 
-        super(cost, name, text, rarity, heroClass, properties);
+        super(cost, name, text, player, rarity, heroClass, properties);
 
         this.cost = cost;
         this.durability = durability;
@@ -35,6 +35,14 @@ public abstract class Weapon extends Card {
         this.rarity = rarity;
         this.heroClass = heroClass;
         this.properties = properties;
+    }
+
+    public int getAtk() {
+        return atk;
+    }
+
+    public int getDurability() {
+        return durability;
     }
 
     public boolean canTarget(int atk, Player player) {

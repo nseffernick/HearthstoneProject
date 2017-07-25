@@ -10,7 +10,7 @@ public class DaggerMastery extends HeroPower {
 
     @Override
     public void Cast(Player player, int index) {
-        player.getHero().setWeapon(new WickedKnife());
+        player.getHero().setWeapon(new WickedKnife(player));
         wasCast = true;
     }
     public DaggerMastery() {

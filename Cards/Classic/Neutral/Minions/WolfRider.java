@@ -13,16 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class WolfRider extends Minion {
+
     // State
-    public int hp = 1;
-    public int atk = 3;
-    public int cost = 3;
-    public String name = "Wolf Rider";
-    private String text = "Charge";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 1;
+    protected int atk = 3;
+    protected int cost = 3;
+    protected String name = "Wolf Rider";
+    protected String text = "Charge";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public WolfRider(Player owner) {
 
@@ -32,18 +33,4 @@ public class WolfRider extends Minion {
     }
 
 
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

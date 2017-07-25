@@ -13,16 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/10/2017.
  */
 public class IronfurGrizzly extends Minion {
+
     // State
-    public int hp = 3;
-    public int atk = 3;
-    public int cost = 3;
-    public String name = "Ironfur Grizzly";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.BEAST;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 3;
+    protected int atk = 3;
+    protected int cost = 3;
+    protected String name = "Ironfur Grizzly";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.BEAST;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public IronfurGrizzly(Player owner) {
 
@@ -31,19 +32,4 @@ public class IronfurGrizzly extends Minion {
         properties.add(Keywords.TAUNT);
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

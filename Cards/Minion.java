@@ -20,16 +20,16 @@ public abstract class Minion extends Card {
     protected int maxHP;
     protected int atk;
     protected int cost;
-    protected String name;
-    protected String text;
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
+    protected String name;
+    protected String text;
     protected ArrayList<Keywords> properties;
 
     public Minion(int hp, int atk, int cost, String name, Player owner,
                   String text, Rarity rarity, Tribe tribe,
-                  HeroClass heroClass, ArrayList properties) {
+                  HeroClass heroClass, ArrayList<Keywords> properties) {
 
         super(cost, name, text, owner, rarity, heroClass, properties);
 
@@ -54,7 +54,7 @@ public abstract class Minion extends Card {
     }
 
     public int getAtk() {
-        return hp;
+        return atk;
     }
 
     public Tribe getTribe() {
@@ -69,7 +69,8 @@ public abstract class Minion extends Card {
     public void addHp(int set) {
         hp += set;
         if (hp > maxHP) {
-            hp = maxHP;
+            int hpDiff = hp - maxHP;
+            hp -= hpDiff;
         }
     }
 
@@ -141,18 +142,6 @@ public abstract class Minion extends Card {
 
     public void createAura(BoardState board) {}
 
-    public void onDeath() {
-
-    }
-
-    public void onSummon() {
-
-    }
-
-    public void onTurnStart() {
-
-    }
-
     public void onHit() {
 
     }
@@ -169,10 +158,33 @@ public abstract class Minion extends Card {
 
     }
 
-    //14x37
+    public static String fixedLengthString(String string, int length) {
+        return String.format("%1$"+length+ "s", string);
+    }
+
+    //15x43
     public String toString() {
+        String s1 = "  ____________________________________   \n";
+        String s2 = fixedLengthString("| Cost: " + cost + "                            |   \n", 43);
+        String s3 = fixedLengthString(" | Name: " + name + "            |   \n", 43);
+        String s4 = fixedLengthString("|                                    |   \n", 43);
+        String s5 = fixedLengthString("|                                    |   \n", 43);
+        String s6 = fixedLengthString("|                                    |   \n", 43);
+        String s7 = fixedLengthString("|                                    |   \n", 43);
+        String s8 = fixedLengthString("|                                    |   \n", 43);
+        String s9 = fixedLengthString(" | " + text + " |   \n", 43);
+        String s10 = fixedLengthString("| " + tribe + "                            |   \n", 43);
+        String s11 = fixedLengthString("|                                    |   \n", 43);
+        String s12 = fixedLengthString("| Attack: " + atk + "                          |   \n", 43);
+        String s13 = fixedLengthString("| Health: " + hp + "                          |   \n", 43);
+        String s14 = fixedLengthString("|                                    |   \n", 43);
+        String s15 = fixedLengthString("|____________________________________|   \n", 43);
+        String cardDesc = s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8 + s9 + s10 + s11 + s12 + s13 + s14 + s15;
+        return cardDesc;
+    }
+        /*
         return  " ____________________________________\n" +
-                "| Cost: " + cost + "                         |\n" +
+                "| Cost: " + cost + "                      |   \n" +
                 "| Name:    " + name + "                        |\n" +
                 "|                                    |\n" +
                 "|                                    |\n" +
@@ -185,9 +197,7 @@ public abstract class Minion extends Card {
                 "| Health: " + hp + "                                  |\n" +
                 "|                                    |\n" +
                 "|____________________________________|\n";
-
-    }
-
+        */
 
 }
 

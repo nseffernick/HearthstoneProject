@@ -27,10 +27,10 @@ public class TotemicCall extends HeroPower {
 
     private void shamanHeroPowerRoll(Player player) {
         ArrayList<Minion> canSummon = new ArrayList<>();
-        Minion heal = new HealingTotem();
-        Minion taunt = new StoneclawTotem();
-        Minion spell = new WrathOfAir();
-        Minion searing = new SearingTotem();
+        Minion heal = new HealingTotem(player);
+        Minion taunt = new StoneclawTotem(player);
+        Minion spell = new WrathOfAir(player);
+        Minion searing = new SearingTotem(player);
         canSummon.add(heal);
         canSummon.add(taunt);
         canSummon.add(spell);

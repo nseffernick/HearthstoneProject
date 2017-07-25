@@ -13,16 +13,17 @@ import java.util.ArrayList;
  * Created by Cheech on 4/11/2017.
  */
 public class WarGolem extends Minion {
+
     // State
-    public int hp = 7;
-    public int atk = 7;
-    public int cost = 7;
-    public String name = "War Golem";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp = 7;
+    protected int atk = 7;
+    protected int cost = 7;
+    protected String name = "War Golem";
+    protected String text = "";
+    protected Rarity rarity = Rarity.BASIC;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
+    protected ArrayList<Keywords> properties = new ArrayList<>();
 
     public WarGolem(Player owner) {
 
@@ -30,19 +31,4 @@ public class WarGolem extends Minion {
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void onSummon() {
-
-    }
-
-    @Override
-    public void onTurnStart() {
-
-    }
 }

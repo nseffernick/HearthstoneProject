@@ -1,6 +1,7 @@
 package Cards.Classic.Uncollectible.Tokens.HeroPowerTotems;
 
 import Cards.Minion;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -21,9 +22,9 @@ public class SearingTotem extends Minion {
     private String text = "";
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public SearingTotem() {
+    public SearingTotem(Player player) {
 
-        super(1, 1, 1, "Searing Totem", "", Rarity.BASIC, Tribe.TOTEM,
+        super(1, 1, 1, "Searing Totem", player, "", Rarity.BASIC, Tribe.TOTEM,
                 HeroClass.SHAMAN, new ArrayList<Keywords>());
     }
 }
