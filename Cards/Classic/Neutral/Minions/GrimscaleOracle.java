@@ -36,9 +36,10 @@ public class GrimscaleOracle extends Minion {
         properties.add(Keywords.AURA);
     }
 
-    public void createAura(BoardState board) {
+    public void createAura() {
         Aura thisAura = new GrimscaleOracleAura(this, "Grimscale Oracle Aura");
-        board.addAura(thisAura);
+        owner.addAura(thisAura);
     }
+
 
 }

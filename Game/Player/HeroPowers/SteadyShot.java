@@ -14,7 +14,7 @@ public class SteadyShot extends HeroPower{
 
     @Override
     public void Cast(Player player, int index) {
-        MasterTargeter.Main(player, -1, 2, null);
+        MasterTargeter.Main(player, -1, 2, null, false);
         wasCast = true;
     }
 }

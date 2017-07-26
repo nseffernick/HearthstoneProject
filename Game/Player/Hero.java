@@ -32,7 +32,6 @@ public class Hero {
     public Hero(String name, Player player) {
         initializeHero(name, player);
         this.properties = new ArrayList<>();
-        atk = atk + weapon.getAtk();
     }
 
     /**

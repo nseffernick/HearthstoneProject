@@ -3,8 +3,11 @@ package Game.Player;
 import Cards.Card;
 import Cards.Minion;
 import Cards.Spell;
+import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.Keywords.Keywords;
 import Utility.UtilityMethods.hsCeption;
 
 import java.lang.reflect.Constructor;
@@ -40,6 +43,7 @@ public class Player {
     private LinkedList<Card> deck;
     private LinkedList<Card> hand;
     private LinkedList<Card> graveyard;
+    private LinkedList<Aura> auras;
 
     /**
      * Constructor - only needs to take in what the player gives in the
@@ -56,6 +60,7 @@ public class Player {
         this.playerSide = new LinkedList<Minion>();
         this.hand = new LinkedList<Card>();
         this.graveyard = new LinkedList<Card>();
+        this.auras = new LinkedList<Aura>();
         this.deck = initializeDeck(decklist);
         this.playerInput = new Scanner(System.in);
         rng.shuffle(deck);
@@ -82,10 +87,8 @@ public class Player {
                     Card card2 = (Card) (card1);
                     deck.add(card2);
                 }
-            } catch (ClassNotFoundException e) {
-                System.out.println("This is not a card!");
-                e.printStackTrace();
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
+                    | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -142,6 +145,8 @@ public class Player {
     public LinkedList<Card> getGraveyard() {
         return graveyard;
     }
+
+    public LinkedList<Aura> getAuras() { return auras;};
 
     public void setHeroPower(HeroPower heroPower) {
         this.heroPower = heroPower;
@@ -217,6 +222,89 @@ public class Player {
         return false;
     }
 
+    private void applyAura(Aura aura) {
+
+        LinkedList<Card> where = determineWhere(aura);
+        String[] text = aura.getEffect().split(" ");
+        int increment = getIncrement(text);
+        modifyWhere(where, text, increment);
+    }
+
+    private LinkedList<Card> determineWhere(Aura aura) {
+
+        String[] text = aura.getWhere().split(" ");
+
+        Player player;
+        if (text[0].equals("Friendly")) {
+            player = this;
+        }
+        else if (text[0].equals("Enemy")) {
+            player = BoardState.findEnemy(this);
+        }
+        else player = null;
+
+        return MasterTargeter.CustomTarget(player,text[1], aura.getTribe(),aura.getLink());
+    }
+
+    private void modifyWhere(LinkedList<Card> where, String[] text, int increment) {
+
+        for (Card card: where) {
+            if(text[0].equals("Attack")) {
+                if (card instanceof Minion) {
+                    Minion minion =(Minion)card;
+                    minion.addAtk(increment);
+                }
+            }
+            else if(text[0].equals("Health")) {
+                if (card instanceof Minion) {
+                    Minion minion = (Minion) card;
+                    minion.addMaxHP(increment);
+                    minion.addHp(increment);
+                }
+            }
+            else if(text[0].equals("Attack/Health")) {
+                if (card instanceof Minion) {
+                    Minion minion = (Minion) card;
+                    minion.addMaxHP(increment);
+                    minion.addHp(increment);
+                    minion.addAtk(increment);
+                }
+            }
+            else if(text[0].equals("Cost")) {
+                card.addCost(increment);
+            }
+        }
+
+    }
+
+    private int getIncrement(String[] text) {
+        int increment = Integer.parseInt(text[2]);
+        if(text[1].charAt(0) ==  '-') {
+            increment = increment - (2*increment);
+        }
+        return increment;
+    }
+
+    public void removeAura(Aura aura) {
+        if (checkForAura(aura));
+        else {
+            LinkedList<Card> where = determineWhere(aura);
+            String[] text = aura.getEffect().split(" ");
+            int increment = getIncrement(text);
+            increment = increment - (2*increment);
+            modifyWhere(where, text, increment);
+        }
+    }
+
+    private boolean checkForAura(Aura aura) {
+        return !aura.getLink().isDead() && aura.getLink().getProperties().contains(Keywords.AURA);
+    }
+
+    public void addAura(Aura aura) {
+        auras.add(aura);
+        applyAura(aura);
+    }
+
     /**
      * Pre-Condition gives a correct index
      * Very rough, will definitely need to update
@@ -232,8 +320,9 @@ public class Player {
             // If card is a minion
             if (card instanceof Minion) {
                 Minion minion = (Minion)(card);
-                minion.createAura(board);
-                minion.battlecry(board, this, promptBattlecryIndex());
+                minion.getProperties().add(Keywords.SUMMONSICKNESS);
+                minion.createAura();
+                minion.battlecry(board, this, promptBattlecryIndex(board));
                 checkBoardForDead();
                 if (playerSide.isEmpty()) {
                     playerSide.add(minion);
@@ -247,9 +336,11 @@ public class Player {
         }
     }
 
-    private int promptBattlecryIndex() {
+    private int promptBattlecryIndex(BoardState board) {
 
         if (playerInput.hasNext()) {
+            board.peekYourHand(this);
+            board.peekBoard(this);
             System.out.println("What index would you like to target:");
             System.out.print("> ");
             int battlecryIndex = playerInput.nextInt();
@@ -312,19 +403,32 @@ public class Player {
         for (Iterator<Minion> iter = playerSide.iterator(); iter.hasNext(); ) {
             Minion minion = iter.next();
             if (minion.isDead()) {
-                playerSide.remove(minion);
-                Class newMinion = minion.getClass();
-                try {
-                    Constructor constructor = newMinion.getConstructor(Player.class);
-                    Object card1 = constructor.newInstance(this);
-                    if (card1 instanceof Card) {
-                        Card card2 = (Card) (card1);
-                        graveyard.add(card2);
-                    }
-                } catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
+                placeCardInGraveyard(minion);
             }
         }
+    }
+
+    public void placeCardInGraveyard(Card card) {
+        if (card instanceof Minion) {
+            Minion minion = (Minion) card;
+            playerSide.remove(minion);
+            Class newMinion = minion.getClass();
+            try {
+                Constructor constructor = newMinion.getConstructor(Player.class);
+                Object card1 = constructor.newInstance(this);
+                if (card1 instanceof Card) {
+                    Card card2 = (Card) (card1);
+                    graveyard.add(card2);
+                }
+            }
+            catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void Main() {
+
+        //Player player1 = new Player(, "Paladin", "CheechX2")
     }
 }

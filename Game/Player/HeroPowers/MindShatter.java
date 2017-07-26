@@ -14,7 +14,7 @@ public class MindShatter extends HeroPower {
 
     @Override
     public void Cast(Player player, int index) {
-        MasterTargeter.Main(player, index, 2, null);
+        MasterTargeter.Main(player, index, 2, null, false);
         wasCast = true;
     }
 }

@@ -46,7 +46,7 @@ public class AcidicSwampOoze extends Minion {
     public static void main(String[] args) {
 
         BoardState board = new BoardState("Cards.Classic.Neutral.Minions.AcidicSwampOoze",
-                "Cards.Classic.Neutral.Minions.AcidicSwampOoze", "c", "d", "e", "f");
+                "Cards.Classic.Neutral.Minions.AcidicSwampOoze", "Paladin", "Warlock", "e", "f");
 
         Minion ooze = new AcidicSwampOoze(board.getP1());
         AcidicSwampOoze ooze1 = new AcidicSwampOoze(board.getP1());
@@ -56,7 +56,7 @@ public class AcidicSwampOoze extends Minion {
         System.out.println();
 
         System.out.println();
-        System.out.println(ooze1.getClass());
+        System.out.println(ooze1.getClass().getName());
         System.out.println();
 
         //Class ooze1 = (Class) (ooze);

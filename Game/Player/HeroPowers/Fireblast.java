@@ -14,7 +14,7 @@ public class Fireblast extends HeroPower {
 
     @Override
     public void Cast(Player player, int index) {
-        MasterTargeter.Main(player, index, 1, null);
+        MasterTargeter.Main(player, index, 1, null, false);
         wasCast = true;
     }
 }

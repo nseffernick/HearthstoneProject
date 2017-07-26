@@ -16,6 +16,7 @@ public enum Keywords {
     DIVINESHIELD,
     ENRAGE,
     CHARGE,
+    SUMMONSICKNESS, // cant be silenced
     ADAPT,
     FREEZE,
     IMMUNE,

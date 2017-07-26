@@ -38,7 +38,7 @@ public class StormwindChampion extends Minion {
 
     public void createAura(BoardState board) {
         Aura thisAura = new StormwindChampionAura(this, "Grimscale Oracle Aura");
-        board.addAura(thisAura);
+        owner.addAura(thisAura);
     }
 
 }

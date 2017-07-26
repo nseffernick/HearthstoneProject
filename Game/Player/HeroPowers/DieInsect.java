@@ -15,7 +15,7 @@ public class DieInsect extends HeroPower{
     @Override
     public void Cast(Player player, int index) {
         int random = player.getRng().randomNum(player.getPlayerSide().size());
-        MasterTargeter.Main(player, random, 8, null);
+        MasterTargeter.Main(player, random, 8, null, false);
         wasCast = true;
     }
 }

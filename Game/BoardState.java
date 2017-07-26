@@ -2,10 +2,10 @@ package Game;
 
 import Cards.Card;
 import Cards.Minion;
-import Game.Auras.Aura;
 import Game.Player.*;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Keywords.Keywords;
+import Utility.Logger.BoardLogger;
 
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -43,15 +43,19 @@ public class BoardState {
     public final static String PASS = "pass";
 
     // State
-    private Player p1;
-    private Player p2;
-    private LinkedList<Aura> auras;
+    private static Player p1;
+    private static Player p2;
 
     public BoardState(String deck1, String deck2, String hero1, String hero2, String name1, String name2) {
 
-        this.auras = new LinkedList<Aura>();
         Player p1 = new Player(deck1, hero1, name1);
         Player p2 = new Player(deck2, hero2, name2);
+    }
+
+    public BoardState(BoardState board) {
+
+        Player p1 = board.getP1();
+        Player p2 = board.getP2();
     }
 
     public Player getP1() {
@@ -61,8 +65,6 @@ public class BoardState {
     public Player getP2() {
         return p2;
     }
-
-    public LinkedList<Aura> getAuras() { return auras;};
 
     private boolean hasWon() {
         return p1.getHero().isDead() || p2.getHero().isDead();
@@ -75,102 +77,14 @@ public class BoardState {
         else return p2;
     }
 
-    public Player findEnemy(Player player) {
+    public static Player findEnemy(Player player) {
         if (player.equals(p1)) {
             return p2;
         }
         else return p1;
     }
 
-    private void applyAura(Aura aura) {
-
-        LinkedList<Card> where = determineWhere(aura);
-        String[] text = aura.getEffect().split(" ");
-        int increment = getIncrement(text);
-        modifyWhere(where, text, increment);
-    }
-
-    private LinkedList<Card> determineWhere(Aura aura) {
-
-        String[] text = aura.getWhere().split(" ");
-
-        Player player;
-        if (text[0].equals("Friendly")) {
-            player = p1;
-        }
-        else if (text[0].equals("Enemy")) {
-            player = p2;
-        }
-        else player = null;
-
-        return MasterTargeter.CustomTarget(player,text[1], aura.getTribe(),aura.getLink());
-    }
-
-    private void modifyWhere(LinkedList<Card> where, String[] text, int increment) {
-
-        for (Card card: where) {
-            if(text[0].equals("Attack")) {
-                if (card instanceof Minion) {
-                    Minion minion =(Minion)card;
-                    minion.addAtk(increment);
-                }
-            }
-            else if(text[0].equals("Health")) {
-                if (card instanceof Minion) {
-                    Minion minion = (Minion) card;
-                    minion.addMaxHP(increment);
-                    minion.addHp(increment);
-                }
-            }
-            else if(text[0].equals("Attack/Health")) {
-                if (card instanceof Minion) {
-                    Minion minion = (Minion) card;
-                    minion.addMaxHP(increment);
-                    minion.addHp(increment);
-                    minion.addAtk(increment);
-                }
-            }
-            else if(text[0].equals("Cost")) {
-                card.addCost(increment);
-            }
-        }
-
-    }
-
-    private int getIncrement(String[] text) {
-
-        int increment = Integer.parseInt(text[2]);
-        if(text[1].charAt(0) ==  '-') {
-            increment = increment - (2*increment);
-        }
-        return increment;
-    }
-
-    public void removeAura(Aura aura) {
-
-        if (checkAlive(aura));
-        else {
-
-            LinkedList<Card> where = determineWhere(aura);
-            String[] text = aura.getEffect().split(" ");
-            int increment = getIncrement(text);
-            increment = increment - (2*increment);
-            modifyWhere(where, text, increment);
-        }
-    }
-
-    private boolean checkAlive(Aura aura) {
-
-        return !aura.getLink().isDead() && aura.getLink().getProperties().contains(Keywords.AURA);
-    }
-
-    public void addAura(Aura aura) {
-
-        auras.add(aura);
-        applyAura(aura);
-    }
-
-    private void startMulligan() {
+    public void startMulligan() {
 
         p1.mulligan("first");
         p2.mulligan("second");
@@ -222,7 +136,7 @@ public class BoardState {
         System.out.println("Index start at 0 as the hero, then left ---> right of the board starting at 1");
     }
 
-    private void playerTurn(boolean canPlay) {
+    public void playerTurn(boolean canPlay, int turnNumber) {
 
         Player playerTurn = p2;
         if (canPlay) {
@@ -233,7 +147,7 @@ public class BoardState {
         helpMessage();
         long startTime = System.nanoTime();
         long estimatedTime = System.nanoTime() - startTime;
-        System.out.print("> ");
+
         playerTurnLoop(playerTurn, canPlay, startTime, estimatedTime);
     }
 
@@ -241,9 +155,10 @@ public class BoardState {
 
         while (player.getPlayerInput().hasNext() && estimatedTime <= TIME_LIMIT ) {
 
-            if (estimatedTime == ROPE) {
+            if (estimatedTime >= ROPE) {
                 System.out.println("tsssss");
             }
+            System.out.print("> ");
             String line = player.getPlayerInput().nextLine();
             if (!canPlay) {
                 System.out.println(line);
@@ -258,11 +173,14 @@ public class BoardState {
 
             estimatedTime = System.nanoTime() - startTime;
         }
+        for (Minion minion: player.getPlayerSide()) {
+            if (minion.getProperties().contains(Keywords.SUMMONSICKNESS)) {
+                minion.getProperties().remove(Keywords.SUMMONSICKNESS);
+            }
+        }
     }
 
-    //Maybe TODO this entire thing but I'm prolly the only one that's going to use it so maybe it stays shitty
     private void commands(Player player, String[] fields) {
-
         switch (fields[0]) {
             case HELP:
                 helpMessage();
@@ -276,75 +194,12 @@ public class BoardState {
                 System.out.println("Sorry there are no settings yet :(");
                 break;
             case PEEK:
-                switch (fields[1]) {
-                    case "enemy":
-                        switch (fields[2]) {
-                            case "hand":
-                                System.out.println("Your opponent has " + findEnemy(player).getHand().size() + " cards in their hand.");
-                                break;
-                            case "deck":
-                                System.out.println("Your opponent has " + findEnemy(player).getDeck().size() + " cards in their deck.");
-                                break;
-                            case "board":
-                                System.out.println("Enemy Board:");
-                                for (Card card : findEnemy(player).getPlayerSide()) {
-                                    System.out.print(card);
-                                }
-                                System.out.println();
-                                System.out.println("Your Board:");
-                                for (Card card : player.getPlayerSide()) {
-                                    System.out.print(card);
-                                }
-                                break;
-                            default:
-                                System.out.println("Unrecognized command " + fields);
-                                break;
-                        }
-                        break;
-                    case "hand":
-                        for (Card card : player.getHand()) {
-                            System.out.println(card);
-                        }
-                        break;
-                    case "deck":
-                        System.out.println("You have has " + findEnemy(player).getDeck().size() + " cards in your deck.");
-                        break;
-                    case "board":
-                        System.out.println("Enemy Board:");
-                        for (Card card : findEnemy(player).getPlayerSide()) {
-                            System.out.print(card);
-                        }
-                        System.out.println();
-                        System.out.println("Your Board:");
-                        for (Card card : player.getPlayerSide()) {
-                            System.out.print(card);
-                        }
-                        break;
-                    default:
-                        System.out.println("Unrecognized command " + fields);
-                        break;
-                }
-                break;
+                playerPeek(player, fields);
             case ATTACK:
-                if (fields[1].equals("0")) {
-                    player.getHero().heroAttack(findEnemy(player), Integer.parseInt(fields[2]));
-                } else {
-                    Minion minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
-                    MasterTargeter.Main(findEnemy(player), Integer.parseInt(fields[2]), 0, minion, false);
-                }
-                //TODO Complete rework of playCard
+                playerAttacks(player, fields);
                 break;
             case PLAY:
-                if (fields[1].matches("[0-9]")) {
-                    Card card = player.getHand().get(Integer.parseInt(fields[1]) - 1);
-                    player.playCard(card, Integer.parseInt(fields[2]), this);
-                } else {
-                    for (Card card : player.getHand()) {
-                        if (fields[1].equals(card.getName())) {
-                            player.playCard(card, Integer.parseInt(fields[2]), this);
-                        }
-                    }
-                }
+                playerPlaysACard(player, fields);
                 break;
             default:
                 System.out.println("Unrecognized command " + fields[0]);
@@ -353,24 +208,106 @@ public class BoardState {
 
     }
 
+    private void playerAttacks(Player player, String[] fields) {
+        if (fields[1].equals("0")) {
+            player.getHero().heroAttack(findEnemy(player), Integer.parseInt(fields[2]));
+        }
+        else {
+            Minion minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
+            MasterTargeter.Main(findEnemy(player), Integer.parseInt(fields[2]), 0, minion, false);
+        }
+    }
+
+    private void playerPlaysACard(Player player, String[] fields) {
+        if (fields[1].matches("[0-9]")) {
+            Card card = player.getHand().get(Integer.parseInt(fields[1]) - 1);
+            player.playCard(card, Integer.parseInt(fields[2]), this);
+        }
+        else {
+            for (Card card : player.getHand()) {
+                if (fields[1].equals(card.getName())) {
+                    player.playCard(card, Integer.parseInt(fields[2]), this);
+                }
+            }
+        }
+    }
+
+    public void playerPeek(Player player, String[] fields) {
+        switch (fields[1]) {
+            case "enemy":
+                switch (fields[2]) {
+                    case "hand":
+                        System.out.println("Your opponent has " + findEnemy(player).getHand().size() + " cards in their hand.");
+                        break;
+                    case "deck":
+                        System.out.println("Your opponent has " + findEnemy(player).getDeck().size() + " cards in their deck.");
+                        break;
+                    case "board":
+                        peekBoard(player);
+                        break;
+                    default:
+                        System.out.println("Unrecognized command " + fields);
+                        break;
+                }
+                break;
+            case "hand":
+                peekYourHand(player);
+                break;
+            case "deck":
+                System.out.println("You have has " + findEnemy(player).getDeck().size() + " cards in your deck.");
+                break;
+            case "board":
+                peekBoard(player);
+                break;
+            default:
+                System.out.println("Unrecognized command " + fields);
+                break;
+        }
+    }
+
+    public void peekYourHand(Player player) {
+        System.out.println("Your Hand:");
+        for (Card card : player.getHand()) {
+            System.out.println(card);
+        }
+    }
+
+    public void peekBoard(Player player) {
+        System.out.println("Enemy Board:");
+        System.out.println();
+        System.out.println(findEnemy(player).getHero());
+        for (Card card : findEnemy(player).getPlayerSide()) {
+            System.out.print(card);
+        }
+        System.out.println();
+        System.out.println("Your Board:");
+        System.out.println();
+        System.out.println(player.getHero());
+        for (Card card : player.getPlayerSide()) {
+            System.out.print(card);
+        }
+    }
+
+
+
     public void Main(String[] args) {
 
         BoardState theGame = new BoardState(args[0], args[1], args[2], args[3], args[4], args[5]);
 
         boolean whoCanPlay = true;
-        String p1Name = theGame.p1.getName();
-        String p2Name = theGame.p2.getName();
-        String p1Hero = theGame.p1.getHero().getName();
-        String p2Hero = theGame.p2.getHero().getName();
-
+        String p1Name = theGame.getP1().getName();
+        String p2Name = theGame.getP2().getName();
+        String p1Hero = theGame.getP1().getHero().getName();
+        String p2Hero = theGame.getP2().getHero().getName();
 
         System.out.println("Hello " + p1Name + ", you are playing as " +  p1Hero + ",\n Your enemy " +
                 p2Name + ", is playing as " + p2Hero);
         theGame.startMulligan();
+        int turnNumber = 0;
 
         while(!hasWon()) {
-
-            playerTurn(whoCanPlay);
+            turnNumber += 1;
+            playerTurn(whoCanPlay, turnNumber);
             whoCanPlay = !whoCanPlay;
         }
 

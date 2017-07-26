@@ -38,6 +38,7 @@ public class ShatteredSunCleric extends Minion {
 
     // Give +1/+1 to a friendly
     public void battlecry(BoardState board, Player player, int index) {
+        
         if (properties.contains(Keywords.BATTLECRY)) {
             if (Targeting.characterTargeting(owner, index, true)) {
                 Minion minion = owner.getPlayerSide().get(index);

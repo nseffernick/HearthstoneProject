@@ -55,7 +55,7 @@ public class VentureCoMerc extends Minion {
     public void createAura(BoardState board) {
 
         Aura thisAura = new GrimscaleOracleAura(this, "Grimscale Oracle Aura");
-        board.addAura(thisAura);
+        owner.addAura(thisAura);
     }
 
 }

@@ -35,9 +35,9 @@ public class RaidLeader extends Minion {
         properties.add(Keywords.AURA);
     }
 
-    public void createAura(BoardState board) {
+    public void createAura() {
         Aura thisAura = new RaidLeaderAura(this, "Raid Leader Aura");
-        board.addAura(thisAura);
+        owner.addAura(thisAura);
     }
 
 }

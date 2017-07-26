@@ -35,8 +35,7 @@ public class GurubashiBerserker extends Minion {
     }
 
     @Override
-    public void enrage() {
-        this.addAtk(3);
+    public void onHit() {
+        addAtk(3);
     }
-
 }

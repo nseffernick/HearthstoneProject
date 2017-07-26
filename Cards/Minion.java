@@ -1,5 +1,6 @@
 package Cards;
 
+import Game.Auras.Aura;
 import Game.BoardState;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -68,7 +69,21 @@ public abstract class Minion extends Card {
     // Important that addHp is +=
     public void addHp(int set) {
         hp += set;
-        if (hp > maxHP) {
+        if (set < 0) {
+            onHit();
+            if (isDead()) {
+                if (properties.contains(Keywords.AURA)) {
+                    for (Aura aura: owner.getAuras()) {
+                        if (aura.getLink() == this) {
+                            owner.removeAura(aura);
+                            break;
+                        }
+                    }
+                }
+                owner.placeCardInGraveyard(this);
+            }
+        }
+        else if (hp > maxHP) {
             int hpDiff = hp - maxHP;
             hp -= hpDiff;
         }
@@ -94,7 +109,7 @@ public abstract class Minion extends Card {
                     System.out.println("Your minion has already attacked!");
                     return false;
                 }
-                if (!summonSickness(turnsPast)) {
+                if (properties.contains(Keywords.SUMMONSICKNESS)) {
                     if (properties.contains(Keywords.CHARGE)) {
                         return true;
                     }
@@ -103,16 +118,13 @@ public abstract class Minion extends Card {
                         return false;
                     }
                 }
+                return true;
             }
             System.out.println("Your minion must have more than 0 attack.");
             return false;
         }
         System.out.println("Your minion can't attack!");
         return false;
-    }
-
-    private boolean summonSickness(int turnsPast) {
-        return (turnsPast > 0);
     }
 
     private boolean hasAttacked(int timesAttacked) {
@@ -140,7 +152,7 @@ public abstract class Minion extends Card {
         return false;
     }
 
-    public void createAura(BoardState board) {}
+    public void createAura() {}
 
     public void onHit() {
 
@@ -162,7 +174,7 @@ public abstract class Minion extends Card {
         return String.format("%1$"+length+ "s", string);
     }
 
-    //15x43
+    //15x43 optimized for acidic swamp ooze
     public String toString() {
         String s1 = "  ____________________________________   \n";
         String s2 = fixedLengthString("| Cost: " + cost + "                            |   \n", 43);
