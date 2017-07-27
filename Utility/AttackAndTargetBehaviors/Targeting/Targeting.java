@@ -1,6 +1,6 @@
 package Utility.AttackAndTargetBehaviors.Targeting;
 
-import Cards.Minion;
+import Cards.Structure.Minion;
 import Game.Player.Player;
 import Utility.Keywords.Keywords;
 

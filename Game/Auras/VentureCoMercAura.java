@@ -1,7 +1,6 @@
 package Game.Auras;
 
-import Cards.Minion;
-import Utility.Tribes.Tribe;
+import Cards.Structure.Minion;
 
 /**
  * Created by Cheech on 6/26/2017.

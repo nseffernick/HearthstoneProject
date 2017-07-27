@@ -1,6 +1,6 @@
 package Utility.UtilityMethods;
 
-import Cards.Card;
+import Cards.Structure.Card;
 
 import java.util.*;
 

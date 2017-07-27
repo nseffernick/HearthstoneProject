@@ -1,6 +1,7 @@
 package Utility.AttackAndTargetBehaviors.Damaging;
 
-import Cards.Minion;
+import Cards.Structure.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -17,7 +18,7 @@ public class Damaging {
      * @param index
      * @param dmg
      */
-    public static void damageCharacter(Player target, int index, int dmg) {
+    public static void damageCharacter(Player target, int index, int dmg, BoardState board) {
         if (index == -1) {
             // if the hero is getting healed
             if (dmg < 0) {
@@ -38,21 +39,21 @@ public class Damaging {
                     dmg = target.getPlayerSide().get(index).getMaxHP() -
                             target.getPlayerSide().get(index).getHp();
                 }
-                target.getPlayerSide().get(index).addHp(dmg);
+                target.getPlayerSide().get(index).addHp(dmg, board);
             }
             else {
-                target.getPlayerSide().get(index).addHp(-dmg);
+                target.getPlayerSide().get(index).addHp(-dmg, board);
             }
         }
     }
     
-    public static void minionCombat(Player target, int index, Minion minion) {
+    public static void minionCombat(Player target, int index, Minion minion, BoardState board) {
         if (index == -1) {
             target.getHero().addHp(-minion.getAtk());
         }
         else {
-            target.getPlayerSide().get(index).addHp(-minion.getAtk());
-            minion.addHp(-target.getPlayerSide().get(index).getAtk());
+            target.getPlayerSide().get(index).addHp(-minion.getAtk(), board);
+            minion.addHp(-target.getPlayerSide().get(index).getAtk(), board);
         }
     }
 

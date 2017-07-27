@@ -1,8 +1,8 @@
 package Game.Player;
 
-import Cards.Card;
-import Cards.Minion;
-import Cards.Spell;
+import Cards.Structure.Card;
+import Cards.Structure.Minion;
+import Cards.Structure.Spell;
 import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
@@ -15,8 +15,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
-
-import static sun.audio.AudioPlayer.player;
 
 /**
  * The player's internal settings like the name, fatigue.
@@ -162,7 +160,7 @@ public class Player {
      * Runs the mulligan phase
      * @param position - is the player first or second
      */
-    public void mulligan(String position) {
+    public void mulligan(String position, BoardState board) {
 
         Scanner chooseCard = new Scanner(System.in);
         int i = 0;
@@ -170,9 +168,9 @@ public class Player {
 
         if (position.equals("first")) {
             System.out.println("You are going first.");
-            drawCard();
-            drawCard();
-            drawCard();
+            drawCard(board);
+            drawCard(board);
+            drawCard(board);
             System.out.println("Choose which cards to put back in your deck.");
             for (Card card: hand) {
                 if (mulliganHelper(card, chooseCard)) {
@@ -182,7 +180,7 @@ public class Player {
                 i += 1;
             }
             while (mullCount > 0){
-                drawCard();
+                drawCard(board);
                 mullCount -= 1;
             }
             rng.shuffle(this.deck);
@@ -190,10 +188,10 @@ public class Player {
 
         else {
             System.out.println("You are going second.");
-            drawCard();
-            drawCard();
-            drawCard();
-            drawCard();
+            drawCard(board);
+            drawCard(board);
+            drawCard(board);
+            drawCard(board);
             System.out.println("Choose which cards to put back in your deck.");
             for (Card card: hand) {
                 if (mulliganHelper(card, chooseCard)) {
@@ -203,7 +201,7 @@ public class Player {
                 i += 1;
             }
             while (mullCount > 0){
-                drawCard();
+                drawCard(board);
                 mullCount -= 1;
             }
             rng.shuffle(this.deck);
@@ -222,15 +220,15 @@ public class Player {
         return false;
     }
 
-    private void applyAura(Aura aura) {
+    private void applyAura(Aura aura, BoardState board) {
 
-        LinkedList<Card> where = determineWhere(aura);
+        LinkedList<Card> where = determineWhere(aura, board);
         String[] text = aura.getEffect().split(" ");
         int increment = getIncrement(text);
-        modifyWhere(where, text, increment);
+        modifyWhere(where, text, increment, board);
     }
 
-    private LinkedList<Card> determineWhere(Aura aura) {
+    private LinkedList<Card> determineWhere(Aura aura, BoardState board) {
 
         String[] text = aura.getWhere().split(" ");
 
@@ -239,14 +237,14 @@ public class Player {
             player = this;
         }
         else if (text[0].equals("Enemy")) {
-            player = BoardState.findEnemy(this);
+            player = board.findEnemy(this);
         }
         else player = null;
 
-        return MasterTargeter.CustomTarget(player,text[1], aura.getTribe(),aura.getLink());
+        return MasterTargeter.CustomTarget(player,text[1], aura.getTribe(), aura.getLink());
     }
 
-    private void modifyWhere(LinkedList<Card> where, String[] text, int increment) {
+    private void modifyWhere(LinkedList<Card> where, String[] text, int increment, BoardState board) {
 
         for (Card card: where) {
             if(text[0].equals("Attack")) {
@@ -259,14 +257,14 @@ public class Player {
                 if (card instanceof Minion) {
                     Minion minion = (Minion) card;
                     minion.addMaxHP(increment);
-                    minion.addHp(increment);
+                    minion.addHp(increment, board);
                 }
             }
             else if(text[0].equals("Attack/Health")) {
                 if (card instanceof Minion) {
                     Minion minion = (Minion) card;
                     minion.addMaxHP(increment);
-                    minion.addHp(increment);
+                    minion.addHp(increment, board);
                     minion.addAtk(increment);
                 }
             }
@@ -285,14 +283,14 @@ public class Player {
         return increment;
     }
 
-    public void removeAura(Aura aura) {
+    public void removeAura(Aura aura, BoardState board) {
         if (checkForAura(aura));
         else {
-            LinkedList<Card> where = determineWhere(aura);
+            LinkedList<Card> where = determineWhere(aura, board);
             String[] text = aura.getEffect().split(" ");
             int increment = getIncrement(text);
             increment = increment - (2*increment);
-            modifyWhere(where, text, increment);
+            modifyWhere(where, text, increment, board);
         }
     }
 
@@ -300,9 +298,9 @@ public class Player {
         return !aura.getLink().isDead() && aura.getLink().getProperties().contains(Keywords.AURA);
     }
 
-    public void addAura(Aura aura) {
+    public void addAura(Aura aura, BoardState board) {
         auras.add(aura);
-        applyAura(aura);
+        applyAura(aura, board);
     }
 
     /**
@@ -312,7 +310,6 @@ public class Player {
      * A player cannot play a minion if the board space will be full when summoned
      * @param card - card player is playing from hand
      */
-    //TODO promptbattlecryindex
     public void playCard(Card card, int index, BoardState board) {
 
         if (playerSide.size() < BOARD_SLOTS) {
@@ -321,8 +318,8 @@ public class Player {
             if (card instanceof Minion) {
                 Minion minion = (Minion)(card);
                 minion.getProperties().add(Keywords.SUMMONSICKNESS);
-                minion.createAura();
-                minion.battlecry(board, this, promptBattlecryIndex(board));
+                minion.createAura(board);
+                minion.battlecry(board, this, promptTargetIndex(board));
                 checkBoardForDead();
                 if (playerSide.isEmpty()) {
                     playerSide.add(minion);
@@ -336,7 +333,7 @@ public class Player {
         }
     }
 
-    private int promptBattlecryIndex(BoardState board) {
+    private int promptTargetIndex(BoardState board) {
 
         if (playerInput.hasNext()) {
             board.peekYourHand(this);
@@ -365,7 +362,7 @@ public class Player {
      * Draws card from deck
      * Accounts for max hand size of 10
      */
-    public void drawCard() {
+    public void drawCard(BoardState board) {
 
         if (!deck.isEmpty()) {
             Card card = deck.remove();
@@ -393,10 +390,9 @@ public class Player {
     /**
      * Casts heropower
      * @param player
-     * @param index
      */
-    public void heroPower(Player player, int index) {
-        heroPower.Cast(player, index);
+    public void heroPower(Player player, BoardState board) {
+        heroPower.Cast(player, promptTargetIndex(board), board);
     }
 
     public void checkBoardForDead() {

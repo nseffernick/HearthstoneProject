@@ -1,12 +1,13 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
-import Cards.Card;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.HealingTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.SearingTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.StoneclawTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.WrathOfAir;
-import Cards.Minion;
+import Cards.Structure.Card;
+import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.HealingTotem;
+import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.SearingTotem;
+import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.StoneclawTotem;
+import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.WrathOfAir;
+import Cards.Structure.Minion;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class TotemicCall extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
+    public void Cast(Player player, int index, BoardState board) {
         shamanHeroPowerRoll(player);
         wasCast = true;
     }

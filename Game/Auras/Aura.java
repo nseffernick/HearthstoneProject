@@ -1,9 +1,6 @@
 package Game.Auras;
 
-import Cards.Minion;
-import Game.BoardState;
-import Game.Player.Player;
-import Utility.Keywords.Keywords;
+import Cards.Structure.Minion;
 import Utility.Tribes.Tribe;
 
 /**

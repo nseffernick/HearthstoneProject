@@ -1,15 +1,12 @@
 package Game;
 
-import Cards.Card;
-import Cards.Minion;
+import Cards.Structure.Card;
+import Cards.Structure.Minion;
 import Game.Player.*;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Keywords.Keywords;
-import Utility.Logger.BoardLogger;
 
-import java.util.LinkedList;
-import java.util.Scanner;
-
+import java.util.Observable;
 
 /**
  * ME 3/19/17
@@ -17,7 +14,7 @@ import java.util.Scanner;
  * Takes care of time constraints, starts and ends turns, access to all
  * players, mulligan phase.
  */
-public class BoardState {
+public class BoardState extends Observable {
 
     // Constants
     private final int TIME_LIMIT = 1001;
@@ -41,21 +38,27 @@ public class BoardState {
     public final static String QUIT = "quit";
     /** the pass command */
     public final static String PASS = "pass";
+    /** the heropower command */
+    public final static String HEROPOWER = "heropower";
 
     // State
     private static Player p1;
     private static Player p2;
 
     public BoardState(String deck1, String deck2, String hero1, String hero2, String name1, String name2) {
-
         Player p1 = new Player(deck1, hero1, name1);
         Player p2 = new Player(deck2, hero2, name2);
     }
 
     public BoardState(BoardState board) {
-
         Player p1 = board.getP1();
         Player p2 = board.getP2();
+    }
+
+    public BoardState(String params) {
+        String[] p = params.split(" ");
+        Player p1 = new Player(p[0], p[1], p[2]);
+        Player p2 = new Player(p[3], p[4], p[5]);
     }
 
     public Player getP1() {
@@ -86,8 +89,8 @@ public class BoardState {
 
     public void startMulligan() {
 
-        p1.mulligan("first");
-        p2.mulligan("second");
+        p1.mulligan("first", this);
+        p2.mulligan("second", this);
     }
 
     /**
@@ -97,7 +100,7 @@ public class BoardState {
      */
     private void startTurn(Player player) {
 
-        player.drawCard();
+        player.drawCard(this);
         if (!(player.getManaCyrstals() == 10)) {
             player.addManaCrystals(1);
         }
@@ -201,6 +204,9 @@ public class BoardState {
             case PLAY:
                 playerPlaysACard(player, fields);
                 break;
+            case HEROPOWER:
+                playerCastsHeroPower(player);
+                break;
             default:
                 System.out.println("Unrecognized command " + fields[0]);
                 break;
@@ -208,13 +214,17 @@ public class BoardState {
 
     }
 
+    private void playerCastsHeroPower(Player player) {
+        player.heroPower(player, this);
+    }
+
     private void playerAttacks(Player player, String[] fields) {
         if (fields[1].equals("0")) {
-            player.getHero().heroAttack(findEnemy(player), Integer.parseInt(fields[2]));
+            player.getHero().heroAttack(findEnemy(player), Integer.parseInt(fields[2]), this);
         }
         else {
             Minion minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
-            MasterTargeter.Main(findEnemy(player), Integer.parseInt(fields[2]), 0, minion, false);
+            MasterTargeter.Main(findEnemy(player), Integer.parseInt(fields[2]), 0, minion, false, this);
         }
     }
 

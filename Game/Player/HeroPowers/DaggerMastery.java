@@ -1,6 +1,7 @@
 package Game.Player.HeroPowers;
 
-import Cards.Classic.Uncollectible.Weapons.WickedKnife;
+import Cards.Expansions.Classic.Uncollectible.Weapons.WickedKnife;
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -9,7 +10,7 @@ import Game.Player.Player;
 public class DaggerMastery extends HeroPower {
 
     @Override
-    public void Cast(Player player, int index) {
+    public void Cast(Player player, int index, BoardState board) {
         player.getHero().setWeapon(new WickedKnife(player));
         wasCast = true;
     }

@@ -1,5 +1,6 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -13,7 +14,7 @@ public class ArmorUp extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
+    public void Cast(Player player, int index, BoardState board) {
         player.getHero().addArmor(2);
         wasCast = true;
     }

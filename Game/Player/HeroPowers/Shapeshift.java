@@ -1,5 +1,6 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -12,7 +13,7 @@ public class Shapeshift extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
+    public void Cast(Player player, int index, BoardState board) {
         player.getHero().addAtk(1);
         player.getHero().addArmor(1);
         wasCast = true;

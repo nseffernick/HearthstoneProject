@@ -1,5 +1,6 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 
@@ -13,8 +14,8 @@ public class Fireblast extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        MasterTargeter.Main(player, index, 1, null, false);
+    public void Cast(Player player, int index, BoardState board) {
+        MasterTargeter.Main(player, index, 1, null, false , board);
         wasCast = true;
     }
 }

@@ -1,7 +1,8 @@
 package Game.Player;
 
-import Cards.Weapon;
-import Cards.Classic.Uncollectible.Weapons.*;
+import Cards.Structure.Weapon;
+import Cards.Expansions.Classic.Uncollectible.Weapons.*;
+import Game.BoardState;
 import Game.Player.HeroPowers.*;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
@@ -128,13 +129,13 @@ public class Hero {
      * @param target
      * @param index
      */
-    public void heroAttack(Player target, int index) {
+    public void heroAttack(Player target, int index, BoardState board) {
         if (atk > 0) {
             if (index < 0) {
                 target.getHero().hp -= atk;
             }
             else {
-                target.getPlayerSide().get(index).addHp(-atk);
+                target.getPlayerSide().get(index).addHp(-atk, board);
                 if (properties.contains(Keywords.IMMUNE));
                 else {
                     hp -= target.getPlayerSide().get(index).getAtk();

@@ -1,8 +1,9 @@
 package Utility.AttackAndTargetBehaviors;
 
-import Cards.Card;
+import Cards.Structure.Card;
+import Game.BoardState;
 import Game.Player.Player;
-import Cards.Minion;
+import Cards.Structure.Minion;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 import Utility.Tribes.Tribe;
@@ -17,10 +18,10 @@ import java.util.LinkedList;
 public class MasterTargeter {
 
     public static void Main(Player player, int index, int dmg,
-                            Minion minion, boolean battlecry) {
+                            Minion minion, boolean battlecry, BoardState board) {
         if (dmg == 0) {
             if (Targeting.minionTargeting(player, index)) {
-                Damaging.minionCombat(player, index, minion);
+                Damaging.minionCombat(player, index, minion, board);
             }
             else {
                 // do something here to allow them to still target
@@ -29,7 +30,7 @@ public class MasterTargeter {
         }
         else {
             if (Targeting.characterTargeting(player, index, battlecry)) {
-                Damaging.damageCharacter(player, index, dmg);
+                Damaging.damageCharacter(player, index, dmg, board);
             }
             else {
                 // do something here to allow them to still target
@@ -38,12 +39,12 @@ public class MasterTargeter {
         }
     }
 
-    public static void TargetAll(boolean withHero, Player player, int dmg) {
+    public static void TargetAll(boolean withHero, Player player, int dmg, BoardState board) {
         if (withHero) {
-            Damaging.damageCharacter(player, -1, dmg);
+            Damaging.damageCharacter(player, -1, dmg, board);
         }
         for (int i = 0; i < player.getPlayerSide().size() - 1; i++) {
-            Damaging.damageCharacter(player, i, dmg);
+            Damaging.damageCharacter(player, i, dmg, board);
         }
     }
 

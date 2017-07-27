@@ -1,6 +1,7 @@
 package Game.Player.HeroPowers;
 
-import Cards.Classic.Uncollectible.Tokens.SilverHand;
+import Cards.Expansions.Classic.Uncollectible.Tokens.SilverHand;
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -13,7 +14,7 @@ public class Reinforce extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
+    public void Cast(Player player, int index, BoardState board) {
         player.summonCard(new SilverHand(player));
         wasCast = true;
     }
