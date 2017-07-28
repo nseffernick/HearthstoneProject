@@ -36,9 +36,10 @@ public class StormpikeCommando extends Minion {
     }
 
     // Deal two damage
-    public void battlecry(BoardState board, Player player, int index) {
+    @Override
+    public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player, index, 2, null, true);
+            MasterTargeter.Main(player, player.promptTargetIndex(board, 0), 2, null, true, board);
         }
     }
 }

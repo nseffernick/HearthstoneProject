@@ -21,15 +21,15 @@ public class Jaraxxus extends Minion {
     private String name = "Jaraxxus";
     private String text = "Battlecry: Destroy your hero and replace it with" +
             "Lord Jaraxxus";
+    protected Rarity rarity = Rarity.LEGENDARY;
+    protected Tribe tribe = Tribe.GENERAL;
+    protected HeroClass heroClass = HeroClass.NEUTRAL;
     private ArrayList<Keywords> properties = new ArrayList<>();
 
-    public Jaraxxus(int hp, int atk, int cost, String name, String text, Player player,
-                    ArrayList<Keywords> properties) {
+    public Jaraxxus(Player player) {
 
-        super(hp, atk, cost, name, player, text, Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, properties);
-
-        properties.add(Keywords.DELTACOST);
-
+        super(15, 3, 9, "Jaraxxus", player, "Battlecry: Destroy your hero and " +
+                        "replace it with Lord Jaraxxus", Rarity.LEGENDARY,
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<>());
     }
 }

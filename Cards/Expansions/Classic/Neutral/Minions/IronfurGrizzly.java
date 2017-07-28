@@ -19,7 +19,7 @@ public class IronfurGrizzly extends Minion {
     protected int atk = 3;
     protected int cost = 3;
     protected String name = "Ironfur Grizzly";
-    protected String text = "";
+    protected String text = "Taunt";
     protected Rarity rarity = Rarity.BASIC;
     protected Tribe tribe = Tribe.BEAST;
     protected HeroClass heroClass = HeroClass.NEUTRAL;
@@ -27,7 +27,7 @@ public class IronfurGrizzly extends Minion {
 
     public IronfurGrizzly(Player owner) {
 
-        super(3, 3, 3, "Ironfur Grizzly", owner,"", Rarity.BASIC,
+        super(3, 3, 3, "Ironfur Grizzly", owner,"Taunt", Rarity.BASIC,
                 Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

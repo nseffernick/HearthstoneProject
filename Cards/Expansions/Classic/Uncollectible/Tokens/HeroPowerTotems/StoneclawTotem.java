@@ -24,7 +24,7 @@ public class StoneclawTotem extends Minion {
 
     public StoneclawTotem(Player player) {
 
-        super(2, 0, 1, "Stoneclaw Totem", player, "", Rarity.BASIC, Tribe.TOTEM,
+        super(2, 0, 1, "Stoneclaw Totem", player, "Taunt", Rarity.BASIC, Tribe.TOTEM,
                 HeroClass.SHAMAN, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

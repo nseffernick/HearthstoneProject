@@ -19,7 +19,7 @@ public class OgreMagi extends Minion {
     protected int atk = 4;
     protected int cost = 4;
     protected String name = "Ogre Magi";
-    protected String text = "";
+    protected String text = "Spell Damage +1";
     protected Rarity rarity = Rarity.BASIC;
     protected Tribe tribe = Tribe.GENERAL;
     protected HeroClass heroClass = HeroClass.NEUTRAL;
@@ -27,7 +27,7 @@ public class OgreMagi extends Minion {
 
     public OgreMagi(Player owner) {
 
-        super(4, 4, 4, "Ogre Magi", owner,"", Rarity.BASIC,
+        super(4, 4, 4, "Ogre Magi", owner,"Spell Damage +1", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.SPELLDAMAGE);
     }

@@ -24,7 +24,7 @@ public class WrathOfAir extends Minion {
 
     public WrathOfAir(Player player) {
 
-        super(2, 0, 1, "Wrath of Air Totem", player, "", Rarity.BASIC,
+        super(2, 0, 1, "Wrath of Air Totem", player, "Spell Damage +1", Rarity.BASIC,
                 Tribe.TOTEM, HeroClass.SHAMAN, new ArrayList<Keywords>());
         properties.add(Keywords.SPELLDAMAGE);
     }

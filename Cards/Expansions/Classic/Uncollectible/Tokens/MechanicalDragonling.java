@@ -16,7 +16,7 @@ public class MechanicalDragonling extends Minion {
 
     // State
     public int hp = 1;
-    public int atk = 1;
+    public int atk = 2;
     public int cost = 1;
     public String name = "Mechanical Dragonling";
     private String text = "";
@@ -27,7 +27,7 @@ public class MechanicalDragonling extends Minion {
 
     public MechanicalDragonling(Player owner) {
 
-        super(1, 1, 1, "Mechanical Dragonling", owner,"", Rarity.BASIC,
+        super(1, 2, 1, "Mechanical Dragonling", owner,"", Rarity.BASIC,
                 Tribe.MECH, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 }

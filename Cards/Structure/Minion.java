@@ -46,6 +46,12 @@ public abstract class Minion extends Card {
         this.properties = properties;
     }
 
+    //Copy constructor
+    public Minion(Minion minion) {
+        super(minion);
+
+    }
+
     public int getHp() {
         return hp;
     }
@@ -170,7 +176,7 @@ public abstract class Minion extends Card {
 
     }
 
-    public void battlecry(BoardState board, Player player, int index) {
+    public void battlecry(BoardState board, Player player) {
 
     }
 
@@ -178,24 +184,25 @@ public abstract class Minion extends Card {
         return String.format("%1$"+length+ "s", string);
     }
 
-    //15x43 optimized for acidic swamp ooze
+    //15x43 (optimized for acidic swamp ooze)
     public String toString() {
-        String s1 = "  ____________________________________   \n";
+        String s1 = "____________________________________   \n";
         String s2 = fixedLengthString("| Cost: " + cost + "                            |   \n", 43);
-        String s3 = fixedLengthString(" | Name: " + name + "            |   \n", 43);
+        String s3 = fixedLengthString("| Name:             " + name + "|   \n", 43);
         String s4 = fixedLengthString("|                                    |   \n", 43);
         String s5 = fixedLengthString("|                                    |   \n", 43);
-        String s6 = fixedLengthString("|                                    |   \n", 43);
-        String s7 = fixedLengthString("|                                    |   \n", 43);
         String s8 = fixedLengthString("|                                    |   \n", 43);
-        String s9 = fixedLengthString(" | " + text + " |   \n", 43);
-        String s10 = fixedLengthString("| " + tribe + "                            |   \n", 43);
+        String s9;
+        if (text.equals("")) { s9 = fixedLengthString("|                                    |   \n", 43);}
+        else { s9 = fixedLengthString(" | " + text + "|   \n", 43); }
+        String s10;
+        if (tribe == Tribe.GENERAL) { s10 = fixedLengthString("|                                    |   \n", 43); }
+        else { s10 = fixedLengthString("|               " + tribe + "                |   \n", 43); }
         String s11 = fixedLengthString("|                                    |   \n", 43);
         String s12 = fixedLengthString("| Attack: " + atk + "                          |   \n", 43);
         String s13 = fixedLengthString("| Health: " + hp + "                          |   \n", 43);
-        String s14 = fixedLengthString("|                                    |   \n", 43);
         String s15 = fixedLengthString("|____________________________________|   \n", 43);
-        String cardDesc = s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8 + s9 + s10 + s11 + s12 + s13 + s14 + s15;
+        String cardDesc = s1 + s2 + s3 + s4 + s5 + s8 + s9 + s10 + s11 + s12 + s13 + s15;
         return cardDesc;
     }
         /*

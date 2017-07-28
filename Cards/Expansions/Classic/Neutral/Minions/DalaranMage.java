@@ -19,7 +19,7 @@ public class DalaranMage extends Minion {
     protected int atk = 1;
     protected int cost = 3;
     protected String name = "Dalaran Mage";
-    protected String text = "";
+    protected String text = "Spell Damage +1";
     protected Rarity rarity = Rarity.BASIC;
     protected Tribe tribe = Tribe.GENERAL;
     protected HeroClass heroClass = HeroClass.NEUTRAL;
@@ -27,7 +27,7 @@ public class DalaranMage extends Minion {
 
     public DalaranMage(Player owner) {
 
-        super(4, 1, 3, "Dalaran Mage", owner,"", Rarity.BASIC,
+        super(4, 1, 3, "Dalaran Mage", owner,"Spell Damage +1", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.SPELLDAMAGE);
     }

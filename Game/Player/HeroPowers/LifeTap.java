@@ -15,7 +15,7 @@ public class LifeTap extends HeroPower {
     @Override
     public void Cast(Player player, int index, BoardState board) {
         player.getHero().addHp(-2);
-        player.drawCard();
+        player.drawCard(board);
         wasCast = true;
     }
 }

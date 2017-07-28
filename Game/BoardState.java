@@ -5,6 +5,7 @@ import Cards.Structure.Minion;
 import Game.Player.*;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Keywords.Keywords;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.Observable;
 
@@ -42,8 +43,8 @@ public class BoardState extends Observable {
     public final static String HEROPOWER = "heropower";
 
     // State
-    private static Player p1;
-    private static Player p2;
+    private Player p1;
+    private Player p2;
 
     public BoardState(String deck1, String deck2, String hero1, String hero2, String name1, String name2) {
         Player p1 = new Player(deck1, hero1, name1);
@@ -78,13 +79,6 @@ public class BoardState extends Observable {
             return p1;
         }
         else return p2;
-    }
-
-    public static Player findEnemy(Player player) {
-        if (player.equals(p1)) {
-            return p2;
-        }
-        else return p1;
     }
 
     public void startMulligan() {
@@ -220,11 +214,11 @@ public class BoardState extends Observable {
 
     private void playerAttacks(Player player, String[] fields) {
         if (fields[1].equals("0")) {
-            player.getHero().heroAttack(findEnemy(player), Integer.parseInt(fields[2]), this);
+            player.getHero().heroAttack(UtilityMethods.findEnemy(this, player), Integer.parseInt(fields[2]), this);
         }
         else {
             Minion minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
-            MasterTargeter.Main(findEnemy(player), Integer.parseInt(fields[2]), 0, minion, false, this);
+            MasterTargeter.Main(UtilityMethods.findEnemy(this, player), Integer.parseInt(fields[2]), 0, minion, false, this);
         }
     }
 
@@ -247,10 +241,10 @@ public class BoardState extends Observable {
             case "enemy":
                 switch (fields[2]) {
                     case "hand":
-                        System.out.println("Your opponent has " + findEnemy(player).getHand().size() + " cards in their hand.");
+                        System.out.println("Your opponent has " + UtilityMethods.findEnemy(this, player).getHand().size() + " cards in their hand.");
                         break;
                     case "deck":
-                        System.out.println("Your opponent has " + findEnemy(player).getDeck().size() + " cards in their deck.");
+                        System.out.println("Your opponent has " + UtilityMethods.findEnemy(this, player).getDeck().size() + " cards in their deck.");
                         break;
                     case "board":
                         peekBoard(player);
@@ -264,7 +258,7 @@ public class BoardState extends Observable {
                 peekYourHand(player);
                 break;
             case "deck":
-                System.out.println("You have has " + findEnemy(player).getDeck().size() + " cards in your deck.");
+                System.out.println("You have has " + UtilityMethods.findEnemy(this, player).getDeck().size() + " cards in your deck.");
                 break;
             case "board":
                 peekBoard(player);
@@ -285,8 +279,8 @@ public class BoardState extends Observable {
     public void peekBoard(Player player) {
         System.out.println("Enemy Board:");
         System.out.println();
-        System.out.println(findEnemy(player).getHero());
-        for (Card card : findEnemy(player).getPlayerSide()) {
+        System.out.println(UtilityMethods.findEnemy(this, player).getHero());
+        for (Card card : UtilityMethods.findEnemy(this, player).getPlayerSide()) {
             System.out.print(card);
         }
         System.out.println();
@@ -300,7 +294,7 @@ public class BoardState extends Observable {
 
 
 
-    public void Main(String[] args) {
+    public static void Main(String[] args) {
 
         BoardState theGame = new BoardState(args[0], args[1], args[2], args[3], args[4], args[5]);
 
@@ -315,13 +309,13 @@ public class BoardState extends Observable {
         theGame.startMulligan();
         int turnNumber = 0;
 
-        while(!hasWon()) {
+        while(!theGame.hasWon()) {
             turnNumber += 1;
-            playerTurn(whoCanPlay, turnNumber);
+            theGame.playerTurn(whoCanPlay, turnNumber);
             whoCanPlay = !whoCanPlay;
         }
 
-        Player theyWon = whoWon();
+        Player theyWon = theGame.whoWon();
         System.out.println(theyWon.getName() + " is victorious!");
         System.out.println("(fireworks explode... confetti litters the screen)");
     }

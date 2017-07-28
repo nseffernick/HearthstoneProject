@@ -35,6 +35,18 @@ public abstract class Card {
         this.owner = owner;
     }
 
+    // Copy constructor
+    public Card(Card copyCard) {
+        this.cost = copyCard.cost;
+        this.rarity = copyCard.rarity;
+        this.name = copyCard.name;
+        this.text = copyCard.text;
+        this.heroClass = copyCard.heroClass;
+        this.properties = new ArrayList<>();
+        properties.addAll(copyCard.properties);
+        this.owner = copyCard.owner;
+    }
+
     public int getCost() {
         return cost;
     }

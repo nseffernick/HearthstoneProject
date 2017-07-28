@@ -28,14 +28,15 @@ public class GnomishInventor extends Minion {
 
     public GnomishInventor(Player owner) {
 
-        super(7, 6, 6, "Gnomish Inventor", owner,"Battlecry: Draw a Card", Rarity.BASIC,
+        super(4, 2, 6, "Gnomish Inventor", owner,"Battlecry: Draw a Card", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
 
-    public void battlecry(BoardState board, Player player, int index) {
+    @Override
+    public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            owner.drawCard();
+            owner.drawCard(board);
         }
     }
 }

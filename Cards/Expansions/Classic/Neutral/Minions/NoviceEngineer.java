@@ -33,9 +33,10 @@ public class NoviceEngineer extends Minion {
         properties.add(Keywords.BATTLECRY);
     }
 
-    public void battlecry(BoardState board, Player player, int index) {
+    @Override
+    public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            owner.drawCard();
+            owner.drawCard(board);
         }
     }
 }

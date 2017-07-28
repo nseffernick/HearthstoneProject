@@ -20,7 +20,7 @@ public class FrostwolfWarlord extends Minion {
     protected int atk = 4;
     protected int cost = 5;
     protected String name = "Frostwolf Warlord";
-    protected String text = "";
+    protected String text = "Battlecry: Gain +X/+X for each friendly minion on the board";
     protected Rarity rarity = Rarity.BASIC;
     protected Tribe tribe = Tribe.GENERAL;
     protected HeroClass heroClass = HeroClass.NEUTRAL;
@@ -28,17 +28,19 @@ public class FrostwolfWarlord extends Minion {
 
     public FrostwolfWarlord(Player owner) {
 
-        super(4, 4, 5, "Frostwolf Warlord", owner,"", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        super(4, 4, 5, "Frostwolf Warlord", owner,
+                "Battlecry: Gain +X/+X for each " + "friendly minion on the board", Rarity.BASIC, Tribe.GENERAL,
+                HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
 
-    public void battlecry(BoardState board, Player player, int index) {
+    @Override
+    public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            int set = board.findEnemy(owner).getPlayerSide().size();
+            int set = player.getPlayerSide().size();
             addAtk(set);
             addMaxHP(set);
-            addHp(set);
+            addHp(set, board);
         }
     }
 }

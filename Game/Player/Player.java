@@ -8,8 +8,10 @@ import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Keywords.Keywords;
+import Utility.UtilityMethods.UtilityMethods;
 import Utility.UtilityMethods.hsCeption;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -237,7 +239,7 @@ public class Player {
             player = this;
         }
         else if (text[0].equals("Enemy")) {
-            player = board.findEnemy(this);
+            player = UtilityMethods.findEnemy(board, this);
         }
         else player = null;
 
@@ -319,7 +321,7 @@ public class Player {
                 Minion minion = (Minion)(card);
                 minion.getProperties().add(Keywords.SUMMONSICKNESS);
                 minion.createAura(board);
-                minion.battlecry(board, this, promptTargetIndex(board));
+                minion.battlecry(board, this);
                 checkBoardForDead();
                 if (playerSide.isEmpty()) {
                     playerSide.add(minion);
@@ -333,7 +335,7 @@ public class Player {
         }
     }
 
-    private int promptTargetIndex(BoardState board) {
+    public int promptTargetIndex(BoardState board, int targetType) {
 
         if (playerInput.hasNext()) {
             board.peekYourHand(this);
@@ -341,6 +343,25 @@ public class Player {
             System.out.println("What index would you like to target:");
             System.out.print("> ");
             int battlecryIndex = playerInput.nextInt();
+            // Conditions where the battlecry won't work
+            // Enemy Board
+            if (targetType == 1) {
+                if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty()) {
+                    return 10;
+                }
+            }
+            // Friendly Board
+            else if (targetType == 2) {
+                if (playerSide.isEmpty()) {
+                    return 10;
+                }
+            }
+            // All Board
+            else if (targetType == 3) {
+                if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty() && playerSide.isEmpty()) {
+                    return 10;
+                }
+            }
             return battlecryIndex;
         }
         return 0;
@@ -392,7 +413,7 @@ public class Player {
      * @param player
      */
     public void heroPower(Player player, BoardState board) {
-        heroPower.Cast(player, promptTargetIndex(board), board);
+        heroPower.Cast(player, promptTargetIndex(board, 0), board);
     }
 
     public void checkBoardForDead() {
@@ -423,8 +444,11 @@ public class Player {
         }
     }
 
-    public static void Main() {
+    public static void main(String[] args) {
 
-        //Player player1 = new Player(, "Paladin", "CheechX2")
+        String decklist = UtilityMethods.fileParser("C:/Users/NSeffernick/Documents/TestFiles/Test1.txt");
+
+        Player player1 = new Player(decklist, "Paladin", "CheechX2");
+        System.out.println(player1.getDeck());
     }
 }

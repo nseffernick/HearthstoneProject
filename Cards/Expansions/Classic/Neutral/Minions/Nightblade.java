@@ -36,9 +36,10 @@ public class Nightblade extends Minion {
     }
 
     // Deal three damage to hero
-    public void battlecry(BoardState board, Player player, int index) {
+    @Override
+    public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(board.findEnemy(owner), -1, 3, null, true);
+            MasterTargeter.Main(board.findEnemy(owner), -1, 3, null, true, board);
         }
     }
 }

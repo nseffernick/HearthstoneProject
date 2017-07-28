@@ -7,6 +7,7 @@ import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.Keywords.Keywords;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -37,9 +38,10 @@ public class AcidicSwampOoze extends Minion {
     /**
      * Destroy the opponent's weapon
      */
-    public void battlecry(BoardState board, Player player, int index) {
+    @Override
+    public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            board.findEnemy(owner).getHero().setWeapon(null);
+            UtilityMethods.findEnemy(board, owner).getHero().setWeapon(null);
         }
     }
 
