@@ -20,7 +20,7 @@ public class MasterTargeter {
     public static void Main(Player player, int index, int dmg,
                             Minion minion, boolean battlecry, BoardState board) {
         if (dmg == 0) {
-            if (Targeting.minionTargeting(player, index)) {
+            if (Targeting.minionTargeting(player, index, minion)) {
                 Damaging.minionCombat(player, index, minion, board);
             }
             else {

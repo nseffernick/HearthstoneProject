@@ -13,9 +13,14 @@ public class Shapeshift extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
         player.getHero().addAtk(1);
         player.getHero().addArmor(1);
         wasCast = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Shapeshift - Gain 1 attack Gain 1 Armor \nCost " + cost + " mana";
     }
 }

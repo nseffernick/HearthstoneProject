@@ -14,9 +14,13 @@ public class ArmorUp extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
         player.getHero().addArmor(2);
         wasCast = true;
     }
 
+    @Override
+    public String toString() {
+        return "Armor Up - Gain 2 Armor \nCost " + cost + " Mana";
+    }
 }

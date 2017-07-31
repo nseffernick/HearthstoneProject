@@ -13,9 +13,14 @@ public class LifeTap extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
         player.getHero().addHp(-2);
         player.drawCard(board);
         wasCast = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Life Tap - Take 2 damage Draw a Card \nCost " + cost + "Mana";
     }
 }

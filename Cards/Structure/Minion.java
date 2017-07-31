@@ -108,7 +108,7 @@ public abstract class Minion extends Card {
     }
 
     // Checks various properties that would prevent the minion from attacking.
-    private boolean canAttack(int turnsPast, int timesAttacked) {
+    public boolean canAttack(int timesAttacked) {
         if (properties.contains(Keywords.CANTATTACK)) {
             if (atk > 0) {
                 if (properties.contains(Keywords.FREEZE)) {

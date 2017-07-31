@@ -14,7 +14,8 @@ public class LightningJolt extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
+        int index = player.promptTargetIndex(board, 0);
         MasterTargeter.Main(player, index, 2, null, false, board);
         wasCast = true;
     }

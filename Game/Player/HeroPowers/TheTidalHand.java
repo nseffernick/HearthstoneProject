@@ -14,7 +14,7 @@ public class TheTidalHand extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
         player.summonCard(new SilverHandMurloc(player));
         wasCast = true;
     }

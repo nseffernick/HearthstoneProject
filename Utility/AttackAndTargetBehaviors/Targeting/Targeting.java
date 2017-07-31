@@ -12,28 +12,32 @@ import java.util.ArrayList;
 public class Targeting {
 
     // If a minion is attacking use this to check.
-    public static boolean minionTargeting(Player target, int index) {
-        if (thereAreMinions(target)) {
-            ArrayList<Integer> taunts = findKeyword(target, Keywords.TAUNT);
-            if (!taunts.isEmpty()) {
-                return checkTauntMinions(taunts, index, target);
-            }
-            if (index == -1) {
-                return checkImmuneHero(target);
-            }
-            else {
-                System.out.println("There is no minion at that index!");
-                return false;
+    //TODO finish canAttack minion
+    public static boolean minionTargeting(Player target, int index, Minion minion) {
+        if (minion.canAttack(0)) {
+            if (thereAreMinions(target)) {
+                ArrayList<Integer> taunts = findKeyword(target, Keywords.TAUNT);
+                if (!taunts.isEmpty()) {
+                    return checkTauntMinions(taunts, index, target);
+                }
+                if (index == -1) {
+                    return checkImmuneHero(target);
+                } else {
+                    System.out.println("There is no minion at that index!");
+                    return false;
+                }
+            } else {
+                if (index == -1) {
+                    return checkImmuneHero(target);
+                } else {
+                    System.out.println("You must go FACE!");
+                    return false;
+                }
             }
         }
         else {
-            if (index == -1) {
-                return checkImmuneHero(target);
-            }
-            else {
-                System.out.println("You must go FACE!");
-                return false;
-            }
+            System.out.println("Minion attack failed...");
+            return false;
         }
     }
 

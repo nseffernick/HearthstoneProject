@@ -21,7 +21,7 @@ public class TotemicCall extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
         shamanHeroPowerRoll(player);
         wasCast = true;
     }
@@ -65,4 +65,8 @@ public class TotemicCall extends HeroPower {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Totemic Call - Summon a random Totem \nCost " + cost + " mana";
+    }
 }

@@ -14,8 +14,13 @@ public class SteadyShot extends HeroPower{
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
         MasterTargeter.Main(player, -1, 2, null, false, board);
         wasCast = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Steady Shot - Deal 2 damage to the enemy hero \nCost " + cost + " mana";
     }
 }

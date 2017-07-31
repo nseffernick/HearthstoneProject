@@ -201,7 +201,6 @@ public class Hero {
 
     /**
      * Now with custom bm!
-     * @param bm
      */
     public void emote(String bm) {
 
@@ -209,9 +208,16 @@ public class Hero {
 
     /**
      * Maybe should be more descriptive in the future for testing
-     * @return
      */
     public String toString() {
-        return name;
+        String weaponString;
+        if (weapon == null) {
+            weaponString = "No Weapon";
+        }
+        else {
+            weaponString = weapon.toString();
+        }
+        return name + "\n" + heroClass + "\nHP: " + hp + "/" + maxHP + "\nArmor: " + armor +
+                "\nAttack: " + atk + "\nWeapon: " + weaponString;
     }
 }

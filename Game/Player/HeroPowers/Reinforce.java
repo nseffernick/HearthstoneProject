@@ -14,8 +14,12 @@ public class Reinforce extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index, BoardState board) {
+    public void Cast(Player player, BoardState board) {
         player.summonCard(new SilverHand(player));
         wasCast = true;
+    }
+
+    public String toString() {
+        return "Reinforce - Summon a 1/1 Silver Hand Recruit \nCost two mana";
     }
 }

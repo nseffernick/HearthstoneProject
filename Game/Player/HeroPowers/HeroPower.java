@@ -24,6 +24,6 @@ public abstract class HeroPower {
         return wasCast;
     }
 
-    public abstract void Cast(Player player, int index, BoardState board);
+    public abstract void Cast(Player player, BoardState board);
 
 }

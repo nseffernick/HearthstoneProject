@@ -9,13 +9,18 @@ import Game.Player.Player;
  */
 public class DaggerMastery extends HeroPower {
 
-    @Override
-    public void Cast(Player player, int index, BoardState board) {
-        player.getHero().setWeapon(new WickedKnife(player));
-        wasCast = true;
-    }
     public DaggerMastery() {
         super();
     }
 
+    @Override
+    public void Cast(Player player, BoardState board) {
+        player.getHero().setWeapon(new WickedKnife(player));
+        wasCast = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Dagger Mastery - Equip a 1/2 Wicked Dagger \nCost " + cost + " Mana";
+    }
 }

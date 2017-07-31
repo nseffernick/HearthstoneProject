@@ -8,6 +8,7 @@ import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.Keywords.Keywords;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class DarkscaleHealer extends Minion {
     @Override
     public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.TargetAll(true, board.findEnemy(owner), -2, board);
+            MasterTargeter.TargetAll(true, UtilityMethods.findEnemy(board, player), -2, board);
         }
     }
 }

@@ -62,6 +62,11 @@ public class BoardState extends Observable {
         Player p2 = new Player(p[3], p[4], p[5]);
     }
 
+    public BoardState(Player p1, Player p2) {
+        this.p1 = p1;
+        this.p2 = p2;
+    }
+
     public Player getP1() {
         return p1;
     }
@@ -82,9 +87,8 @@ public class BoardState extends Observable {
     }
 
     public void startMulligan() {
-
-        p1.mulligan("first", this);
-        p2.mulligan("second", this);
+        p1.mulligan(p1, this);
+        p2.mulligan(p2, this);
     }
 
     /**
@@ -106,31 +110,34 @@ public class BoardState extends Observable {
     }
 
     private void helpMessage() {
-
+        System.out.println();
         System.out.println("command () {} {} (): <--- is a command " +
                 "(optional command modifiers) {required command modifiers}");
         System.out.println();
 
-        System.out.println("help: displays this message");
+        System.out.println("help: displays this message \n");
 
-        System.out.println("peek (enemy) {hand, deck, board}: see details of your/enemy hand/deck/board");
+        System.out.println("peek (enemy) {hand, deck, board, hero, heropower}: " +
+                "see details of your/enemy hand/deck/board... \n");
 
-        System.out.println("settings: display game settings (not implemented yet)");
+        System.out.println("settings: display game settings (not implemented yet) \n");
 
-        System.out.println("concede: give your opponent victory");
+        System.out.println("concede: give your opponent victory \n");
 
-        System.out.println("quit: exits the program (may result, currently would, result in a loss");
+        System.out.println("quit: exits the program (may result, currently would, result in a loss \n");
 
-        System.out.println("pass: pass your turn to the opponent");
+        System.out.println("pass: pass your turn to the opponent \n");
 
         System.out.println("play {hand index, card name} (if a minion{'left', 'right', board index}):");
         System.out.println("Hand/board index goes left ---> right starting from 1," +
                 " card name should be as displayed on the card");
-        System.out.println("'left' and 'right' put minion at the edges");
+        System.out.println("'left' and 'right' put minion at the edges \n");
 
         System.out.println("attack {board index, name} {board index, name}: " +
                 "Choose a minion or hero to attack an enemy minion or hero");
-        System.out.println("Index start at 0 as the hero, then left ---> right of the board starting at 1");
+        System.out.println("Index start at 0 as the hero, then left ---> right of the board starting at 1 \n");
+
+        System.out.println("heropower: Cast your Hero Power \n");
     }
 
     public void playerTurn(boolean canPlay, int turnNumber) {
@@ -150,17 +157,15 @@ public class BoardState extends Observable {
 
     private void playerTurnLoop(Player player, boolean canPlay, long startTime, long estimatedTime) {
 
-        while (player.getPlayerInput().hasNext() && estimatedTime <= TIME_LIMIT ) {
+        while (1 == 1) {
+            System.out.println("Time remaining: " + (1000 - estimatedTime) + " seconds remaining.");
 
             if (estimatedTime >= ROPE) {
                 System.out.println("tsssss");
             }
             System.out.print("> ");
             String line = player.getPlayerInput().nextLine();
-            if (!canPlay) {
-                System.out.println(line);
-            }
-            String fields[] = line.split("\\s+");
+            String fields[] = line.split(" ");
 
             if (fields[0].equals(PASS)) {
                 System.out.println(player.getName() + " ends their turn!");
@@ -192,6 +197,7 @@ public class BoardState extends Observable {
                 break;
             case PEEK:
                 playerPeek(player, fields);
+                break;
             case ATTACK:
                 playerAttacks(player, fields);
                 break;
@@ -209,6 +215,8 @@ public class BoardState extends Observable {
     }
 
     private void playerCastsHeroPower(Player player) {
+        System.out.println(player.getHeroPower());
+        System.out.println();
         player.heroPower(player, this);
     }
 
@@ -249,6 +257,12 @@ public class BoardState extends Observable {
                     case "board":
                         peekBoard(player);
                         break;
+                    case "hero":
+                        System.out.println(UtilityMethods.findEnemy(this, player).getHero());
+                        break;
+                    case "heropower":
+                        System.out.println(UtilityMethods.findEnemy(this, player).getHeroPower());
+                        break;
                     default:
                         System.out.println("Unrecognized command " + fields);
                         break;
@@ -262,6 +276,12 @@ public class BoardState extends Observable {
                 break;
             case "board":
                 peekBoard(player);
+                break;
+            case "hero":
+                System.out.println(player.getHero());
+                break;
+            case "heropower":
+                System.out.println(player.getHeroPower());
                 break;
             default:
                 System.out.println("Unrecognized command " + fields);
@@ -279,14 +299,15 @@ public class BoardState extends Observable {
     public void peekBoard(Player player) {
         System.out.println("Enemy Board:");
         System.out.println();
-        System.out.println(UtilityMethods.findEnemy(this, player).getHero());
+        System.out.println(UtilityMethods.findEnemy(this, player).getName());
         for (Card card : UtilityMethods.findEnemy(this, player).getPlayerSide()) {
             System.out.print(card);
         }
         System.out.println();
         System.out.println("Your Board:");
         System.out.println();
-        System.out.println(player.getHero());
+        System.out.println(player.getName());
+        System.out.println();
         for (Card card : player.getPlayerSide()) {
             System.out.print(card);
         }
@@ -294,9 +315,15 @@ public class BoardState extends Observable {
 
 
 
-    public static void Main(String[] args) {
+    public static void main(String[] args) {
 
-        BoardState theGame = new BoardState(args[0], args[1], args[2], args[3], args[4], args[5]);
+        String decklist = UtilityMethods.fileParser("C:/Users/NSeffernick/Documents/TestFiles/Test1.txt");
+        String decklist2 = UtilityMethods.fileParser("C:/Users/NSeffernick/Documents/TestFiles/Test1.txt");
+
+        Player player1 = new Player(decklist, "Paladin", "CheechX2");
+        Player player2 = new Player(decklist2, "Mage", "CheechX3");
+
+        BoardState theGame = new BoardState(player1, player2);
 
         boolean whoCanPlay = true;
         String p1Name = theGame.getP1().getName();
@@ -304,9 +331,8 @@ public class BoardState extends Observable {
         String p1Hero = theGame.getP1().getHero().getName();
         String p2Hero = theGame.getP2().getHero().getName();
 
-        System.out.println("Hello " + p1Name + ", you are playing as " +  p1Hero + ",\n Your enemy " +
-                p2Name + ", is playing as " + p2Hero);
-        theGame.startMulligan();
+        System.out.println("Hello " + p1Name + ", you are playing as " +  p1Hero + ",\nYour enemy " +
+                p2Name + ", is playing as " + p2Hero + ".\n");
         int turnNumber = 0;
 
         while(!theGame.hasWon()) {

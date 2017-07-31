@@ -34,9 +34,9 @@ public class UtilityMethods {
     }
 
     public static Player findEnemy(BoardState board, Player player) {
-        if (board.getP1().equals(player)) {
-            return board.getP1();
+        if (player.equals(board.getP1())) {
+            return board.getP2();
         }
-        else return board.getP2();
+        else return board.getP1();
     }
 }

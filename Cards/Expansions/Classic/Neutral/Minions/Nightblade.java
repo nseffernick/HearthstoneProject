@@ -8,6 +8,7 @@ import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class Nightblade extends Minion {
     @Override
     public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(board.findEnemy(owner), -1, 3, null, true, board);
+            MasterTargeter.Main(UtilityMethods.findEnemy(board, player), -1, 3, null, true, board);
         }
     }
 }

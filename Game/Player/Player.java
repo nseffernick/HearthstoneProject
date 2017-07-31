@@ -3,6 +3,7 @@ package Game.Player;
 import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
+import Cards.Structure.Weapon;
 import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
@@ -11,7 +12,6 @@ import Utility.Keywords.Keywords;
 import Utility.UtilityMethods.UtilityMethods;
 import Utility.UtilityMethods.hsCeption;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -160,66 +160,101 @@ public class Player {
 
     /**
      * Runs the mulligan phase
-     * @param position - is the player first or second
      */
-    public void mulligan(String position, BoardState board) {
+    public void mulligan(Player player, BoardState board) {
 
-        Scanner chooseCard = new Scanner(System.in);
+        Scanner chooseCard = playerInput;
+
         int i = 0;
+        int pos = 0;
         int mullCount = 0;
 
-        if (position.equals("first")) {
+        if (player == board.getP1()) {
+            int[] intArr = {12, 21, 23};
             System.out.println("You are going first.");
             drawCard(board);
             drawCard(board);
             drawCard(board);
             System.out.println("Choose which cards to put back in your deck.");
-            for (Card card: hand) {
-                if (mulliganHelper(card, chooseCard)) {
-                    deck.add(hand.remove(i));
+            System.out.println();
+            while (pos < hand.size()) {
+                String answer = mulliganHelper(this, chooseCard);
+                if (answer.equals("Y")) {
                     mullCount += 1;
+                    intArr[pos] = i;
                 }
-                i += 1;
+                else if (answer.equals("N")) {
+                    intArr[pos] = -1;
+                    i += 1;
+                }
+                pos += 1;
             }
             while (mullCount > 0){
                 drawCard(board);
                 mullCount -= 1;
             }
+            pos = 0;
+            while (intArr.length > pos) {
+                if (intArr[pos] == -1);
+                else {
+                    Card card = hand.remove(intArr[pos]);
+                    deck.add(card);
+                }
+                pos += 1;
+            }
             rng.shuffle(this.deck);
+            System.out.println(hand);
         }
 
         else {
+            int[] intArr = {12, 21, 23, 232};
             System.out.println("You are going second.");
             drawCard(board);
             drawCard(board);
             drawCard(board);
             drawCard(board);
             System.out.println("Choose which cards to put back in your deck.");
-            for (Card card: hand) {
-                if (mulliganHelper(card, chooseCard)) {
-                    deck.add(hand.remove(i));
+            System.out.println();
+            while (pos < hand.size()) {
+                String answer = mulliganHelper(this, chooseCard);
+                if (answer.equals("Y")) {
                     mullCount += 1;
+                    intArr[pos] = i;
                 }
-                i += 1;
+                else if (answer.equals("N")) {
+                    intArr[pos] = -1;
+                    i += 1;
+                }
+                pos += 1;
             }
             while (mullCount > 0){
                 drawCard(board);
                 mullCount -= 1;
             }
+            pos = 0;
+            while (intArr.length > pos) {
+                if (intArr[pos] == -1);
+                else {
+                    Card card = hand.remove(intArr[pos]);
+                    deck.add(card);
+                }
+                pos += 1;
+            }
             rng.shuffle(this.deck);
+            System.out.println(hand);
         }
     }
 
-    private boolean mulliganHelper(Card card, Scanner choose) {
-        System.out.println("Mull back " + card + "?  (Y/N)");
-        if (choose.next().equals("Y") || choose.next().equals("y")) {
-            return true;
+    private String mulliganHelper(Player player, Scanner choose) {
+        System.out.println("Mull back the cards with answers in order of what they are shown:\n" +
+                "Ex: 'Y' <press enter> means you mull back the first card,\n'N' <press enter> after that means you " +
+                "keep the second card and so on and so forth.\n(Y/N are valid responses)");
+        System.out.println();
+        for (Card card: player.getHand()) {
+            System.out.println(card);
         }
-        else if (choose.next().equals("N") || choose.next().equals("n")) {
-            return false;
-        }
-        System.out.println("Use correct response next time.");
-        return false;
+        System.out.println();
+        return choose.next();
     }
 
     private void applyAura(Aura aura, BoardState board) {
@@ -332,39 +367,40 @@ public class Player {
             else if (card instanceof Spell) {
                 Spell spell = (Spell)(card);
             }
+            else if (card instanceof Weapon) {
+                Weapon weapon = (Weapon) (card);
+            }
         }
     }
 
     public int promptTargetIndex(BoardState board, int targetType) {
-
-        if (playerInput.hasNext()) {
-            board.peekYourHand(this);
-            board.peekBoard(this);
-            System.out.println("What index would you like to target:");
-            System.out.print("> ");
-            int battlecryIndex = playerInput.nextInt();
-            // Conditions where the battlecry won't work
-            // Enemy Board
-            if (targetType == 1) {
-                if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty()) {
-                    return 10;
-                }
+        // Conditions where the battlecry won't work
+        // Enemy Minions
+        if (targetType == 1) {
+            if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty()) {
+                return 10;
             }
-            // Friendly Board
-            else if (targetType == 2) {
-                if (playerSide.isEmpty()) {
-                    return 10;
-                }
-            }
-            // All Board
-            else if (targetType == 3) {
-                if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty() && playerSide.isEmpty()) {
-                    return 10;
-                }
-            }
-            return battlecryIndex;
         }
-        return 0;
+        // Friendly Minions
+        else if (targetType == 2) {
+            if (playerSide.isEmpty()) {
+                return 10;
+            }
+        }
+        // All Board
+        else if (targetType == 3) {
+            if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty() && playerSide.isEmpty()) {
+                return 10;
+            }
+        }
+        board.peekYourHand(this);
+        board.peekBoard(this);
+        System.out.println();
+        System.out.println("What index would you like to target:");
+        System.out.println("-1 to target the hero, 1-7 left to target minions ");
+        System.out.print("> ");
+        int battlecryIndex = playerInput.nextInt();
+        return battlecryIndex;
     }
 
     /**
@@ -413,7 +449,7 @@ public class Player {
      * @param player
      */
     public void heroPower(Player player, BoardState board) {
-        heroPower.Cast(player, promptTargetIndex(board, 0), board);
+        heroPower.Cast(player, board);
     }
 
     public void checkBoardForDead() {
@@ -444,11 +480,24 @@ public class Player {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Player) {
+            Player ifSamePlayer = (Player) obj;
+            return this.name.equals(ifSamePlayer.name);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         String decklist = UtilityMethods.fileParser("C:/Users/NSeffernick/Documents/TestFiles/Test1.txt");
+        String decklist2 = UtilityMethods.fileParser("C:/Users/NSeffernick/Documents/TestFiles/Test1.txt");
 
         Player player1 = new Player(decklist, "Paladin", "CheechX2");
-        System.out.println(player1.getDeck());
+        Player player2 = new Player(decklist2, "Warlock", "CheechX3");
+
+        BoardState theBoardState = new BoardState(player1, player2);
+        theBoardState.startMulligan();
     }
 }
