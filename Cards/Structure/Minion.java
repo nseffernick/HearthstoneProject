@@ -108,14 +108,15 @@ public abstract class Minion extends Card {
     }
 
     // Checks various properties that would prevent the minion from attacking.
-    public boolean canAttack(int timesAttacked) {
-        if (properties.contains(Keywords.CANTATTACK)) {
+    public boolean canAttack() {
+        System.out.println(properties);
+        if (!properties.contains(Keywords.CANTATTACK)) {
             if (atk > 0) {
                 if (properties.contains(Keywords.FREEZE)) {
                     System.out.println("Your minion is frozen!");
                     return false;
                 }
-                if (hasAttacked(timesAttacked)) {
+                if (hasAttacked()) {
                     System.out.println("Your minion has already attacked!");
                     return false;
                 }
@@ -137,11 +138,17 @@ public abstract class Minion extends Card {
         return false;
     }
 
-    private boolean hasAttacked(int timesAttacked) {
-        if (timesAttacked >= 1) {
+    private boolean hasAttacked() {
+        if (properties.contains(Keywords.HASATTACKED)) {
             if (properties.contains(Keywords.WINDFURY)) {
-                if (timesAttacked == 2) {
-                    return true;
+                int atkCount = 0;
+                for (Keywords keywords : properties) {
+                    if (keywords == Keywords.HASATTACKED) {
+                        atkCount += 1;
+                    }
+                    if (atkCount == 2) {
+                        return true;
+                    }
                 }
                 return false;
             }

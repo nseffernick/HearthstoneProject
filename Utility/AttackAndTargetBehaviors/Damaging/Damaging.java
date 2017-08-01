@@ -20,30 +20,10 @@ public class Damaging {
      */
     public static void damageCharacter(Player target, int index, int dmg, BoardState board) {
         if (index == -1) {
-            // if the hero is getting healed
-            if (dmg < 0) {
-                if (target.getHero().getHp() - dmg > target.getHero().getMaxHP()) {
-                    dmg = target.getHero().getMaxHP() - target.getHero().getHp();
-                }
-                target.getHero().addHp(dmg);
-            }
-            else {
-                target.getHero().addHp(-dmg);
-            }
+            target.getHero().addHp(-dmg);
         }
         else {
-            // If the character is getting healed
-            if (dmg < 0) {
-                if (target.getPlayerSide().get(index).getHp() - dmg >
-                        target.getPlayerSide().get(index).getMaxHP()) {
-                    dmg = target.getPlayerSide().get(index).getMaxHP() -
-                            target.getPlayerSide().get(index).getHp();
-                }
-                target.getPlayerSide().get(index).addHp(dmg, board);
-            }
-            else {
-                target.getPlayerSide().get(index).addHp(-dmg, board);
-            }
+            target.getPlayerSide().get(index).addHp(-dmg, board);
         }
     }
     

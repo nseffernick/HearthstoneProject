@@ -14,8 +14,9 @@ public class Inferno extends HeroPower{
     }
 
     @Override
-    public void Cast(Player player, BoardState board) {
-        player.summonCard(new Infernal(player));
+    public boolean Cast(Player player, BoardState board) {
+        player.summonCard(new Infernal(player), board);
         wasCast = true;
+        return true;
     }
 }

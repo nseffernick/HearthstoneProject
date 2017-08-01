@@ -12,9 +12,8 @@ import java.util.ArrayList;
 public class Targeting {
 
     // If a minion is attacking use this to check.
-    //TODO finish canAttack minion
     public static boolean minionTargeting(Player target, int index, Minion minion) {
-        if (minion.canAttack(0)) {
+        if (minion.canAttack()) {
             if (thereAreMinions(target)) {
                 ArrayList<Integer> taunts = findKeyword(target, Keywords.TAUNT);
                 if (!taunts.isEmpty()) {
@@ -22,15 +21,17 @@ public class Targeting {
                 }
                 if (index == -1) {
                     return checkImmuneHero(target);
-                } else {
-                    System.out.println("There is no minion at that index!");
-                    return false;
                 }
-            } else {
+                else {
+                    return true;
+                }
+            }
+            else {
                 if (index == -1) {
                     return checkImmuneHero(target);
-                } else {
-                    System.out.println("You must go FACE!");
+                }
+                else {
+                    System.out.println("There are no minions on the board. (go face pls :(  )");
                     return false;
                 }
             }
@@ -47,17 +48,11 @@ public class Targeting {
             if (beingElusiveMatters(elusives, battlecry)) {
                 return checkElusiveMinions(elusives, index, target);
             }
-            if (index >= -1 || index <= target.getPlayerSide().size() - 1) {
-                if (index == -1) {
-                    return checkImmuneHero(target);
-                }
-                else {
-                    return checkImmuneMinions(target, index);
-                }
+            if (index == -1) {
+                return checkImmuneHero(target);
             }
             else {
-                System.out.println("There is no minion at that index!");
-                return false;
+                return checkImmuneMinions(target, index);
             }
         }
         else {
@@ -65,7 +60,7 @@ public class Targeting {
                 return checkImmuneHero(target);
             }
             else {
-                System.out.println("You must go FACE!");
+                System.out.println("There are no minions on the board. (go face pls :(  )");
                 return false;
             }
         }

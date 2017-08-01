@@ -14,9 +14,10 @@ public class ArmorUp extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, BoardState board) {
+    public boolean Cast(Player player, BoardState board) {
         player.getHero().addArmor(2);
         wasCast = true;
+        return true;
     }
 
     @Override

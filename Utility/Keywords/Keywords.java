@@ -16,7 +16,6 @@ public enum Keywords {
     DIVINESHIELD,
     ENRAGE,
     CHARGE,
-    SUMMONSICKNESS, // cant be silenced
     ADAPT,
     FREEZE,
     IMMUNE,
@@ -32,5 +31,6 @@ public enum Keywords {
     OVERLOAD,
     CANTATTACK,
     AURA,
-    DELTACOST;
+    SUMMONSICKNESS, // cant be silenced
+    HASATTACKED;
 }

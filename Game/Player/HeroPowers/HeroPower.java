@@ -24,6 +24,8 @@ public abstract class HeroPower {
         return wasCast;
     }
 
-    public abstract void Cast(Player player, BoardState board);
+    public void refreshHeroPower() { wasCast = false; }
+
+    public abstract boolean Cast(Player player, BoardState board);
 
 }

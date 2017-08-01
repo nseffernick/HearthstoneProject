@@ -28,6 +28,7 @@ public class DarkscaleHealer extends Minion {
     protected HeroClass heroClass = HeroClass.NEUTRAL;
     protected ArrayList<Keywords> properties = new ArrayList<>();
 
+    //TODO Prolly fix this card
     public DarkscaleHealer(Player owner) {
 
         super(5, 4, 5, "Darkscale Healer", owner,
@@ -40,7 +41,7 @@ public class DarkscaleHealer extends Minion {
     @Override
     public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.TargetAll(true, UtilityMethods.findEnemy(board, player), -2, board);
+            MasterTargeter.TargetAll(true, owner, -2, board);
         }
     }
 }

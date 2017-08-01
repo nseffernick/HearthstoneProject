@@ -28,7 +28,7 @@ public class ChillwindYeti extends Minion {
 
     public ChillwindYeti(Player owner) {
 
-        super(4, 5, 4, "Chillwind Yeti", owner,"", Rarity.BASIC,
+        super(5, 4, 4, "Chillwind Yeti", owner,"", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 

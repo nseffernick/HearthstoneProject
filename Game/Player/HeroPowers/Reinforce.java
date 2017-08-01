@@ -14,9 +14,10 @@ public class Reinforce extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, BoardState board) {
-        player.summonCard(new SilverHand(player));
+    public boolean Cast(Player player, BoardState board) {
+        player.summonCard(new SilverHand(player), board);
         wasCast = true;
+        return true;
     }
 
     public String toString() {

@@ -14,9 +14,12 @@ public class SteadyShot extends HeroPower{
     }
 
     @Override
-    public void Cast(Player player, BoardState board) {
-        MasterTargeter.Main(player, -1, 2, null, false, board);
-        wasCast = true;
+    public boolean Cast(Player player, BoardState board) {
+        if(MasterTargeter.Main(player, -1, 2, null, false, board)) {
+            wasCast = true;
+            return true;
+        }
+        return false;
     }
 
     @Override

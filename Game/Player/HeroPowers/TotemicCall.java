@@ -21,12 +21,13 @@ public class TotemicCall extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, BoardState board) {
-        shamanHeroPowerRoll(player);
+    public boolean Cast(Player player, BoardState board) {
+        shamanHeroPowerRoll(player, board);
         wasCast = true;
+        return true;
     }
 
-    private void shamanHeroPowerRoll(Player player) {
+    private void shamanHeroPowerRoll(Player player, BoardState board) {
         ArrayList<Minion> canSummon = new ArrayList<>();
         Minion heal = new HealingTotem(player);
         Minion taunt = new StoneclawTotem(player);
@@ -61,7 +62,7 @@ public class TotemicCall extends HeroPower {
         if (!(canSummon.isEmpty())) {
             Minion totem = canSummon.get(player.getRng().randomNum
                     (canSummon.size()-1));
-            player.summonCard(totem);
+            player.summonCard(totem, board);
         }
     }
 

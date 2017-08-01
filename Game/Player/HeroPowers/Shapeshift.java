@@ -13,10 +13,11 @@ public class Shapeshift extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, BoardState board) {
+    public boolean Cast(Player player, BoardState board) {
         player.getHero().addAtk(1);
         player.getHero().addArmor(1);
         wasCast = true;
+        return true;
     }
 
     @Override

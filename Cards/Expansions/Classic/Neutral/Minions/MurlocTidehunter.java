@@ -38,7 +38,7 @@ public class MurlocTidehunter extends Minion {
     // Summon a 1/1 murloc
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            owner.summonCard(new MurlocScout(owner));
+            owner.summonCard(new MurlocScout(owner), board);
         }
     }
 }

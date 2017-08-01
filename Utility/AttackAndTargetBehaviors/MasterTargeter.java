@@ -17,24 +17,24 @@ import java.util.LinkedList;
  */
 public class MasterTargeter {
 
-    public static void Main(Player player, int index, int dmg,
+    public static boolean Main(Player player, int index, int dmg,
                             Minion minion, boolean battlecry, BoardState board) {
         if (dmg == 0) {
             if (Targeting.minionTargeting(player, index, minion)) {
                 Damaging.minionCombat(player, index, minion, board);
+                return true;
             }
             else {
-                // do something here to allow them to still target
-                // something else
+                return false;
             }
         }
         else {
             if (Targeting.characterTargeting(player, index, battlecry)) {
                 Damaging.damageCharacter(player, index, dmg, board);
+                return true;
             }
             else {
-                // do something here to allow them to still target
-                // something else
+                return false;
             }
         }
     }
@@ -53,9 +53,7 @@ public class MasterTargeter {
 
         LinkedList<Card> collection = new LinkedList<>();
 
-        if (player == null) {
-
-        }
+        if (player == null);
         else {
             LinkedList<Card> side = new LinkedList<>();
             if (where.equals("Board")) {

@@ -98,12 +98,12 @@ public class BoardState extends Observable {
      */
     private void startTurn(Player player) {
 
-        player.drawCard(this);
-        if (!(player.getManaCyrstals() == 10)) {
+        player.drawCard();
+        if (!(player.getManaCrystals() == 10)) {
             player.addManaCrystals(1);
         }
-        if (!(player.getMana() == player.getManaCyrstals())) {
-            int set = player.getManaCyrstals() - player.getMana();
+        if (!(player.getMana() == player.getManaCrystals())) {
+            int set = player.getManaCrystals() - player.getMana();
             player.addMana(set);
         }
         player.checkBoardForDead();
@@ -140,31 +140,31 @@ public class BoardState extends Observable {
         System.out.println("heropower: Cast your Hero Power \n");
     }
 
-    public void playerTurn(boolean canPlay, int turnNumber) {
+    public void playerTurn(boolean canPlay) {
 
-        Player playerTurn = p2;
+        Player currPlayer = p2;
         if (canPlay) {
-            playerTurn = p1;
+            currPlayer = p1;
         }
 
-        startTurn(playerTurn);
+        startTurn(currPlayer);
         helpMessage();
         long startTime = System.nanoTime();
         long estimatedTime = System.nanoTime() - startTime;
 
-        playerTurnLoop(playerTurn, canPlay, startTime, estimatedTime);
+        playerTurnLoop(currPlayer, startTime, estimatedTime);
+        removeAttackLimits(currPlayer);
     }
 
-    private void playerTurnLoop(Player player, boolean canPlay, long startTime, long estimatedTime) {
+    private void playerTurnLoop(Player player, long startTime, long estimatedTime) {
 
         while (1 == 1) {
-            System.out.println("Time remaining: " + (1000 - estimatedTime) + " seconds remaining.");
+            //System.out.println("Time remaining: " + (1000 - estimatedTime) + " seconds remaining.");
+            //if (estimatedTime >= ROPE) { System.out.println("tsssss"); }
 
-            if (estimatedTime >= ROPE) {
-                System.out.println("tsssss");
-            }
             System.out.print("> ");
             String line = player.getPlayerInput().nextLine();
+            System.out.println();
             String fields[] = line.split(" ");
 
             if (fields[0].equals(PASS)) {
@@ -173,13 +173,15 @@ public class BoardState extends Observable {
             }
             commands(player, fields);
 
-            estimatedTime = System.nanoTime() - startTime;
+            //estimatedTime = System.nanoTime() - startTime;
         }
-        for (Minion minion: player.getPlayerSide()) {
-            if (minion.getProperties().contains(Keywords.SUMMONSICKNESS)) {
-                minion.getProperties().remove(Keywords.SUMMONSICKNESS);
-            }
+    }
+
+    private void removeAttackLimits(Player player) {
+        for (Minion minion : player.getPlayerSide()) {
+            minion.getProperties().removeIf(keyword -> keyword == Keywords.HASATTACKED || keyword == Keywords.SUMMONSICKNESS);
         }
+        player.getHeroPower().refreshHeroPower();
     }
 
     private void commands(Player player, String[] fields) {
@@ -208,16 +210,24 @@ public class BoardState extends Observable {
                 playerCastsHeroPower(player);
                 break;
             default:
-                System.out.println("Unrecognized command " + fields[0]);
+                System.out.println("Unrecognized command \"" + fields[0] + "\"");
                 break;
         }
-
     }
 
     private void playerCastsHeroPower(Player player) {
         System.out.println(player.getHeroPower());
         System.out.println();
-        player.heroPower(player, this);
+        if (!(player.getHeroPower().getCost() > player.getMana())) {
+            if (!player.getHeroPower().getWasCast()) {
+                if (player.heroPower(player, this)) {
+                    player.addMana(-player.getHeroPower().getCost());
+                }
+                else System.out.println("Hero power canceled...");
+            }
+            else System.out.println("Hero power was already cast.");
+        }
+        else System.out.println("You do not have enough mana to cast your hero power.");
     }
 
     private void playerAttacks(Player player, String[] fields) {
@@ -225,8 +235,15 @@ public class BoardState extends Observable {
             player.getHero().heroAttack(UtilityMethods.findEnemy(this, player), Integer.parseInt(fields[2]), this);
         }
         else {
-            Minion minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
-            MasterTargeter.Main(UtilityMethods.findEnemy(this, player), Integer.parseInt(fields[2]), 0, minion, false, this);
+            Minion minion;
+            try {
+                minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
+                MasterTargeter.Main(UtilityMethods.findEnemy(this, player), Integer.parseInt(fields[2]) - 1, 0, minion, false, this);
+            }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid Index, Most likely issue: Size needs to be greater than index.");
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -263,8 +280,11 @@ public class BoardState extends Observable {
                     case "heropower":
                         System.out.println(UtilityMethods.findEnemy(this, player).getHeroPower());
                         break;
+                    case "info":
+                        System.out.println(UtilityMethods.findEnemy(this, player));
+                        break;
                     default:
-                        System.out.println("Unrecognized command " + fields);
+                        System.out.println("Unrecognized command \"" + fields + "\"");
                         break;
                 }
                 break;
@@ -283,8 +303,11 @@ public class BoardState extends Observable {
             case "heropower":
                 System.out.println(player.getHeroPower());
                 break;
+            case "info":
+                System.out.println(player);
+                break;
             default:
-                System.out.println("Unrecognized command " + fields);
+                System.out.println("Unrecognized command \"" + fields + "\"");
                 break;
         }
     }
@@ -297,23 +320,19 @@ public class BoardState extends Observable {
     }
 
     public void peekBoard(Player player) {
-        System.out.println("Enemy Board:");
-        System.out.println();
-        System.out.println(UtilityMethods.findEnemy(this, player).getName());
+        System.out.print(UtilityMethods.findEnemy(this, player).getName());
+        System.out.println("  Enemy Board:");
         for (Card card : UtilityMethods.findEnemy(this, player).getPlayerSide()) {
             System.out.print(card);
         }
         System.out.println();
-        System.out.println("Your Board:");
-        System.out.println();
-        System.out.println(player.getName());
-        System.out.println();
+        System.out.print(player.getName());
+        System.out.println("  Your Board:");
         for (Card card : player.getPlayerSide()) {
             System.out.print(card);
         }
+        System.out.println();
     }
-
-
 
     public static void main(String[] args) {
 
@@ -324,6 +343,8 @@ public class BoardState extends Observable {
         Player player2 = new Player(decklist2, "Mage", "CheechX3");
 
         BoardState theGame = new BoardState(player1, player2);
+        player1.addManaCrystals(8);
+        player2.addManaCrystals(8);
 
         boolean whoCanPlay = true;
         String p1Name = theGame.getP1().getName();
@@ -337,7 +358,7 @@ public class BoardState extends Observable {
 
         while(!theGame.hasWon()) {
             turnNumber += 1;
-            theGame.playerTurn(whoCanPlay, turnNumber);
+            theGame.playerTurn(whoCanPlay);
             whoCanPlay = !whoCanPlay;
         }
 

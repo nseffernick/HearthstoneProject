@@ -39,7 +39,7 @@ public class StormpikeCommando extends Minion {
     @Override
     public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player, player.promptTargetIndex(board, 0), 2, null, true, board);
+            MasterTargeter.Main(player.promptTargetPlayer(board), player.promptTargetIndex(board, 0), 2, null, true, board);
         }
     }
 }

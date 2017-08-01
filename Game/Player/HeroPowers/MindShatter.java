@@ -14,10 +14,14 @@ public class MindShatter extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, BoardState board) {
+    public boolean Cast(Player player, BoardState board) {
+        Player targetPlayer = player.promptTargetPlayer(board);
         int index = player.promptTargetIndex(board, 0);
-        MasterTargeter.Main(player, index, 2, null, false, board);
-        wasCast = true;
+        if(MasterTargeter.Main(targetPlayer, index, 2, null, false, board)) {
+            wasCast = true;
+            return true;
+        }
+        return false;
     }
 
     @Override
