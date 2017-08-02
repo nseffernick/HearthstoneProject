@@ -86,14 +86,15 @@ public abstract class Minion extends Card {
                     for (Aura aura: owner.getAuras()) {
                         if (aura.getLink() == this) {
                             owner.removeAura(aura, board);
+                            deathrattle();
                             break;
                         }
                     }
                 }
-                owner.placeCardInGraveyard(this);
+                owner.placeCardInGraveyard(this, board);
             }
         }
-        else if (hp > maxHP) {
+        if (hp > maxHP) {
             int hpDiff = hp - maxHP;
             hp -= hpDiff;
         }
@@ -157,6 +158,11 @@ public abstract class Minion extends Card {
         return false;
     }
 
+    public void destroy(BoardState board) {
+        owner.placeCardInGraveyard(this, board);
+        deathrattle();
+    }
+
     public boolean isDead() {
         return hp <= 0;
     }
@@ -183,9 +189,11 @@ public abstract class Minion extends Card {
 
     }
 
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player) { }
 
-    }
+    public void endOfTurn(BoardState board) {}
+
+    public void endOfYourTurn(BoardState board) {}
 
     public static String fixedLengthString(String string, int length) {
         return String.format("%1$"+length+ "s", string);

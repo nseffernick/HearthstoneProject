@@ -81,9 +81,9 @@ public class BoardState extends Observable {
 
     private Player whoWon() {
         if (p1.getHero().isDead()) {
-            return p1;
+            return p2;
         }
-        else return p2;
+        else return p1;
     }
 
     public void startMulligan() {
@@ -106,7 +106,7 @@ public class BoardState extends Observable {
             int set = player.getManaCrystals() - player.getMana();
             player.addMana(set);
         }
-        player.checkBoardForDead();
+        player.checkBoardForDead(this);
     }
 
     private void helpMessage() {
@@ -140,7 +140,7 @@ public class BoardState extends Observable {
         System.out.println("heropower: Cast your Hero Power \n");
     }
 
-    public void playerTurn(boolean canPlay) {
+    private void playerTurn(boolean canPlay) {
 
         Player currPlayer = p2;
         if (canPlay) {
@@ -154,11 +154,12 @@ public class BoardState extends Observable {
 
         playerTurnLoop(currPlayer, startTime, estimatedTime);
         removeAttackLimits(currPlayer);
+        doEndOfTurnEffects(currPlayer);
     }
 
     private void playerTurnLoop(Player player, long startTime, long estimatedTime) {
 
-        while (1 == 1) {
+        while (!this.hasWon()) {
             //System.out.println("Time remaining: " + (1000 - estimatedTime) + " seconds remaining.");
             //if (estimatedTime >= ROPE) { System.out.println("tsssss"); }
 
@@ -177,11 +178,31 @@ public class BoardState extends Observable {
         }
     }
 
+    private void GameLoop(BoardState theGame, boolean whoCanPlay, int turnNumber) {
+        while(!theGame.hasWon()) {
+            turnNumber += 1;
+            theGame.playerTurn(whoCanPlay);
+            whoCanPlay = !whoCanPlay;
+        }
+    }
+
     private void removeAttackLimits(Player player) {
         for (Minion minion : player.getPlayerSide()) {
             minion.getProperties().removeIf(keyword -> keyword == Keywords.HASATTACKED || keyword == Keywords.SUMMONSICKNESS);
         }
         player.getHeroPower().refreshHeroPower();
+    }
+
+    private void doEndOfTurnEffects(Player player) {
+        for (Minion minion: player.getPlayerSide()) {
+            minion.endOfYourTurn(this);
+        }
+        for (Minion minion: this.getP1().getPlayerSide()) {
+            minion.endOfTurn(this);
+        }
+        for (Minion minion: this.getP2().getPlayerSide()) {
+            minion.endOfTurn(this);
+        }
     }
 
     private void commands(Player player, String[] fields) {
@@ -190,6 +211,7 @@ public class BoardState extends Observable {
                 helpMessage();
                 break;
             case QUIT:
+                System.out.println(player.getName() + " quitting...");
                 System.exit(0);
             case CONCEDE:
                 player.concede();
@@ -248,16 +270,22 @@ public class BoardState extends Observable {
     }
 
     private void playerPlaysACard(Player player, String[] fields) {
-        if (fields[1].matches("[0-9]")) {
-            Card card = player.getHand().get(Integer.parseInt(fields[1]) - 1);
-            player.playCard(card, Integer.parseInt(fields[2]), this);
-        }
-        else {
-            for (Card card : player.getHand()) {
-                if (fields[1].equals(card.getName())) {
-                    player.playCard(card, Integer.parseInt(fields[2]), this);
+        try {
+            if (fields[1].matches("[0-9]")) {
+                Card card = player.getHand().get(Integer.parseInt(fields[1]) - 1);
+                player.playCard(card, Integer.parseInt(fields[2]), this);
+            }
+            else {
+                for (Card card : player.getHand()) {
+                    if (fields[1].equals(card.getName())) {
+                        player.playCard(card, Integer.parseInt(fields[2]), this);
+                    }
                 }
             }
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid Index, Most likely issue: Size needs to be greater than index.");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -356,11 +384,7 @@ public class BoardState extends Observable {
                 p2Name + ", is playing as " + p2Hero + ".\n");
         int turnNumber = 0;
 
-        while(!theGame.hasWon()) {
-            turnNumber += 1;
-            theGame.playerTurn(whoCanPlay);
-            whoCanPlay = !whoCanPlay;
-        }
+        theGame.GameLoop(theGame, whoCanPlay, turnNumber);
 
         Player theyWon = theGame.whoWon();
         System.out.println(theyWon.getName() + " is victorious!");

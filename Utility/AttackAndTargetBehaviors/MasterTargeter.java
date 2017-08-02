@@ -43,7 +43,7 @@ public class MasterTargeter {
         if (withHero) {
             Damaging.damageCharacter(player, -1, dmg, board);
         }
-        for (int i = 0; i < player.getPlayerSide().size() - 1; i++) {
+        for (int i = 0; i < player.getPlayerSide().size(); i++) {
             Damaging.damageCharacter(player, i, dmg, board);
         }
     }

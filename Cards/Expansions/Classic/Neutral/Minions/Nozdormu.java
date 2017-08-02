@@ -3,16 +3,13 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
+import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
 
 import java.util.ArrayList;
 
-/**
- * Representation of the Boulderfist Ogre Minion
- */
-public class BoulderfistOgre extends Minion {
+public class Nozdormu extends Minion {
 
     // State
     protected int hp;
@@ -25,10 +22,9 @@ public class BoulderfistOgre extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public BoulderfistOgre(Player owner) {
+    public Nozdormu(Player owner) {
 
-        super(7, 6, 6, "Boulderfist Ogre", owner, "", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        super(8, 8, 9, "Nozdormu", owner,"Players only have 15 seconds to take their turns.", Rarity.LEGENDARY,
+                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
-
 }

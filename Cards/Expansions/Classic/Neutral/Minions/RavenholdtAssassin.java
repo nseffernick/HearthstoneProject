@@ -3,16 +3,13 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
+import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
 
 import java.util.ArrayList;
 
-/**
- * Representation of the Boulderfist Ogre Minion
- */
-public class BoulderfistOgre extends Minion {
+public class RavenholdtAssassin  extends Minion {
 
     // State
     protected int hp;
@@ -25,10 +22,11 @@ public class BoulderfistOgre extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public BoulderfistOgre(Player owner) {
+    public RavenholdtAssassin(Player owner) {
 
-        super(7, 6, 6, "Boulderfist Ogre", owner, "", Rarity.BASIC,
+        super(5, 7, 7, "Ravenholdt Assassin", owner, "Stealth", Rarity.RARE,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        properties.add(Keywords.STEALTH);
     }
 
 }

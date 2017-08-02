@@ -1,5 +1,7 @@
 package Game.Player;
 
+import Cards.Structure.Card;
+import Cards.Structure.Minion;
 import Cards.Structure.Weapon;
 import Cards.Expansions.Classic.Uncollectible.Weapons.*;
 import Game.BoardState;
@@ -183,17 +185,24 @@ public class Hero {
         armor += set;
     }
 
-    public void addHp(int set) {
+    public void addHp(Player player, int set) {
         hp += set;
-    }
-
-    public void setWeapon(Weapon set) {
-        weapon = set;
+        for (Card card: player.getHand()) {
+            card.updateCostFromHeroHP();
+        }
     }
 
     public void addAtk(int set) {
         atk += set;
     }
+
+    public void setMaxHP(int set) { maxHP = set;}
+
+    public void setWeapon(Weapon set) {
+        weapon = set;
+    }
+
+
 
     public boolean isDead() {
         return hp <= 0;

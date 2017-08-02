@@ -83,6 +83,10 @@ public abstract class Card {
         return name;
     }
 
+    public void updateCostFromHeroHP() {};
 
+    public void updateCostFromHandSize() {};
+
+    public void updateCostFromBoardSize(BoardState board) {};
 
 }

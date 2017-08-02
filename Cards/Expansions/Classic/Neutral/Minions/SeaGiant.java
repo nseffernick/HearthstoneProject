@@ -1,18 +1,17 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
+import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
-/**
- * Representation of the Boulderfist Ogre Minion
- */
-public class BoulderfistOgre extends Minion {
+public class SeaGiant  extends Minion {
 
     // State
     protected int hp;
@@ -25,10 +24,18 @@ public class BoulderfistOgre extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public BoulderfistOgre(Player owner) {
+    public SeaGiant(Player owner) {
 
-        super(7, 6, 6, "Boulderfist Ogre", owner, "", Rarity.BASIC,
+        super(8, 8, 12, "Mountain Giant", owner,"Costs (1) less for each card you have in your hand.", Rarity.EPIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 
+    @Override
+    public void updateCostFromBoardSize(BoardState board) {
+        int defaultCost = 10;
+        int set = owner.getPlayerSide().size();
+        int set1 = UtilityMethods.findEnemy(board, owner).getPlayerSide().size();
+
+        cost = defaultCost - set - set1;
+    }
 }

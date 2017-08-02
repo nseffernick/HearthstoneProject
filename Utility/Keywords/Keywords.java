@@ -7,6 +7,7 @@ public enum Keywords {
     BATTLECRY,
     DEATHRATTLE,
     WHENEVER,
+    ENDOFTURN,
     STEALTH,
     TAUNT,
     ELUSIVE,

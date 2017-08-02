@@ -351,6 +351,9 @@ public class Player {
         if (!(card.getCost() > mana)) {
             if (playerSide.size() < BOARD_SLOTS) {
                 hand.remove(card);
+                for (Card cardsInHand: hand) {
+                    cardsInHand.updateCostFromHandSize();
+                }
                 // If card is a minion
                 if (card instanceof Minion) {
                     Minion minion = (Minion) (card);
@@ -363,12 +366,15 @@ public class Player {
                     else playerSide.add(minion);
                     addMana(-card.getCost());
                     minion.createAura(board);
-                    checkBoardForDead();
+                    updateCardCostFromBoard(board);
+                    checkBoardForDead(board);
                 }
                 // If card is a spell
                 else if (card instanceof Spell) {
                     Spell spell = (Spell) (card);
-                } else if (card instanceof Weapon) {
+                }
+                // If card is a weapon
+                else if (card instanceof Weapon) {
                     Weapon weapon = (Weapon) (card);
                 }
             }
@@ -390,6 +396,7 @@ public class Player {
             minion.getProperties().add(Keywords.SUMMONSICKNESS);
             minion.createAura(board);
             playerSide.add(minion);
+            updateCardCostFromBoard(board);
         }
     }
 
@@ -402,6 +409,9 @@ public class Player {
             Card card = deck.remove();
             if (hand.size() < MAX_HAND_SIZE) {
                 hand.add(card);
+                for (Card cardsInHand: hand) {
+                    cardsInHand.updateCostFromHandSize();
+                }
             }
             else {
                 System.out.println(card + " was burned!");
@@ -409,8 +419,13 @@ public class Player {
         }
         else {
             fatigue += 1;
-            hero.addHp(-fatigue);
+            hero.addHp(this, -fatigue);
         }
+    }
+
+    public void discard(Card card) {
+        hand.remove(card);
+        System.out.println(name + " discarded " + card.getName() + "!");
     }
 
     public Player promptTargetPlayer(BoardState board) {
@@ -457,7 +472,7 @@ public class Player {
         board.peekBoard(this);
         System.out.println();
         System.out.println("What index would you like to target:");
-        System.out.println("-1 to target the hero, 1-7 left to target minions ");
+        System.out.println("0 to target the hero, 1-7 left to target minions ");
         System.out.print("> ");
         int targetIndex = playerInput.nextInt() - 1;
         System.out.println();
@@ -468,7 +483,7 @@ public class Player {
         System.out.println("Well fought, I concede");
         System.out.println(name + " concedes!");
         int hpLeft = hero.getArmor() + hero.getHp();
-        hero.addHp(-hpLeft);
+        hero.addHp(this, -hpLeft);
     }
 
     /**
@@ -479,18 +494,19 @@ public class Player {
         return heroPower.Cast(player, board);
     }
 
-    public void checkBoardForDead() {
+    public void checkBoardForDead(BoardState board) {
         for (Minion minion : playerSide) {
             if (minion.isDead()) {
-                placeCardInGraveyard(minion);
+                placeCardInGraveyard(minion, board);
             }
         }
     }
 
-    public void placeCardInGraveyard(Card card) {
+    public void placeCardInGraveyard(Card card, BoardState board) {
         if (card instanceof Minion) {
             Minion minion = (Minion) card;
             playerSide.remove(minion);
+            updateCardCostFromBoard(board);
             Class newMinion = minion.getClass();
             try {
                 Constructor constructor = newMinion.getConstructor(Player.class);
@@ -503,6 +519,15 @@ public class Player {
             catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void updateCardCostFromBoard(BoardState board) {
+        for (Card card: hand) {
+            card.updateCostFromBoardSize(board);
+        }
+        for (Card card: UtilityMethods.findEnemy(board, this).getHand()) {
+            card.updateCostFromBoardSize(board);
         }
     }
 

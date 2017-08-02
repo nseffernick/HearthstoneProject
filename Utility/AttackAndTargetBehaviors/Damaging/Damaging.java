@@ -32,8 +32,10 @@ public class Damaging {
             target.getHero().addHp(-minion.getAtk());
         }
         else {
-            target.getPlayerSide().get(index).addHp(-minion.getAtk(), board);
-            minion.addHp(-target.getPlayerSide().get(index).getAtk(), board);
+            int atkingDmg = -minion.getAtk();
+            int defendingDmg = -target.getPlayerSide().get(index).getAtk();
+            target.getPlayerSide().get(index).addHp(atkingDmg, board);
+            minion.addHp(defendingDmg, board);
         }
     }
 

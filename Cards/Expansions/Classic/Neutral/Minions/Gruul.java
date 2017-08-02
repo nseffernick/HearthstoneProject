@@ -1,18 +1,16 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
+import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
 
 import java.util.ArrayList;
 
-/**
- * Representation of the Boulderfist Ogre Minion
- */
-public class BoulderfistOgre extends Minion {
+public class Gruul extends Minion {
 
     // State
     protected int hp;
@@ -25,10 +23,17 @@ public class BoulderfistOgre extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public BoulderfistOgre(Player owner) {
+    public Gruul(Player owner) {
 
-        super(7, 6, 6, "Boulderfist Ogre", owner, "", Rarity.BASIC,
+        super(7, 7, 8, "Gruul", owner,"At the end of each turn, gain +1/+1 .", Rarity.LEGENDARY,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        properties.add(Keywords.ENDOFTURN);
     }
 
+    @Override
+    public void endOfTurn(BoardState board) {
+        addAtk(1);
+        addMaxHP(1);
+        addHp(1, board);
+    }
 }
