@@ -17,15 +17,15 @@ import java.util.ArrayList;
 public class AcidicSwampOoze extends Minion {
 
     // State
-    protected int hp = 2;
-    protected int atk = 3;
-    protected int cost = 2;
-    protected String name = "Acidic Swamp Ooze";
-    protected String text = "Battlecry: Destroy the opponent's weapon";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public AcidicSwampOoze(Player owner) {
 

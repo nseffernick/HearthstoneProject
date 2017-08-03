@@ -2,12 +2,11 @@ package Cards.Structure;
 
 import Game.Auras.Aura;
 import Game.BoardState;
+import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.Keywords.Keywords;
-
-import Game.Player.Player;
 
 import java.util.ArrayList;
 
@@ -21,6 +20,7 @@ public abstract class Minion extends Card {
     protected int maxHP;
     protected int atk;
     protected int cost;
+    protected boolean enraged;
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
@@ -44,12 +44,12 @@ public abstract class Minion extends Card {
         this.tribe = tribe;
         this.heroClass = heroClass;
         this.properties = properties;
+        this.enraged = false;
     }
 
     //Copy constructor
     public Minion(Minion minion) {
         super(minion);
-
     }
 
     public int getHp() {
@@ -68,14 +68,6 @@ public abstract class Minion extends Card {
         return tribe;
     }
 
-    public Player getOwner() {
-        return owner;
-    }
-
-    public ArrayList<Keywords> getProperties() {
-        return properties;
-    }
-
     // Important that addHp is +=
     public void addHp(int set, BoardState board) {
         hp += set;
@@ -86,7 +78,7 @@ public abstract class Minion extends Card {
                     for (Aura aura: owner.getAuras()) {
                         if (aura.getLink() == this) {
                             owner.removeAura(aura, board);
-                            deathrattle();
+                            deathrattle(board);
                             break;
                         }
                     }
@@ -94,9 +86,14 @@ public abstract class Minion extends Card {
                 owner.placeCardInGraveyard(this, board);
             }
         }
-        if (hp > maxHP) {
-            int hpDiff = hp - maxHP;
-            hp -= hpDiff;
+        if (set > 0) {
+            for (Minion minion: owner.getPlayerSide()) {
+                minion.healProc();
+            }
+            if (hp > maxHP) {
+                int hpDiff = hp - maxHP;
+                hp -= hpDiff;
+            }
         }
     }
 
@@ -160,7 +157,7 @@ public abstract class Minion extends Card {
 
     public void destroy(BoardState board) {
         owner.placeCardInGraveyard(this, board);
-        deathrattle();
+        deathrattle(board);
     }
 
     public boolean isDead() {
@@ -177,23 +174,55 @@ public abstract class Minion extends Card {
 
     public void createAura(BoardState board) {}
 
-    public void onHit() {
+    public void onHit() {}
 
-    }
+    public void deathrattle(BoardState board) {}
 
-    public void deathrattle() {
-
-    }
-
-    public void enrage() {
-
-    }
+    public void enrage() {}
 
     public void battlecry(BoardState board, Player player) { }
 
     public void endOfTurn(BoardState board) {}
 
     public void endOfYourTurn(BoardState board) {}
+
+    public void healProc() {}
+
+    public void cardPlayedProc(Card card, BoardState board) {
+        if (card instanceof Weapon) {
+            if (properties.contains(Keywords.WEAPONPLAYED)) {
+                Weapon weapon = (Weapon)card;
+                weaponPlayedProc(weapon, board);
+            }
+        }
+        if (card instanceof Minion) {
+            if (properties.contains(Keywords.MINIONPLAYED)) {
+                Minion minion = (Minion) card;
+                minionPlayedProc(minion, board);
+            }
+        }
+        if (card instanceof Spell) {
+            if (properties.contains(Keywords.SPELLCASTED)) {
+                Spell spell = (Spell) card;
+                spellCastedProc(spell, board);
+            }
+        }
+    }
+
+    public void minionPlayedProc(Minion minion, BoardState board) {}
+
+    public void weaponPlayedProc(Weapon weapon, BoardState board) {}
+
+    public void spellCastedProc(Spell spell, BoardState board) {}
+
+    public void minionSummonedProc(Minion minion, BoardState board) {}
+
+    //TODO enrage lol
+    private void enrageProc() {
+        if (enraged == (hp < maxHP));
+        else if (enraged != hp < maxHP)
+        enrage();
+    }
 
     public static String fixedLengthString(String string, int length) {
         return String.format("%1$"+length+ "s", string);

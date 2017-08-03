@@ -1,6 +1,8 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
@@ -9,10 +11,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class WolfRider extends Minion {
+public class Secretkeeper extends Minion {
 
     // State
     protected int hp;
@@ -25,12 +24,18 @@ public class WolfRider extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public WolfRider(Player owner) {
+    public Secretkeeper(Player owner) {
 
-        super(1, 3, 3, "Wolf Rider", owner,"Charge", Rarity.BASIC,
+        super(2, 1, 1, "Secretkeeper", owner,"Whenever a Secret is played, gain +1/+1.", Rarity.RARE,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CHARGE);
     }
 
-
+    @Override
+    public void spellCastedProc(Spell spell, BoardState board) {
+        if (spell.getProperties().contains(Keywords.SECRET)) {
+            addAtk(1);
+            addMaxHP(1);
+            addHp(1, board);
+        }
+    }
 }

@@ -9,10 +9,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class WolfRider extends Minion {
+public class Shieldbearer extends Minion {
 
     // State
     protected int hp;
@@ -25,12 +22,11 @@ public class WolfRider extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public WolfRider(Player owner) {
+    public Shieldbearer(Player owner) {
 
-        super(1, 3, 3, "Wolf Rider", owner,"Charge", Rarity.BASIC,
+        super(4, 0, 1, "Shieldbearer", owner,"Taunt", Rarity.COMMON,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CHARGE);
+        properties.add(Keywords.TAUNT);
     }
-
 
 }

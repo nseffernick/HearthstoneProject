@@ -3,18 +3,15 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
-import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class StormpikeCommando extends Minion {
+public class BloodsailCorsair extends Minion {
 
     // State
     protected int hp;
@@ -27,19 +24,23 @@ public class StormpikeCommando extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public StormpikeCommando(Player owner) {
+    public BloodsailCorsair(Player owner) {
 
-        super(2, 4, 5, "Stormpike Commando", owner,
-                "Battlecry: Deal 2 damage", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        super(2, 1, 1, "Bloodsail Corsair", owner,
+                "Battlecry: Remove\n1 Durability from your\nopponent's weapon.", Rarity.RARE,
+                Tribe.PIRATE, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
 
-    // Deal two damage
+    /**
+     * Damage an opponent's weapon
+     */
     @Override
     public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player.promptTargetPlayer(board), player.promptTargetIndex(board, 0), 2, null, true, board);
+            if (!(UtilityMethods.findEnemy(board, owner).getHero().getWeapon() == null)) {
+                UtilityMethods.findEnemy(board, owner).getHero().getWeapon().addDurability(-1);
+            }
         }
     }
 }

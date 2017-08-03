@@ -1,6 +1,7 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
@@ -9,10 +10,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class WolfRider extends Minion {
+public class MurlocTidecaller extends Minion {
 
     // State
     protected int hp;
@@ -25,12 +23,18 @@ public class WolfRider extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public WolfRider(Player owner) {
+    //TODO a Minion SUMMONED trigger
+    public MurlocTidecaller(Player owner) {
 
-        super(1, 3, 3, "Wolf Rider", owner,"Charge", Rarity.BASIC,
+        super(2, 1, 1, "Murloc Tidecaller", owner,"Whenever you summon a Murloc, gain +1 Attack.", Rarity.RARE,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CHARGE);
+        properties.add(Keywords.MINIONSUMMONED);
     }
 
-
+    @Override
+    public void minionSummonedProc(Minion minion, BoardState board) {
+        if (properties.contains(Keywords.MINIONSUMMONED)) {
+            addAtk(1);
+        }
+    }
 }

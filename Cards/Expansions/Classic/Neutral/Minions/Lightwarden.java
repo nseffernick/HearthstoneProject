@@ -9,10 +9,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class WolfRider extends Minion {
+public class Lightwarden extends Minion {
 
     // State
     protected int hp;
@@ -25,12 +22,15 @@ public class WolfRider extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public WolfRider(Player owner) {
+    public Lightwarden(Player owner) {
 
-        super(1, 3, 3, "Wolf Rider", owner,"Charge", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CHARGE);
+        super(2, 1, 1, "Lightwarden", owner,"Whenever a character is healed, gain +2 Attack.",
+                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        properties.add(Keywords.HEALPROC);
     }
 
-
+    @Override
+    public void healProc() {
+        addAtk(2);
+    }
 }

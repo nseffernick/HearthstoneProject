@@ -190,23 +190,20 @@ public class Hero {
         for (Card card: player.getHand()) {
             card.updateCostFromHeroHP();
         }
+        if (set > 0) {
+            for (Minion minion: player.getPlayerSide()) {
+                minion.healProc();
+            }
+        }
     }
 
-    public void addAtk(int set) {
-        atk += set;
-    }
+    public void addAtk(int set) { atk += set; }
 
     public void setMaxHP(int set) { maxHP = set;}
 
-    public void setWeapon(Weapon set) {
-        weapon = set;
-    }
+    public void setWeapon(Weapon set) { weapon = set; }
 
-
-
-    public boolean isDead() {
-        return hp <= 0;
-    }
+    public boolean isDead() { return hp <= 0; }
 
     /**
      * Now with custom bm!

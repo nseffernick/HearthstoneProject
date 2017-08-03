@@ -38,7 +38,6 @@ public class ShatteredSunCleric extends Minion {
     // Give +1/+1 to a friendly
     @Override
     public void battlecry(BoardState board, Player player) {
-        
         if (properties.contains(Keywords.BATTLECRY)) {
             int index = player.promptTargetIndex(board, 2);
             if (index == 10);

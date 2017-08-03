@@ -9,10 +9,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class WolfRider extends Minion {
+public class AngryChicken extends Minion {
 
     // State
     protected int hp;
@@ -25,12 +22,16 @@ public class WolfRider extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public WolfRider(Player owner) {
+    public AngryChicken(Player owner) {
 
-        super(1, 3, 3, "Wolf Rider", owner,"Charge", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CHARGE);
+        super(1, 1, 1, "Angry Chicken", owner,"", Rarity.RARE,
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        properties.add(Keywords.ENRAGE);
     }
 
-
+    @Override
+    public void enrage() {
+        if (enraged) addAtk(5);
+        else addAtk(-5);
+    }
 }

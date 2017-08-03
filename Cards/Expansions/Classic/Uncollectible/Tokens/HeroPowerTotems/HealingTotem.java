@@ -29,6 +29,5 @@ public class HealingTotem extends Minion {
                         "turn restore 1 health to all friendly minions",
                 Rarity.BASIC, Tribe.TOTEM, HeroClass.SHAMAN,
                 new ArrayList<Keywords>());
-        properties.add(Keywords.WHENEVER);
     }
 }

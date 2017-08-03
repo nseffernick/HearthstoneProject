@@ -6,7 +6,6 @@ package Utility.Keywords;
 public enum Keywords {
     BATTLECRY,
     DEATHRATTLE,
-    WHENEVER,
     ENDOFTURN,
     STEALTH,
     TAUNT,
@@ -32,6 +31,14 @@ public enum Keywords {
     OVERLOAD,
     CANTATTACK,
     AURA,
+    HEALPROC,
+    DAMAGEPROC,
+    ONHIT,
+    TEMPBUFF,
+    WEAPONPLAYED,
+    MINIONPLAYED,
+    SPELLCASTED,
+    MINIONSUMMONED,
     SUMMONSICKNESS, // cant be silenced
-    HASATTACKED;
+    HASATTACKED; // can be silenced
 }

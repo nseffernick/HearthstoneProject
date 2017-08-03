@@ -75,6 +75,10 @@ public abstract class Card {
         return properties;
     }
 
+    public Player getOwner() {
+        return owner;
+    }
+
     public boolean canPlay(int cost, int mana) {
         return mana >= cost;
     }

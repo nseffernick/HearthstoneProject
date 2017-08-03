@@ -30,12 +30,13 @@ public class GurubashiBerserker extends Minion {
         super(7, 2, 5, "Gurubashi Berserker", owner,
                 "Whenever this minion takes damage, gain +3 Attack", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.WHENEVER);
-        properties.add(Keywords.ENRAGE);
+        properties.add(Keywords.ONHIT);
     }
 
     @Override
     public void onHit() {
-        addAtk(3);
+        if (properties.contains(Keywords.ONHIT)) {
+            addAtk(3);
+        }
     }
 }

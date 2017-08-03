@@ -351,9 +351,7 @@ public class Player {
         if (!(card.getCost() > mana)) {
             if (playerSide.size() < BOARD_SLOTS) {
                 hand.remove(card);
-                for (Card cardsInHand: hand) {
-                    cardsInHand.updateCostFromHandSize();
-                }
+                updateCardCostFromHand();
                 // If card is a minion
                 if (card instanceof Minion) {
                     Minion minion = (Minion) (card);
@@ -367,6 +365,8 @@ public class Player {
                     addMana(-card.getCost());
                     minion.createAura(board);
                     updateCardCostFromBoard(board);
+                    procFromCardPlayed(minion, board);
+                    procFromMinionSummoned(minion, board);
                     checkBoardForDead(board);
                 }
                 // If card is a spell
@@ -397,6 +397,7 @@ public class Player {
             minion.createAura(board);
             playerSide.add(minion);
             updateCardCostFromBoard(board);
+            procFromMinionSummoned(minion, board);
         }
     }
 
@@ -409,9 +410,7 @@ public class Player {
             Card card = deck.remove();
             if (hand.size() < MAX_HAND_SIZE) {
                 hand.add(card);
-                for (Card cardsInHand: hand) {
-                    cardsInHand.updateCostFromHandSize();
-                }
+                updateCardCostFromHand();
             }
             else {
                 System.out.println(card + " was burned!");
@@ -420,6 +419,61 @@ public class Player {
         else {
             fatigue += 1;
             hero.addHp(this, -fatigue);
+        }
+    }
+
+    public void checkBoardForDead(BoardState board) {
+        for (Minion minion : playerSide) {
+            if (minion.isDead()) {
+                placeCardInGraveyard(minion, board);
+            }
+        }
+    }
+
+    public void placeCardInGraveyard(Card card, BoardState board) {
+        if (card instanceof Minion) {
+            Minion minion = (Minion) card;
+            playerSide.remove(minion);
+            updateCardCostFromBoard(board);
+            Class newMinion = minion.getClass();
+            try {
+                Constructor constructor = newMinion.getConstructor(Player.class);
+                Object card1 = constructor.newInstance(this);
+                if (card1 instanceof Card) {
+                    Card card2 = (Card) (card1);
+                    graveyard.add(card2);
+                }
+            }
+            catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void updateCardCostFromBoard(BoardState board) {
+        for (Card card: hand) {
+            card.updateCostFromBoardSize(board);
+        }
+        for (Card card: UtilityMethods.findEnemy(board, this).getHand()) {
+            card.updateCostFromBoardSize(board);
+        }
+    }
+
+    private void updateCardCostFromHand() {
+        for (Card cardsInHand: hand) {
+            cardsInHand.updateCostFromHandSize();
+        }
+    }
+
+    private void procFromCardPlayed(Card card, BoardState board) {
+        for (Minion minion: playerSide) {
+            minion.cardPlayedProc(card, board);
+        }
+    }
+
+    private void procFromMinionSummoned(Minion minion, BoardState board) {
+        for (Minion minion1: playerSide) {
+            minion1.cardPlayedProc(minion, board);
         }
     }
 
@@ -492,43 +546,6 @@ public class Player {
      */
     public boolean heroPower(Player player, BoardState board) {
         return heroPower.Cast(player, board);
-    }
-
-    public void checkBoardForDead(BoardState board) {
-        for (Minion minion : playerSide) {
-            if (minion.isDead()) {
-                placeCardInGraveyard(minion, board);
-            }
-        }
-    }
-
-    public void placeCardInGraveyard(Card card, BoardState board) {
-        if (card instanceof Minion) {
-            Minion minion = (Minion) card;
-            playerSide.remove(minion);
-            updateCardCostFromBoard(board);
-            Class newMinion = minion.getClass();
-            try {
-                Constructor constructor = newMinion.getConstructor(Player.class);
-                Object card1 = constructor.newInstance(this);
-                if (card1 instanceof Card) {
-                    Card card2 = (Card) (card1);
-                    graveyard.add(card2);
-                }
-            }
-            catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void updateCardCostFromBoard(BoardState board) {
-        for (Card card: hand) {
-            card.updateCostFromBoardSize(board);
-        }
-        for (Card card: UtilityMethods.findEnemy(board, this).getHand()) {
-            card.updateCostFromBoardSize(board);
-        }
     }
 
     @Override

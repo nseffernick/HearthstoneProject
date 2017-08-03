@@ -29,6 +29,7 @@ public abstract class Spell extends Card {
         this.cost = cost;
         this.name = name;
         this.text = text;
+        this.owner = owner;
         this.rarity = rarity;
         this.heroClass = heroClass;
         this.properties = properties;

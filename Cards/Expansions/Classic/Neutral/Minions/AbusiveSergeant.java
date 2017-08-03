@@ -3,7 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
-import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -11,10 +11,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class StormpikeCommando extends Minion {
+public class AbusiveSergeant extends Minion {
 
     // State
     protected int hp;
@@ -27,19 +24,25 @@ public class StormpikeCommando extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public StormpikeCommando(Player owner) {
+    public AbusiveSergeant(Player owner) {
 
-        super(2, 4, 5, "Stormpike Commando", owner,
-                "Battlecry: Deal 2 damage", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        super(1, 1, 1, "Angry Chicken", owner,"", Rarity.RARE,
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
 
-    // Deal two damage
+    //TODO this
     @Override
     public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(player.promptTargetPlayer(board), player.promptTargetIndex(board, 0), 2, null, true, board);
+            int index = player.promptTargetIndex(board, 3);
+            if (index == 10);
+            else if (Targeting.characterTargeting(owner, index, true)) {
+                Minion minion = owner.getPlayerSide().get(index);
+                minion.addAtk(1);
+                minion.addMaxHP(1);
+                minion.addHp(1, board);
+            }
         }
     }
 }
