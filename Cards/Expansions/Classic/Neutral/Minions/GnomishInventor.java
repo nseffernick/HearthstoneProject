@@ -16,15 +16,15 @@ import java.util.ArrayList;
 public class GnomishInventor extends Minion {
 
     // State
-    protected int hp = 4;
-    protected int atk = 2;
-    protected int cost = 4;
-    protected String name = "Gnomish Inventor";
-    protected String text = "Battlecry: Draw a Card";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public GnomishInventor(Player owner) {
 

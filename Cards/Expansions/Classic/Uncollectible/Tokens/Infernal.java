@@ -15,12 +15,15 @@ import java.util.ArrayList;
 public class Infernal extends Minion {
 
     // State
-    public int hp = 6;
-    public int atk = 6;
-    public int cost = 6;
-    public String name = "Infernal";
-    private String text = "";
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public Infernal(Player owner) {
 

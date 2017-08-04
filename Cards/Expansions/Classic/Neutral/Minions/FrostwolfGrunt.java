@@ -15,19 +15,20 @@ import java.util.ArrayList;
 public class FrostwolfGrunt extends Minion {
 
     // State
-    protected int hp = 2;
-    protected int atk = 2;
-    protected int cost = 2;
-    protected String name = "Booty Bay Bodyguard";
-    protected String text = "Taunt";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
+
 
     public FrostwolfGrunt(Player owner) {
 
-        super(2, 2, 2, "Booty Bay Bodyguard", owner,"Taunt", Rarity.BASIC,
+        super(2, 2, 2, "Frostwolf Grunt", owner,"Taunt", Rarity.BASIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.TAUNT);
     }

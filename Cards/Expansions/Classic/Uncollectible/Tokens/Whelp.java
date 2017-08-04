@@ -12,12 +12,15 @@ import java.util.ArrayList;
 public class Whelp  extends Minion {
 
     // State
-    public int hp;
-    public int atk;
-    public int cost;
-    public String name;
-    private String text;
-    private ArrayList<Keywords> properties;
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public Whelp(Player owner) {
 

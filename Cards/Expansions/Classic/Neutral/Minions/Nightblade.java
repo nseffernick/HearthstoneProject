@@ -18,15 +18,15 @@ import java.util.ArrayList;
 public class Nightblade extends Minion {
 
     // State
-    protected int hp = 4;
-    protected int atk = 4;
-    protected int cost = 5;
-    protected String name = "Nightblade";
-    protected String text = "Battlecry: Deal 3 damage to the enemy hero";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public Nightblade(Player owner) {
 
@@ -40,7 +40,7 @@ public class Nightblade extends Minion {
     @Override
     public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(UtilityMethods.findEnemy(board, player), -1, 3, null, true, board);
+            MasterTargeter.Main(UtilityMethods.findEnemy(board, player), -1, -3, null, true, board);
         }
     }
 }

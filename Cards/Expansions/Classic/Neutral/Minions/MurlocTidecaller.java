@@ -23,11 +23,10 @@ public class MurlocTidecaller extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    //TODO a Minion SUMMONED trigger
     public MurlocTidecaller(Player owner) {
 
         super(2, 1, 1, "Murloc Tidecaller", owner,"Whenever you summon a Murloc, gain +1 Attack.", Rarity.RARE,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+                Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.MINIONSUMMONED);
     }
 

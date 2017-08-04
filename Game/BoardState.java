@@ -5,8 +5,10 @@ import Cards.Structure.Minion;
 import Game.Player.*;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Keywords.Keywords;
+import Utility.TempBuffs.TempBuff;
 import Utility.UtilityMethods.UtilityMethods;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -45,35 +47,38 @@ public class BoardState extends Observable {
     // State
     private Player p1;
     private Player p2;
+    private ArrayList<TempBuff> tempBuffs;
 
     public BoardState(String deck1, String deck2, String hero1, String hero2, String name1, String name2) {
         Player p1 = new Player(deck1, hero1, name1);
         Player p2 = new Player(deck2, hero2, name2);
+        this.tempBuffs = new ArrayList<>();
     }
 
     public BoardState(BoardState board) {
         Player p1 = board.getP1();
         Player p2 = board.getP2();
+        this.tempBuffs = new ArrayList<>();
     }
 
     public BoardState(String params) {
         String[] p = params.split(" ");
         Player p1 = new Player(p[0], p[1], p[2]);
         Player p2 = new Player(p[3], p[4], p[5]);
+        this.tempBuffs = new ArrayList<>();
     }
 
     public BoardState(Player p1, Player p2) {
         this.p1 = p1;
         this.p2 = p2;
+        this.tempBuffs = new ArrayList<>();
     }
 
-    public Player getP1() {
-        return p1;
-    }
+    public Player getP1() { return p1; }
 
-    public Player getP2() {
-        return p2;
-    }
+    public Player getP2() { return p2; }
+
+    public ArrayList<TempBuff> getTempBuffs() { return tempBuffs; }
 
     private boolean hasWon() {
         return p1.getHero().isDead() || p2.getHero().isDead();
@@ -85,6 +90,8 @@ public class BoardState extends Observable {
         }
         else return p1;
     }
+
+
 
     public void startMulligan() {
         p1.mulligan(p1, this);
@@ -155,6 +162,7 @@ public class BoardState extends Observable {
         playerTurnLoop(currPlayer, startTime, estimatedTime);
         removeAttackLimits(currPlayer);
         doEndOfTurnEffects(currPlayer);
+        cancelTempBuffs();
     }
 
     private void playerTurnLoop(Player player, long startTime, long estimatedTime) {
@@ -202,6 +210,12 @@ public class BoardState extends Observable {
         }
         for (Minion minion: this.getP2().getPlayerSide()) {
             minion.endOfTurn(this);
+        }
+    }
+
+    private void cancelTempBuffs() {
+        for (TempBuff buffs: tempBuffs) {
+            buffs.removeBuff();
         }
     }
 

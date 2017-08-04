@@ -18,15 +18,15 @@ import java.util.ArrayList;
 public class RaidLeader extends Minion {
 
     // State
-    protected int hp = 2;
-    protected int atk = 2;
-    protected int cost = 3;
-    protected String name = "Raid Leader";
-    protected String text = "";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public RaidLeader(Player owner) {
 

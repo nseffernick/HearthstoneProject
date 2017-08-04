@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class Boar extends Minion {
 
     // State
-    public int hp = 1;
-    public int atk = 1;
-    public int cost = 1;
-    public String name = "Boar";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.GENERAL;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public Boar(Player owner) {
 

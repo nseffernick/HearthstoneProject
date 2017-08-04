@@ -71,6 +71,7 @@ public abstract class Minion extends Card {
     // Important that addHp is +=
     public void addHp(int set, BoardState board) {
         hp += set;
+        enrageProc();
         if (set < 0) {
             onHit();
             if (isDead()) {
@@ -174,6 +175,8 @@ public abstract class Minion extends Card {
 
     public void createAura(BoardState board) {}
 
+    public void disableAura() {}
+
     public void onHit() {}
 
     public void deathrattle(BoardState board) {}
@@ -189,25 +192,30 @@ public abstract class Minion extends Card {
     public void healProc() {}
 
     public void cardPlayedProc(Card card, BoardState board) {
+        if (properties.contains(Keywords.CARDPLAYED)) {
+
+        }
         if (card instanceof Weapon) {
             if (properties.contains(Keywords.WEAPONPLAYED)) {
                 Weapon weapon = (Weapon)card;
                 weaponPlayedProc(weapon, board);
             }
         }
-        if (card instanceof Minion) {
+        else if (card instanceof Minion) {
             if (properties.contains(Keywords.MINIONPLAYED)) {
                 Minion minion = (Minion) card;
                 minionPlayedProc(minion, board);
             }
         }
-        if (card instanceof Spell) {
+        else if (card instanceof Spell) {
             if (properties.contains(Keywords.SPELLCASTED)) {
                 Spell spell = (Spell) card;
                 spellCastedProc(spell, board);
             }
         }
     }
+
+    public void cardPlayed(BoardState board) {}
 
     public void minionPlayedProc(Minion minion, BoardState board) {}
 
@@ -217,11 +225,24 @@ public abstract class Minion extends Card {
 
     public void minionSummonedProc(Minion minion, BoardState board) {}
 
-    //TODO enrage lol
+    public void buffTillEndOfTurn(int set, BoardState board) {
+        properties.add(Keywords.TEMPBUFF);
+
+    }
+
     private void enrageProc() {
-        if (enraged == (hp < maxHP));
-        else if (enraged != hp < maxHP)
-        enrage();
+        if (properties.contains(Keywords.ENRAGE)) {
+            if (enraged && hp < maxHP) ;
+            else if (enraged && hp == maxHP) {
+                enrage();
+                enraged = false;
+            }
+            else if (!enraged && hp < maxHP) {
+                enrage();
+                enraged = true;
+            }
+            else if (!enraged && hp == maxHP) ;
+        }
     }
 
     public static String fixedLengthString(String string, int length) {

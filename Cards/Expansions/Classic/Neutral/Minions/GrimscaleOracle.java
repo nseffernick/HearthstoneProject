@@ -41,5 +41,4 @@ public class GrimscaleOracle extends Minion {
         owner.addAura(thisAura, board);
     }
 
-
 }

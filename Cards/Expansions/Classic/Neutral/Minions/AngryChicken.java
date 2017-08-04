@@ -31,7 +31,7 @@ public class AngryChicken extends Minion {
 
     @Override
     public void enrage() {
-        if (enraged) addAtk(5);
-        else addAtk(-5);
+        if (enraged) addAtk(-5);
+        else addAtk(5);
     }
 }

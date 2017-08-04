@@ -15,23 +15,21 @@ import java.util.ArrayList;
 public class WindfuryHarpy extends Minion {
 
     // State
-    protected int hp = 5;
-    protected int atk = 4;
-    protected int cost = 6;
-    protected String name = "Windfury Harpy";
-    protected String text = "Windfury";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public WindfuryHarpy(Player owner) {
 
-        super(5, 4, 6, "Windfury Harpy", owner,"Windfury", Rarity.BASIC,
+        super(5, 4, 6, "Windfury Harpy", owner,"Windfury", Rarity.COMMON,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-
         properties.add(Keywords.WINDFURY);
     }
-
 
 }

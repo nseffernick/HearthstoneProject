@@ -521,6 +521,7 @@ public class Player {
                 System.out.println("There are no valid targets");
                 return 10;
             }
+            promptTargetPlayer(board);
         }
         board.peekYourHand(this);
         board.peekBoard(this);

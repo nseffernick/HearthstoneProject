@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class LordOfTheArena extends Minion {
     
     // State
-    protected int hp = 5;
-    protected int atk = 6;
-    protected int cost = 6;
-    protected String name = "Lord of the Arena";
-    protected String text = "Taunt";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public LordOfTheArena(Player owner) {
 

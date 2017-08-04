@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class IronfurGrizzly extends Minion {
 
     // State
-    protected int hp = 3;
-    protected int atk = 3;
-    protected int cost = 3;
-    protected String name = "Ironfur Grizzly";
-    protected String text = "Taunt";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.BEAST;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public IronfurGrizzly(Player owner) {
 

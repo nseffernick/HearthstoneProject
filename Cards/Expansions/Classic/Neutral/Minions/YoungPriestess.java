@@ -27,18 +27,20 @@ public class YoungPriestess extends Minion {
 
         super(1, 2, 1, "Young Priestess", owner,"At the end of your turn, give another random friendly minion +1 Health.",
                 Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.ENDOFTURN);
+        properties.add(Keywords.ENDOFYOURTURN);
     }
 
     @Override
     public void endOfYourTurn(BoardState board) {
-        if (!(owner.getPlayerSide().size() == 1)) {
-            int index = owner.getRng().randomNum(owner.getPlayerSide().size());
-            while (!(owner.getPlayerSide().get(index) == this)) {
-                index = owner.getRng().randomNum(owner.getPlayerSide().size());
+        if (properties.contains(Keywords.ENDOFYOURTURN)) {
+            if (!(owner.getPlayerSide().size() == 1)) {
+                int index = owner.getRng().randomNum(owner.getPlayerSide().size());
+                while (!(owner.getPlayerSide().get(index) == this)) {
+                    index = owner.getRng().randomNum(owner.getPlayerSide().size());
+                }
+                owner.getPlayerSide().get(index).addMaxHP(1);
+                owner.getPlayerSide().get(index).addHp(1, board);
             }
-            owner.getPlayerSide().get(index).addMaxHP(1);
-            owner.getPlayerSide().get(index).addHp(1, board);
         }
     }
 }

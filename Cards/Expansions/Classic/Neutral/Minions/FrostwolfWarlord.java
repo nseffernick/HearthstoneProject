@@ -16,15 +16,15 @@ import java.util.ArrayList;
 public class FrostwolfWarlord extends Minion {
 
     // State
-    protected int hp = 4;
-    protected int atk = 4;
-    protected int cost = 5;
-    protected String name = "Frostwolf Warlord";
-    protected String text = "Battlecry: Gain +X/+X for each friendly minion on the board";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public FrostwolfWarlord(Player owner) {
 

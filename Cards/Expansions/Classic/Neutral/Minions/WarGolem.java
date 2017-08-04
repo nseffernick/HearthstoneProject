@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class WarGolem extends Minion {
 
     // State
-    protected int hp = 7;
-    protected int atk = 7;
-    protected int cost = 7;
-    protected String name = "War Golem";
-    protected String text = "";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.GENERAL;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public WarGolem(Player owner) {
 

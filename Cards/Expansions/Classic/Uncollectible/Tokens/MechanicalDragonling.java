@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class MechanicalDragonling extends Minion {
 
     // State
-    public int hp = 1;
-    public int atk = 2;
-    public int cost = 1;
-    public String name = "Mechanical Dragonling";
-    private String text = "";
-    private Rarity rarity = Rarity.BASIC;
-    private Tribe tribe = Tribe.MECH;
-    private HeroClass heroClass = HeroClass.NEUTRAL;
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public MechanicalDragonling(Player owner) {
 

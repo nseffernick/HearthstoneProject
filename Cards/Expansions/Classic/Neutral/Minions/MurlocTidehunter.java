@@ -17,15 +17,15 @@ import java.util.ArrayList;
 public class MurlocTidehunter extends Minion {
 
     // State
-    protected int hp = 1;
-    protected int atk = 2;
-    protected int cost = 2;
-    protected String name = "Murloc Tidehunter";
-    protected String text = "Battlecry: Summon a 1/1 Murloc";
-    protected Rarity rarity = Rarity.BASIC;
-    protected Tribe tribe = Tribe.MURLOC;
-    protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public MurlocTidehunter(Player owner) {
 

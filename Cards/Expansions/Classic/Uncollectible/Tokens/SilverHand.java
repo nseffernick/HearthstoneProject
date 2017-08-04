@@ -15,12 +15,15 @@ import java.util.ArrayList;
 public class SilverHand extends Minion {
 
     // State
-    public int hp = 1;
-    public int atk = 1;
-    public int cost = 1;
-    public String name = "Silver Hand Recruit";
-    private String text = "";
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    protected int hp;
+    protected int atk;
+    protected int cost;
+    protected String name;
+    protected String text;
+    protected Rarity rarity;
+    protected Tribe tribe;
+    protected HeroClass heroClass;
+    protected ArrayList<Keywords> properties;
 
     public SilverHand(Player owner) {
 
