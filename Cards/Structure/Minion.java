@@ -183,7 +183,12 @@ public abstract class Minion extends Card {
 
     public void enrage() {}
 
+    //TODO some way of canceling most battlecries, prolly make this a boolean method
     public void battlecry(BoardState board, Player player) { }
+
+    public void startOfYourTurn(BoardState board) {}
+
+    public void startOfTurn(BoardState board) {}
 
     public void endOfTurn(BoardState board) {}
 

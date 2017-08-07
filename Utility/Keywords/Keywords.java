@@ -6,6 +6,7 @@ package Utility.Keywords;
 public enum Keywords {
     BATTLECRY,
     DEATHRATTLE,
+    STARTOFYOURTURN,
     ENDOFTURN,
     ENDOFYOURTURN,
     STEALTH,

@@ -20,7 +20,7 @@ public class Damaging {
      */
     public static void damageCharacter(Player target, int index, int dmg, BoardState board) {
         if (index == -1) {
-            target.getHero().addHp(-dmg);
+            target.getHero().addHp(target, -dmg);
         }
         else {
             target.getPlayerSide().get(index).addHp(-dmg, board);
@@ -29,7 +29,7 @@ public class Damaging {
     
     public static void minionCombat(Player target, int index, Minion minion, BoardState board) {
         if (index == -1) {
-            target.getHero().addHp(-minion.getAtk());
+            target.getHero().addHp(target, -minion.getAtk());
         }
         else {
             int atkingDmg = -minion.getAtk();

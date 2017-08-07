@@ -1,7 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
-import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
@@ -39,10 +38,10 @@ public class Abomination extends Minion {
             owner.getHero().addHp(owner, -2);
             UtilityMethods.findEnemy(board, owner).getHero().addHp(UtilityMethods.findEnemy(board, owner), -2);
             for (Minion minion: owner.getPlayerSide()) {
-                addHp(-2, board);
+                minion.addHp(-2, board);
             }
             for (Minion minion: UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                addHp(-2, board);
+                minion.addHp(-2, board);
             }
         }
     }

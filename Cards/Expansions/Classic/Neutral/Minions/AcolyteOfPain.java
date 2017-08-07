@@ -1,8 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.Boar;
 import Cards.Structure.Minion;
-import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
@@ -11,10 +9,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class RazorfenHunter extends Minion {
+public class AcolyteOfPain extends Minion {
 
     // State
     protected int hp;
@@ -27,18 +22,18 @@ public class RazorfenHunter extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public RazorfenHunter(Player owner) {
+    public AcolyteOfPain(Player owner) {
 
-        super(3, 2, 3, "Razorfen Hunter", owner,
-                "Battlecry: Summon a 1/1 Boar", Rarity.BASIC,
+        super(3, 1, 3, "Acolyte of Pain", owner,
+                "Whenever this minion takes damage, draw a card", Rarity.COMMON,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+        properties.add(Keywords.ONHIT);
     }
 
-    // Summon a 1/1 boar
-    public void battlecry(BoardState board, Player player, int index) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            owner.summonCard(new Boar(owner), board);
+    @Override
+    public void onHit() {
+        if (properties.contains(Keywords.ONHIT)) {
+            owner.drawCard();
         }
     }
 }

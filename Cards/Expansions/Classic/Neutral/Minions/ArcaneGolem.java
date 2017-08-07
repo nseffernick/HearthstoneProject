@@ -1,6 +1,5 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.Boar;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
@@ -8,13 +7,11 @@ import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
-/**
- * Created by Cheech on 4/11/2017.
- */
-public class RazorfenHunter extends Minion {
+public class ArcaneGolem extends Minion {
 
     // State
     protected int hp;
@@ -27,18 +24,18 @@ public class RazorfenHunter extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Keywords> properties;
 
-    public RazorfenHunter(Player owner) {
+    public ArcaneGolem(Player owner) {
 
-        super(3, 2, 3, "Razorfen Hunter", owner,
-                "Battlecry: Summon a 1/1 Boar", Rarity.BASIC,
+        super(4, 4, 3, "Arcane Golem", owner,
+                "Battlecry: Give your opponent a mana crystal", Rarity.RARE,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
 
-    // Summon a 1/1 boar
-    public void battlecry(BoardState board, Player player, int index) {
+    @Override
+    public void battlecry(BoardState board, Player player) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            owner.summonCard(new Boar(owner), board);
+            UtilityMethods.findEnemy(board, player).addManaCrystals(1);
         }
     }
 }
