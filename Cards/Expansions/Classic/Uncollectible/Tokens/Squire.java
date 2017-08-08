@@ -24,7 +24,7 @@ public class Squire extends Minion {
 
     public Squire(Player owner) {
 
-        super(2, 2, 1, "Squire", owner, "", Rarity.BASIC,
+        super(2, 2, 1, "Squire", owner, "", Rarity.COMMON,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
     }
 }

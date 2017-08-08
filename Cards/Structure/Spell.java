@@ -25,7 +25,6 @@ public abstract class Spell extends Card {
                  HeroClass heroClass, ArrayList<Keywords> properties) {
         super(cost, name, text, owner, rarity, heroClass, properties);
 
-
         this.cost = cost;
         this.name = name;
         this.text = text;
@@ -35,12 +34,12 @@ public abstract class Spell extends Card {
         this.properties = properties;
     }
 
-    public boolean canPlay(int cost, int mana) {
-        return mana <= cost;
+    public Spell(Spell spell) {
+        super(spell);
     }
 
-    public boolean isPlayed() {
-        return false;
+    public boolean canPlay(int cost, int mana) {
+        return mana <= cost;
     }
 
 }

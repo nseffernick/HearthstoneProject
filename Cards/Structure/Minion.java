@@ -106,6 +106,12 @@ public abstract class Minion extends Card {
         atk += set;
     }
 
+    public void setAtk(int set) { atk = set; }
+
+    public void setMaxHP(int set) { maxHP = set; }
+
+    public void setHp(int set) { hp = set; }
+
     // Checks various properties that would prevent the minion from attacking.
     public boolean canAttack() {
         System.out.println(properties);
@@ -184,7 +190,7 @@ public abstract class Minion extends Card {
     public void enrage() {}
 
     //TODO some way of canceling most battlecries, prolly make this a boolean method
-    public void battlecry(BoardState board, Player player) { }
+    public void battlecry(BoardState board, Player player, int position) { }
 
     public void startOfYourTurn(BoardState board) {}
 
@@ -198,7 +204,9 @@ public abstract class Minion extends Card {
 
     public void cardPlayedProc(Card card, BoardState board) {
         if (properties.contains(Keywords.CARDPLAYED)) {
-
+            if (properties.contains(Keywords.CARDPLAYED)) {
+                cardPlayedProc(card, board);
+            }
         }
         if (card instanceof Weapon) {
             if (properties.contains(Keywords.WEAPONPLAYED)) {
@@ -230,9 +238,12 @@ public abstract class Minion extends Card {
 
     public void minionSummonedProc(Minion minion, BoardState board) {}
 
+    public void weaponState() {}
+
+    public void minionDeath(Minion minion) {}
+
     public void buffTillEndOfTurn(int set, BoardState board) {
         properties.add(Keywords.TEMPBUFF);
-
     }
 
     private void enrageProc() {
@@ -256,8 +267,12 @@ public abstract class Minion extends Card {
 
     //15x43 (optimized for acidic swamp ooze)
     public String toString() {
+        int newCost = cost;
+        if (cost < 0) {
+            newCost = 0;
+        }
         String s1 = "____________________________________   \n";
-        String s2 = fixedLengthString("| Cost: " + cost + "                            |   \n", 43);
+        String s2 = fixedLengthString("| Cost: " + newCost + "                            |   \n", 43);
         String s3 = fixedLengthString("| Name:             " + name + "|   \n", 43);
         String s4 = fixedLengthString("|                                    |   \n", 43);
         String s5 = fixedLengthString("|                                    |   \n", 43);

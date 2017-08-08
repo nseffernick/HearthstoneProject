@@ -69,4 +69,6 @@ public abstract class Weapon extends Card {
         durability += set;
     }
 
+    public void addAtk(int set) { atk += set; }
+
 }

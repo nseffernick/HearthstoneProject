@@ -34,7 +34,7 @@ public class AncientBrewmaster extends Minion {
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             int index = owner.promptTargetIndex(board, 2);
             if (index == 10);

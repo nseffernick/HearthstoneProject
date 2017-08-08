@@ -9,7 +9,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-public class StranglethornTiger  extends Minion {
+public class StranglethornTiger extends Minion {
 
     // State
     protected int hp;

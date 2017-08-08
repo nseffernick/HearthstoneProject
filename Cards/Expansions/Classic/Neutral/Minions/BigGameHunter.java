@@ -3,7 +3,6 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
-import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -34,7 +33,7 @@ public class BigGameHunter extends Minion {
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             boolean canTargetFriend = false;
             boolean canTargetEnemy = false;

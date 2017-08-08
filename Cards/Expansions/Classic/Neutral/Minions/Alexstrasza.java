@@ -26,13 +26,13 @@ public class Alexstrasza extends Minion {
 
     public Alexstrasza(Player owner) {
 
-        super(8, 8, 9, "Alexstrasza", owner,"Destroy every minion and discard every card in your hand", Rarity.LEGENDARY,
+        super(8, 8, 9, "Alexstrasza", owner,"Set a hero's health to 15.", Rarity.LEGENDARY,
                 Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.BATTLECRY);
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         Player targetPlayer = owner.promptTargetPlayer(board);
         if (targetPlayer.getHero().getMaxHP() < 15) {
             targetPlayer.getHero().setMaxHP(15);

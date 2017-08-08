@@ -36,7 +36,7 @@ public class VoodooDoctor extends Minion {
 
     // Heal two health
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             MasterTargeter.Main(player.promptTargetPlayer(board), player.promptTargetIndex(board, 0) , 2, null, true, board);
         }

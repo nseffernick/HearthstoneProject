@@ -36,10 +36,10 @@ public class WildPyromancer extends Minion {
     public void spellCastedProc(Spell spell, BoardState board) {
         if (properties.contains(Keywords.SPELLCASTED)) {
             for (Minion minion: owner.getPlayerSide()) {
-                addHp(-1, board);
+                minion.addHp(-1, board);
             }
             for (Minion minion: UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                addHp(-1, board);
+                minion.addHp(-1, board);
             }
         }
     }

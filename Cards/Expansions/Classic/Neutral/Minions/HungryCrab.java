@@ -32,7 +32,7 @@ public class HungryCrab extends Minion {
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         boolean canTarget = false;
         for (Minion minion: UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
             if (minion.getTribe() == Tribe.MURLOC) {

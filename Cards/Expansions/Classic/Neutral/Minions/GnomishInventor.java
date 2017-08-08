@@ -34,7 +34,7 @@ public class GnomishInventor extends Minion {
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             owner.drawCard();
         }

@@ -34,7 +34,7 @@ public class DarkIronDwarf extends Minion {
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             int index = owner.promptTargetIndex(board, 3);
             if (index == 10);

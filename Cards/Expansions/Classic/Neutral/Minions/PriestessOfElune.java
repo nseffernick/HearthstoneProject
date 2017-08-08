@@ -8,7 +8,6 @@ import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class PriestessOfElune extends Minion {
 
     // Deal three damage to hero
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             MasterTargeter.Main(owner, -1, 4, null, true, board);
         }

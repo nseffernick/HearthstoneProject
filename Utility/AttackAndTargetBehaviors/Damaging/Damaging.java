@@ -3,6 +3,7 @@ package Utility.AttackAndTargetBehaviors.Damaging;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Keywords.Keywords;
 
 /**
  * Created by Cheech on 3/29/2017. nxs1720@g.rit.edu
@@ -20,10 +21,14 @@ public class Damaging {
      */
     public static void damageCharacter(Player target, int index, int dmg, BoardState board) {
         if (index == -1) {
-            target.getHero().addHp(target, -dmg);
+            if (!target.getHero().getProperties().contains(Keywords.IMMUNE)) {
+                target.getHero().addHp(target, -dmg);
+            }
         }
         else {
-            target.getPlayerSide().get(index).addHp(-dmg, board);
+            if (!target.getPlayerSide().get(index).getProperties().contains(Keywords.IMMUNE)) {
+                target.getPlayerSide().get(index).addHp(-dmg, board);
+            }
         }
     }
     

@@ -51,10 +51,6 @@ public abstract class Card {
         return cost;
     }
 
-    public void addCost(int set) {
-        cost += set;
-    }
-
     public Rarity getRarity() {
         return rarity;
     }
@@ -92,5 +88,14 @@ public abstract class Card {
     public void updateCostFromHandSize() {};
 
     public void updateCostFromBoardSize(BoardState board) {};
+
+    public void addCost(int set) {
+        cost += set;
+    }
+
+    public void setOwner(Player player) {
+        owner = player;
+    }
+
 
 }

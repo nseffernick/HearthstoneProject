@@ -33,6 +33,8 @@ public class HarvestGolem extends Minion {
 
     @Override
     public void deathrattle(BoardState board) {
-        owner.summonCard(new DamagedGolem(owner), board);
+        if (properties.contains(Keywords.DEATHRATTLE)) {
+            owner.summonCard(new DamagedGolem(owner), board);
+        }
     }
 }

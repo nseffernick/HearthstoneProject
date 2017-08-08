@@ -36,7 +36,7 @@ public class BloodsailCorsair extends Minion {
      * Damage an opponent's weapon
      */
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             if (!(UtilityMethods.findEnemy(board, owner).getHero().getWeapon() == null)) {
                 UtilityMethods.findEnemy(board, owner).getHero().getWeapon().addDurability(-1);

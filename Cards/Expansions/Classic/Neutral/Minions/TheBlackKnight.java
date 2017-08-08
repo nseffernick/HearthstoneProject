@@ -33,7 +33,7 @@ public class TheBlackKnight extends Minion {
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         if (properties.contains(Keywords.BATTLECRY)) {
             boolean canTargetEnemy = false;
             for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {

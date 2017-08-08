@@ -32,7 +32,7 @@ public class Deathwing extends Minion {
     }
 
     @Override
-    public void battlecry(BoardState board, Player player) {
+    public void battlecry(BoardState board, Player player, int position) {
         for (Minion minion: board.getP1().getPlayerSide()) {
             minion.destroy(board);
         }

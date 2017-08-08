@@ -27,6 +27,7 @@ public class AmaniBerserker extends Minion {
         super(3, 2, 2, "Amani Berserker", owner, "Enrage: +3 Attack",
                 Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
         properties.add(Keywords.ENRAGE);
+        boolean enraged = false;
     }
 
     @Override

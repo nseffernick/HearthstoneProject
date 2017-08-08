@@ -42,6 +42,8 @@ public enum Keywords {
     MINIONPLAYED,
     SPELLCASTED,
     MINIONSUMMONED,
+    WEAPONSTATE,
+    MINIONDEATH,
     SUMMONSICKNESS, // cant be silenced
     HASATTACKED; // can be silenced
 }

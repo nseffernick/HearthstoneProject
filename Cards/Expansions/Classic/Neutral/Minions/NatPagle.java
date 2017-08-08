@@ -1,6 +1,7 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
@@ -26,8 +27,14 @@ public class NatPagle extends Minion {
 
         super(4, 0, 2, "Nat Pagle", owner,"At the start of your turn, you have a 50% chance to draw an extra card.",
                 Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+        properties.add(Keywords.STARTOFYOURTURN);
     }
 
-
-
+    @Override
+    public void startOfYourTurn(BoardState board) {
+        if (properties.contains(Keywords.STARTOFYOURTURN)) {
+            boolean maybeDraw = owner.getRng().randomBool();
+            if (maybeDraw) { owner.drawCard(); }
+        }
+    }
 }

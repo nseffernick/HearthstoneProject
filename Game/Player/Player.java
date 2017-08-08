@@ -356,13 +356,13 @@ public class Player {
                 if (card instanceof Minion) {
                     Minion minion = (Minion) (card);
                     minion.getProperties().add(Keywords.SUMMONSICKNESS);
-                    minion.battlecry(board, this);
-                    //TODO The board mechanix!
+                    minion.battlecry(board, this, index);
                     if (playerSide.isEmpty()) {
                         playerSide.add(minion);
                     }
-                    else playerSide.add(minion);
-                    addMana(-card.getCost());
+                    else playerSide.add(index, minion);
+                    if (card.getCost() <= 0);
+                    else addMana(-card.getCost());
                     minion.createAura(board);
                     updateCardCostFromBoard(board);
                     procFromCardPlayed(minion, board);
