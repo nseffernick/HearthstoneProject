@@ -36,7 +36,7 @@ public class SilverHandKnight extends Minion {
     // Summon a 2/1 dragonling
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            owner.summonCard(new Squire(owner), board);
+            owner.summonMinion(new Squire(owner), board);
         }
     }
 }

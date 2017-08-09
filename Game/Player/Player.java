@@ -74,24 +74,25 @@ public class Player {
         LinkedList<Card> deck = new LinkedList<>();
         String[] decklistArr = decklist.split(" ");
         for (String card : decklistArr) {
-            try {
-                /////////////////////////////////////////////////////////////////
-                // WHY HAS NO ONE TOLD ME ABOUT THIS                           //
-                Class newCard = Class.forName(card);                           //
-                Constructor<Player> constructor = newCard.getConstructor(Player.class);//
-                Object card1 = constructor.newInstance(this);         //
-                // This is the only code that matters in this entire program   //
-                /////////////////////////////////////////////////////////////////
-                if (card1 instanceof Card) {
-                    Card card2 = (Card) (card1);
-                    deck.add(card2);
-                }
-            } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
-                    | InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+            makeCardFromClass(deck, card);
         }
         return deck;
+    }
+
+    private void makeCardFromClass(LinkedList<Card> deck, String card) {
+        try {
+            Class newCard = Class.forName(card);
+            Constructor<Player> constructor = newCard.getConstructor(Player.class);
+            Object card1 = constructor.newInstance(this);
+            if (card1 instanceof Card) {
+                Card card2 = (Card) (card1);
+                deck.add(card2);
+            }
+        }
+        catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
+                | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -169,79 +170,72 @@ public class Player {
         int mullCount = 0;
 
         if (player == board.getP1()) {
-            int[] intArr = {12, 21, 23};
-            System.out.println("You are going first.");
-            drawCard();
-            drawCard();
-            drawCard();
-            System.out.println("Choose which cards to put back in your deck.");
-            System.out.println();
-            while (pos < hand.size()) {
-                String answer = mulliganHelper(this, chooseCard);
-                if (answer.equals("Y")) {
-                    mullCount += 1;
-                    intArr[pos] = i;
-                }
-                else if (answer.equals("N")) {
-                    intArr[pos] = -1;
-                    i += 1;
-                }
-                pos += 1;
-            }
-            while (mullCount > 0){
-                drawCard();
-                mullCount -= 1;
-            }
-            pos = 0;
-            while (intArr.length > pos) {
-                if (intArr[pos] == -1);
-                else {
-                    Card card = hand.remove(intArr[pos]);
-                    deck.add(card);
-                }
-                pos += 1;
-            }
-            rng.shuffle(this.deck);
-            System.out.println(hand);
+            firstPlayerMulligan(chooseCard, i, pos, mullCount);
         }
 
         else {
-            int[] intArr = {12, 21, 23, 232};
-            System.out.println("You are going second.");
-            drawCard();
-            drawCard();
-            drawCard();
-            drawCard();
-            System.out.println("Choose which cards to put back in your deck.");
-            System.out.println();
-            while (pos < hand.size()) {
-                String answer = mulliganHelper(this, chooseCard);
-                if (answer.equals("Y")) {
-                    mullCount += 1;
-                    intArr[pos] = i;
-                }
-                else if (answer.equals("N")) {
-                    intArr[pos] = -1;
-                    i += 1;
-                }
-                pos += 1;
-            }
-            while (mullCount > 0){
-                drawCard();
-                mullCount -= 1;
-            }
-            pos = 0;
-            while (intArr.length > pos) {
-                if (intArr[pos] == -1);
-                else {
-                    Card card = hand.remove(intArr[pos]);
-                    deck.add(card);
-                }
-                pos += 1;
-            }
-            rng.shuffle(this.deck);
-            System.out.println(hand);
+            secondPlayerMulligan(chooseCard, i, pos, mullCount);
         }
+    }
+
+    private void secondPlayerMulligan(Scanner chooseCard, int i, int pos, int mullCount) {
+        int[] intArr = {12, 21, 23, 232};
+        System.out.println("You are going second.");
+        drawCard();
+        drawCard();
+        drawCard();
+        drawCard();
+        mullCount = getMullCount(chooseCard, i, pos, mullCount, intArr);
+        drawAndMullBackCards(mullCount, intArr);
+        rng.shuffle(this.deck);
+        System.out.println(hand);
+    }
+
+    private void drawAndMullBackCards(int mullCount, int[] intArr) {
+        int pos;
+        while (mullCount > 0){
+            drawCard();
+            mullCount -= 1;
+        }
+        pos = 0;
+        while (intArr.length > pos) {
+            if (intArr[pos] == -1);
+            else {
+                Card card = hand.remove(intArr[pos]);
+                deck.add(card);
+            }
+            pos += 1;
+        }
+    }
+
+    private int getMullCount(Scanner chooseCard, int i, int pos, int mullCount, int[] intArr) {
+        System.out.println("Choose which cards to put back in your deck.");
+        System.out.println();
+        while (pos < hand.size()) {
+            String answer = mulliganHelper(this, chooseCard);
+            if (answer.equals("Y")) {
+                mullCount += 1;
+                intArr[pos] = i;
+            }
+            else if (answer.equals("N")) {
+                intArr[pos] = -1;
+                i += 1;
+            }
+            pos += 1;
+        }
+        return mullCount;
+    }
+
+    private void firstPlayerMulligan(Scanner chooseCard, int i, int pos, int mullCount) {
+        int[] intArr = {12, 21, 23};
+        System.out.println("You are going first.");
+        drawCard();
+        drawCard();
+        drawCard();
+        mullCount = getMullCount(chooseCard, i, pos, mullCount, intArr);
+        drawAndMullBackCards(mullCount, intArr);
+        rng.shuffle(this.deck);
+        System.out.println(hand);
     }
 
     private String mulliganHelper(Player player, Scanner choose) {
@@ -258,13 +252,13 @@ public class Player {
 
     private void applyAura(Aura aura, BoardState board) {
 
-        LinkedList<Card> where = determineWhere(aura, board);
+        LinkedList<Card> where = determineAffectedCards(aura, board);
         String[] text = aura.getEffect().split(" ");
         int increment = getIncrement(text);
-        modifyWhere(where, text, increment, board);
+        modifyAffectedCards(where, text, increment, board);
     }
 
-    private LinkedList<Card> determineWhere(Aura aura, BoardState board) {
+    private LinkedList<Card> determineAffectedCards(Aura aura, BoardState board) {
 
         String[] text = aura.getWhere().split(" ");
 
@@ -280,7 +274,7 @@ public class Player {
         return MasterTargeter.CustomTarget(player,text[1], aura.getTribe(), aura.getLink());
     }
 
-    private void modifyWhere(LinkedList<Card> where, String[] text, int increment, BoardState board) {
+    private void modifyAffectedCards(LinkedList<Card> where, String[] text, int increment, BoardState board) {
 
         for (Card card: where) {
             if(text[0].equals("Attack")) {
@@ -293,14 +287,12 @@ public class Player {
                 if (card instanceof Minion) {
                     Minion minion = (Minion) card;
                     minion.addMaxHP(increment);
-                    minion.addHp(increment, board);
                 }
             }
             else if(text[0].equals("Attack/Health")) {
                 if (card instanceof Minion) {
                     Minion minion = (Minion) card;
                     minion.addMaxHP(increment);
-                    minion.addHp(increment, board);
                     minion.addAtk(increment);
                 }
             }
@@ -322,11 +314,11 @@ public class Player {
     public void removeAura(Aura aura, BoardState board) {
         if (checkForAura(aura));
         else {
-            LinkedList<Card> where = determineWhere(aura, board);
+            LinkedList<Card> where = determineAffectedCards(aura, board);
             String[] text = aura.getEffect().split(" ");
             int increment = getIncrement(text);
-            increment = increment - (2*increment);
-            modifyWhere(where, text, increment, board);
+            increment = -increment;
+            modifyAffectedCards(where, text, increment, board);
         }
     }
 
@@ -354,20 +346,7 @@ public class Player {
                 updateCardCostFromHand();
                 // If card is a minion
                 if (card instanceof Minion) {
-                    Minion minion = (Minion) (card);
-                    minion.getProperties().add(Keywords.SUMMONSICKNESS);
-                    minion.battlecry(board, this, index);
-                    if (playerSide.isEmpty()) {
-                        playerSide.add(minion);
-                    }
-                    else playerSide.add(index, minion);
-                    if (card.getCost() <= 0);
-                    else addMana(-card.getCost());
-                    minion.createAura(board);
-                    updateCardCostFromBoard(board);
-                    procFromCardPlayed(minion, board);
-                    procFromMinionSummoned(minion, board);
-                    checkBoardForDead(board);
+                    playMinion(card, index, board);
                 }
                 // If card is a spell
                 else if (card instanceof Spell) {
@@ -384,6 +363,23 @@ public class Player {
         }
     }
 
+    private void playMinion(Card card, int index, BoardState board) {
+        Minion minion = (Minion) (card);
+        minion.getProperties().add(Keywords.SUMMONSICKNESS);
+        minion.battlecry(board, this, index);
+        if (playerSide.isEmpty()) {
+            playerSide.add(minion);
+        }
+        else playerSide.add(index, minion);
+        if (card.getCost() <= 0);
+        else addMana(-card.getCost());
+        minion.createAura(board);
+        updateCardCostFromBoard(board);
+        procFromCardPlayed(minion, board);
+        procFromMinionSummoned(minion, board);
+        checkBoardForDead(board);
+    }
+
     /**
      * Many things in the game summon minions, playing cards, on board
      * effects, spells.
@@ -391,7 +387,7 @@ public class Player {
      * @param minion
      * @param board
      */
-    public void summonCard(Minion minion, BoardState board) {
+    public void summonMinion(Minion minion, BoardState board) {
         if (playerSide.size() < BOARD_SLOTS) {
             minion.getProperties().add(Keywords.SUMMONSICKNESS);
             minion.createAura(board);
@@ -432,22 +428,31 @@ public class Player {
 
     public void placeCardInGraveyard(Card card, BoardState board) {
         if (card instanceof Minion) {
-            Minion minion = (Minion) card;
-            playerSide.remove(minion);
-            updateCardCostFromBoard(board);
-            Class newMinion = minion.getClass();
-            try {
-                Constructor constructor = newMinion.getConstructor(Player.class);
-                Object card1 = constructor.newInstance(this);
-                if (card1 instanceof Card) {
-                    Card card2 = (Card) (card1);
-                    graveyard.add(card2);
-                }
-            }
-            catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
-                e.printStackTrace();
-            }
+            placeMinionInGraveyard((Minion) card, board);
         }
+    }
+
+    private void placeMinionInGraveyard(Minion card, BoardState board) {
+        playerSide.remove(card);
+        updateCardCostFromBoard(board);
+        Object card1 = constructDefaultCard(card);
+        if (card1 instanceof Card) {
+            Card card2 = (Card) (card1);
+            graveyard.add(card2);
+        }
+    }
+
+    private Object constructDefaultCard(Minion card) {
+        Class newCard = card.getClass();
+        Object card1 = null;
+        try {
+            Constructor constructor = newCard.getConstructor(Player.class);
+            card1 = constructor.newInstance(this);
+        }
+        catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return card1;
     }
 
     private void updateCardCostFromBoard(BoardState board) {

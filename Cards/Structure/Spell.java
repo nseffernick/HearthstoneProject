@@ -1,9 +1,11 @@
 package Cards.Structure;
 
+import Game.BoardState;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
 import Game.Player.Player;
+import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -38,10 +40,7 @@ public abstract class Spell extends Card {
         super(spell);
     }
 
-    public boolean canPlay(int cost, int mana) {
-        return mana <= cost;
-    }
-
+    public abstract void castSpell();
 }
 
 

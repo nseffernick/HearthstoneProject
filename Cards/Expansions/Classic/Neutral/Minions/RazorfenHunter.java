@@ -38,7 +38,7 @@ public class RazorfenHunter extends Minion {
     // Summon a 1/1 boar
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            owner.summonCard(new Boar(owner), board);
+            owner.summonMinion(new Boar(owner), board);
         }
     }
 }

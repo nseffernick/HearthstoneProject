@@ -1,4 +1,4 @@
-package GUI;
+package UI.GUI;
 
 import Game.BoardState;
 import javafx.application.Application;
@@ -14,7 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -34,7 +33,7 @@ public class HearthGUI extends Application implements Observer {
          */
         @Override
         public void init() throws Exception {
-            System.out.println("Initializing GUI...");
+            System.out.println("Initializing UI...");
             parameters = getParameters().getUnnamed().toString();
             parameters = parameters.substring(1,parameters.length()-1);
             this.model = new BoardState(parameters);
@@ -51,7 +50,7 @@ public class HearthGUI extends Application implements Observer {
         }
 
         /**
-         * Primary method needed to launch the GUI
+         * Primary method needed to launch the UI
          *
          * @param primaryStage
          * @throws Exception
@@ -67,7 +66,7 @@ public class HearthGUI extends Application implements Observer {
         }
 
         /**
-         * Updates GUI when called.
+         * Updates UI when called.
          * Redraws based on information given, handles called etc..
          * @param o
          * @param arg

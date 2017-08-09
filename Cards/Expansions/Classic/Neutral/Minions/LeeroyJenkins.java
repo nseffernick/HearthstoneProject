@@ -35,7 +35,7 @@ public class LeeroyJenkins  extends Minion {
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        UtilityMethods.findEnemy(board, owner).summonCard(new Whelp(UtilityMethods.findEnemy(board, owner)), board);
-        UtilityMethods.findEnemy(board, owner).summonCard(new Whelp(UtilityMethods.findEnemy(board, owner)), board);
+        UtilityMethods.findEnemy(board, owner).summonMinion(new Whelp(UtilityMethods.findEnemy(board, owner)), board);
+        UtilityMethods.findEnemy(board, owner).summonMinion(new Whelp(UtilityMethods.findEnemy(board, owner)), board);
     }
 }

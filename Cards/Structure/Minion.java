@@ -99,7 +99,19 @@ public abstract class Minion extends Card {
     }
 
     public void addMaxHP(int set) {
-        maxHP += set;
+        boolean shouldMinionLoseHealth = maxHP - hp < -set;
+        if (shouldMinionLoseHealth) {
+            int healthLost = (maxHP - hp) - set;
+            maxHP += set;
+            hp += healthLost;
+        }
+        else if (set > 0) {
+            maxHP += set;
+            hp += set;
+        }
+        else {
+            maxHP += set;
+        }
     }
 
     public void addAtk(int set) {

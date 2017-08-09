@@ -23,4 +23,9 @@ public class Banana extends Spell {
         super(1, "Banana", "Give a minion +1/+1", owner,
                 Rarity.BASIC, HeroClass.NEUTRAL, new ArrayList<>());
     }
+
+    @Override
+    public void castSpell() {
+        owner.addMana(1);
+    }
 }

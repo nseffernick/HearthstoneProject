@@ -34,7 +34,7 @@ public class IllidanStormrage extends Minion {
     @Override
     public void cardPlayed(BoardState board) {
         if (properties.contains(Keywords.CARDPLAYED)) {
-            owner.summonCard(new FlameOfAzzinoth(owner), board);
+            owner.summonMinion(new FlameOfAzzinoth(owner), board);
         }
     }
 }

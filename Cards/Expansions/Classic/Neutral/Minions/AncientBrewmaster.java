@@ -43,21 +43,4 @@ public class AncientBrewmaster extends Minion {
             }
         }
     }
-
-    private void returnBackToHand(int index) {
-        Minion minion = owner.getPlayerSide().get(index);
-        owner.getPlayerSide().remove(minion);
-        Class newMinion = minion.getClass();
-        try {
-            Constructor constructor = newMinion.getConstructor(Player.class);
-            Object card1 = constructor.newInstance(owner);
-            if (card1 instanceof Minion) {
-                Minion minion1 = (Minion) card1;
-                owner.getHand().add(minion1);
-            }
-        }
-        catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-    }
 }

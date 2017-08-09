@@ -34,7 +34,7 @@ public class CairneBloodhoof extends Minion {
     @Override
     public void deathrattle(BoardState board) {
         if (properties.contains(Keywords.DEATHRATTLE)) {
-            owner.summonCard(new BaineBloodhoof(owner), board);
+            owner.summonMinion(new BaineBloodhoof(owner), board);
         }
     }
 }

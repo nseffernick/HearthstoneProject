@@ -39,7 +39,7 @@ public class DragonlingMechanic extends Minion {
     // Summon a 2/1 dragonling
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
-            owner.summonCard(new MechanicalDragonling(owner), board);
+            owner.summonMinion(new MechanicalDragonling(owner), board);
         }
     }
 }

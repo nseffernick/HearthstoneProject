@@ -34,7 +34,7 @@ public class Hogger extends Minion {
     @Override
     public void endOfYourTurn(BoardState board) {
         if (properties.contains(Keywords.ENDOFYOURTURN)) {
-            owner.summonCard(new Gnoll(owner), board);
+            owner.summonMinion(new Gnoll(owner), board);
         }
     }
 }

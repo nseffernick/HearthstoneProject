@@ -84,6 +84,8 @@ public class BoardState extends Observable {
         return p1.getHero().isDead() || p2.getHero().isDead();
     }
 
+    public boolean isBoardEmpty() { return p1.getPlayerSide().isEmpty() && p2.getPlayerSide().isEmpty(); }
+
     private Player whoWon() {
         if (p1.getHero().isDead()) {
             return p2;
@@ -166,7 +168,6 @@ public class BoardState extends Observable {
     }
 
     private void playerTurnLoop(Player player, long startTime, long estimatedTime) {
-
         while (!this.hasWon()) {
             //System.out.println("Time remaining: " + (1000 - estimatedTime) + " seconds remaining.");
             //if (estimatedTime >= ROPE) { System.out.println("tsssss"); }
@@ -286,20 +287,28 @@ public class BoardState extends Observable {
     private void playerPlaysACard(Player player, String[] fields) {
         try {
             if (fields[1].matches("[0-9]")) {
-                Card card = player.getHand().get(Integer.parseInt(fields[1]) - 1);
-                player.playCard(card, Integer.parseInt(fields[2]), this);
+                playCardByIndex(player, fields);
             }
             else {
-                for (Card card : player.getHand()) {
-                    if (fields[1].equals(card.getName())) {
-                        player.playCard(card, Integer.parseInt(fields[2]), this);
-                    }
-                }
+                playCardByName(player, fields);
             }
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid Index, Most likely issue: Size needs to be greater than index.");
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void playCardByIndex(Player player, String[] fields) {
+        Card card = player.getHand().get(Integer.parseInt(fields[1]) - 1);
+        player.playCard(card, Integer.parseInt(fields[2]), this);
+    }
+
+    private void playCardByName(Player player, String[] fields) {
+        for (Card card : player.getHand()) {
+            if (fields[1].equals(card.getName())) {
+                player.playCard(card, Integer.parseInt(fields[2]), this);
+            }
         }
     }
 

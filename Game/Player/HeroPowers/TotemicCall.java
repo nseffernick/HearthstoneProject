@@ -62,7 +62,7 @@ public class TotemicCall extends HeroPower {
         if (!(canSummon.isEmpty())) {
             Minion totem = canSummon.get(player.getRng().randomNum
                     (canSummon.size()-1));
-            player.summonCard(totem, board);
+            player.summonMinion(totem, board);
         }
     }
 

@@ -35,7 +35,7 @@ public class VioletTeacher extends Minion {
     @Override
     public void spellCastedProc(Spell spell, BoardState board) {
         if (properties.contains(Keywords.SPELLCASTED)) {
-            owner.summonCard(new VioletApprentice(owner), board);
+            owner.summonMinion(new VioletApprentice(owner), board);
         }
     }
 }

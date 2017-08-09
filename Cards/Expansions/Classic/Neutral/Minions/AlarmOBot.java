@@ -53,7 +53,7 @@ public class AlarmOBot extends Minion {
     private void replaceBot(BoardState board, int randomNum) {
         owner.getPlayerSide().remove(this);
         Minion minion = (Minion) owner.getHand().get(randomNum);
-        owner.summonCard(minion, board);
+        owner.summonMinion(minion, board);
         AlarmOBot newAlarmOBot = new AlarmOBot(owner);
         if (owner.getHand().size() > 10);
         else owner.getHand().add(newAlarmOBot);

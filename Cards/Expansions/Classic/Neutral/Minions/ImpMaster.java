@@ -35,7 +35,7 @@ public class ImpMaster extends Minion {
     @Override
     public void endOfYourTurn(BoardState board) {
         if (properties.contains(Keywords.ENDOFYOURTURN)) {
-            owner.summonCard(new Imp(owner), board);
+            owner.summonMinion(new Imp(owner), board);
             addHp(-1, board);
         }
     }

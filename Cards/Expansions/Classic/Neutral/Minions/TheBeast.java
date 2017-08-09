@@ -35,7 +35,7 @@ public class TheBeast extends Minion {
     @Override
     public void deathrattle(BoardState board) {
         if (properties.contains(Keywords.DEATHRATTLE)) {
-            UtilityMethods.findEnemy(board, owner).summonCard(new FinkleEinhorn(UtilityMethods.findEnemy(board, owner)), board);
+            UtilityMethods.findEnemy(board, owner).summonMinion(new FinkleEinhorn(UtilityMethods.findEnemy(board, owner)), board);
         }
     }
 }

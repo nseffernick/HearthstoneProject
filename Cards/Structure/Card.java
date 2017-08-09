@@ -7,6 +7,8 @@ import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 /**
@@ -47,41 +49,23 @@ public abstract class Card {
         this.owner = copyCard.owner;
     }
 
-    public int getCost() {
-        return cost;
-    }
+    public int getCost() { return cost; }
 
-    public Rarity getRarity() {
-        return rarity;
-    }
+    public Rarity getRarity() { return rarity; }
 
-    public HeroClass getHeroClass() {
-        return heroClass;
-    }
+    public HeroClass getHeroClass() { return heroClass; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public String getText() {
-        return text;
-    }
+    public String getText() { return text; }
 
-    public ArrayList<Keywords> getProperties() {
-        return properties;
-    }
+    public ArrayList<Keywords> getProperties() { return properties; }
 
-    public Player getOwner() {
-        return owner;
-    }
+    public Player getOwner() { return owner; }
 
-    public boolean canPlay(int cost, int mana) {
-        return mana >= cost;
-    }
+    public boolean canPlay(BoardState board) { return owner.getMana() >= cost; }
 
-    public String toString(String name) {
-        return name;
-    }
+    public String toString(String name) { return name; }
 
     public void updateCostFromHeroHP() {};
 
@@ -89,13 +73,25 @@ public abstract class Card {
 
     public void updateCostFromBoardSize(BoardState board) {};
 
-    public void addCost(int set) {
-        cost += set;
-    }
+    public void addCost(int set) { cost += set; }
 
-    public void setOwner(Player player) {
-        owner = player;
-    }
+    public void setOwner(Player player) { owner = player; }
 
+    protected void returnBackToHand(int index) {
+        Minion minion = owner.getPlayerSide().get(index);
+        owner.getPlayerSide().remove(minion);
+        Class newMinion = minion.getClass();
+        try {
+            Constructor constructor = newMinion.getConstructor(Player.class);
+            Object card1 = constructor.newInstance(owner);
+            if (card1 instanceof Minion) {
+                Minion minion1 = (Minion) card1;
+                owner.getHand().add(minion1);
+            }
+        }
+        catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

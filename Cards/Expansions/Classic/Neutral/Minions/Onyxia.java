@@ -36,7 +36,7 @@ public class Onyxia extends Minion {
     public void battlecry(BoardState board, Player player, int index) {
         if (properties.contains(Keywords.BATTLECRY)) {
             if (owner.getPlayerSide().size() < 7) {
-                owner.summonCard(new Whelp(owner), board);
+                owner.summonMinion(new Whelp(owner), board);
             }
         }
     }
