@@ -3,7 +3,9 @@ package Cards.Structure;
 
 import Game.Player.Player;
 import Game.BoardState;
-import Utility.Keywords.Keywords;
+import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
+import Utility.Enchantments.Structure.Enchantments;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
 
@@ -23,17 +25,17 @@ public abstract class Card {
     protected String name;
     protected String text;
     protected Player owner;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Card(int cost, String name, String text, Player owner,
-                Rarity rarity, HeroClass heroClass, ArrayList<Keywords> properties) {
+                Rarity rarity, HeroClass heroClass, ArrayList<Enchantments> enchantments) {
 
         this.cost = cost;
         this.name = name;
         this.text = text;
         this.rarity = rarity;
         this.heroClass = heroClass;
-        this.properties = properties;
+        this.enchantments = enchantments;
         this.owner = owner;
     }
 
@@ -44,8 +46,8 @@ public abstract class Card {
         this.name = copyCard.name;
         this.text = copyCard.text;
         this.heroClass = copyCard.heroClass;
-        this.properties = new ArrayList<>();
-        properties.addAll(copyCard.properties);
+        this.enchantments = new ArrayList<>();
+        enchantments.addAll(copyCard.enchantments);
         this.owner = copyCard.owner;
     }
 
@@ -59,7 +61,7 @@ public abstract class Card {
 
     public String getText() { return text; }
 
-    public ArrayList<Keywords> getProperties() { return properties; }
+    public ArrayList<Enchantments> getEnchantments() { return enchantments; }
 
     public Player getOwner() { return owner; }
 
@@ -77,21 +79,34 @@ public abstract class Card {
 
     public void setOwner(Player player) { owner = player; }
 
-    protected void returnBackToHand(int index) {
-        Minion minion = owner.getPlayerSide().get(index);
-        owner.getPlayerSide().remove(minion);
+    protected void returnBackToHand(int index, Player target) {
+        Minion minion = target.getPlayerSide().get(index);
+        target.getPlayerSide().remove(minion);
         Class newMinion = minion.getClass();
         try {
             Constructor constructor = newMinion.getConstructor(Player.class);
-            Object card1 = constructor.newInstance(owner);
+            Object card1 = constructor.newInstance(target);
             if (card1 instanceof Minion) {
                 Minion minion1 = (Minion) card1;
-                owner.getHand().add(minion1);
+                target.getHand().add(minion1);
             }
         }
         catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
             e.printStackTrace();
         }
     }
+
+    protected void damageAllCharacters(BoardState board, int dmg) {
+        Damaging.damageCharacter(board.getP1(), -1, -dmg, board);
+        Damaging.damageCharacter(board.getP2(), -1, -dmg, board);
+        for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {
+            Damaging.damageCharacter(board.getP1(), i, dmg, board);
+        }
+        for (int x = 0; x < board.getP2().getPlayerSide().size(); x++) {
+            Damaging.damageCharacter(board.getP2(), x, dmg, board);
+        }
+    }
+
+    protected void chooseOne() {}
 
 }

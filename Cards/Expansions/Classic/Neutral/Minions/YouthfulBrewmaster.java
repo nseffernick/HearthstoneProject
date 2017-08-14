@@ -5,7 +5,7 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -39,12 +39,12 @@ public class YouthfulBrewmaster extends Minion {
             int index = owner.promptTargetIndex(board, 2);
             if (index == 10);
             else if (Targeting.characterTargeting(owner, index, true)) {
-                returnBackToHand(index);
+                returnBackToHand(index, );
             }
         }
     }
 
-    private void returnBackToHand(int index) {
+    private void returnBackToHand(int index, Player target) {
         Minion minion = owner.getPlayerSide().get(index);
         owner.getPlayerSide().remove(minion);
         Class newMinion = minion.getClass();

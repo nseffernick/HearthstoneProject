@@ -1,10 +1,11 @@
 package Cards.Expansions.Classic.Uncollectible.Neutral.Spells;
 
+import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 
 import java.util.ArrayList;
@@ -27,6 +28,13 @@ public class Banana extends Spell {
 
     @Override
     public void castSpell(BoardState board) {
-
+        Player player = owner.promptTargetPlayer(board);
+        int index = owner.promptTargetIndex(board, 2);
+        if (index == 10);
+        else {
+            Minion minion = player.getPlayerSide().get(index);
+            minion.addMaxHP(1);
+            minion.addAtk(1);
+        }
     }
 }

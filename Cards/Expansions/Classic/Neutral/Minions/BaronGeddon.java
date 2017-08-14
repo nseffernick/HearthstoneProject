@@ -4,7 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -34,16 +34,7 @@ public class BaronGeddon extends Minion {
     //TODO change like everything to damaging instead of addHP Damaging.damageCharacter(UtilityMethods.findEnemy(board, owner), index, 1, board);
     public void endOfYourTurn(BoardState board) {
         if (properties.contains(Keywords.ENDOFYOURTURN)) {
-            board.getP1().getHero().addHp(board.getP1(), -2);
-            board.getP2().getHero().addHp(board.getP2(), -2);
-            for (Minion minion : board.getP1().getPlayerSide()) {
-                if (minion == this);
-                else minion.addHp(-2, board);
-            }
-            for (Minion minion : board.getP2().getPlayerSide()) {
-                if (minion == this);
-                else minion.addHp(-2, board);
-            }
+            damageAllCharactersExceptThis(board, 2);
         }
     }
 }

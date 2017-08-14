@@ -8,7 +8,7 @@ import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
@@ -22,9 +22,9 @@ import java.util.ArrayList;
  * affects, will it call a function every turn, will I change a boolean value
  * when it comes into play, is killed, is bounced, etc...
  * Also decided to forgo the Property class, as I am just unsure how I would
- * implement it at the moment, so it will just have a ArrLst of Keywords that
+ * implement it at the moment, so it will just have a ArrLst of Enchantments that
  * will call certain methods given certain conditions, if they are present in
- * properties or not.
+ * enchantments or not.
  * Also this debuff method (soon to be renamed) will probably not only
  * exist in this class, its also extremely cumbersome with the if
  * statements, switch cases doesn't really make sense, so idk.

@@ -4,7 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -43,10 +43,10 @@ public class AncientMage extends Minion {
             right = owner.getPlayerSide().get(position);
         }
         if (left != null) {
-            left.getProperties().add(Keywords.SPELLDAMAGE);
+            left.getEnchantments().add(Keywords.SPELLDAMAGE);
         }
         if (right != null) {
-            right.getProperties().add(Keywords.SPELLDAMAGE);
+            right.getEnchantments().add(Keywords.SPELLDAMAGE);
         }
     }
 }

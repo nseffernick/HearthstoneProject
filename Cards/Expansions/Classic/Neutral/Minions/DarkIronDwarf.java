@@ -5,10 +5,8 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
-import Utility.TempBuffs.TempBuff;
-import Utility.TempBuffs.TwoAttackBuff;
 import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
@@ -40,8 +38,6 @@ public class DarkIronDwarf extends Minion {
             if (index == 10);
             else if (Targeting.characterTargeting(owner, index, true)) {
                 Minion minion = owner.getPlayerSide().get(index);
-                TempBuff attackBuff = new TwoAttackBuff(minion);
-                attackBuff.tempBuff(board);
             }
         }
     }

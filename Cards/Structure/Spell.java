@@ -1,7 +1,7 @@
 package Cards.Structure;
 
 import Game.BoardState;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.HeroClasses.HeroClass;
 import Game.Player.Player;

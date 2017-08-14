@@ -5,7 +5,7 @@ import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class WrathOfAir extends Minion {
     public int cost = 1;
     public String name = "Wrath of Air Totem";
     private String text = "Spell Damage +1";
-    private ArrayList<Keywords> properties = new ArrayList<>();
+    private ArrayList<Keywords> properties = new ArrayList<Utility.Enchantments.Structure.Enchantments>();
 
     public WrathOfAir(Player player) {
 

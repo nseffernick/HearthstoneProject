@@ -8,7 +8,7 @@ import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.UtilityMethods.UtilityMethods;
 import Utility.UtilityMethods.hsCeption;
 
@@ -323,7 +323,7 @@ public class Player {
     }
 
     private boolean checkForAura(Aura aura) {
-        return !aura.getLink().isDead() && aura.getLink().getProperties().contains(Keywords.AURA);
+        return !aura.getLink().isDead() && aura.getLink().getEnchantments().contains(Keywords.AURA);
     }
 
     public void addAura(Aura aura, BoardState board) {
@@ -365,7 +365,7 @@ public class Player {
 
     private void playMinion(Card card, int index, BoardState board) {
         Minion minion = (Minion) (card);
-        minion.getProperties().add(Keywords.SUMMONSICKNESS);
+        minion.getEnchantments().add(Keywords.SUMMONSICKNESS);
         minion.battlecry(board, this, index);
         if (playerSide.isEmpty()) {
             playerSide.add(minion);
@@ -389,7 +389,7 @@ public class Player {
      */
     public void summonMinion(Minion minion, BoardState board) {
         if (playerSide.size() < BOARD_SLOTS) {
-            minion.getProperties().add(Keywords.SUMMONSICKNESS);
+            minion.getEnchantments().add(Keywords.SUMMONSICKNESS);
             minion.createAura(board);
             playerSide.add(minion);
             updateCardCostFromBoard(board);

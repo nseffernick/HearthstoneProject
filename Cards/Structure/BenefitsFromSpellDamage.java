@@ -1,13 +1,13 @@
 package Cards.Structure;
 
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 
-public interface benefitsFromSpellDamage {
+public interface BenefitsFromSpellDamage {
 
     default int calcSpellDamage(Spell spell) {
         int moreDamage = 0;
         for (Minion minion: spell.getOwner().getPlayerSide()) {
-            for (Keywords keyword: minion.getProperties()) {
+            for (Keywords keyword: minion.getEnchantments()) {
                 if (keyword == Keywords.SPELLDAMAGE) {
                     moreDamage += 1;
                 }

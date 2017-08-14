@@ -3,7 +3,7 @@ package Cards.Expansions.Classic.Uncollectible.Rogue.Weapons;
 import Cards.Structure.Weapon;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 
 import java.util.ArrayList;

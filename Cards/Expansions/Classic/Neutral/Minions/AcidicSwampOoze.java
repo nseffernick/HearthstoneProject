@@ -6,7 +6,7 @@ import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;

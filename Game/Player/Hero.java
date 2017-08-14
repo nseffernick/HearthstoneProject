@@ -6,8 +6,9 @@ import Cards.Structure.Minion;
 import Cards.Structure.Weapon;
 import Game.BoardState;
 import Game.Player.HeroPowers.*;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class Hero {
 
     public Hero(String name, Player player) {
         initializeHero(name, player);
-        this.properties = new ArrayList<>();
+        this.properties = new ArrayList<Utility.Enchantments.Structure.Enchantments>();
     }
 
     /**
@@ -157,7 +158,7 @@ public class Hero {
         return weapon;
     }
 
-    public ArrayList<Keywords> getProperties() {
+    public ArrayList<Enchantments> getProperties() {
         return properties;
     }
 

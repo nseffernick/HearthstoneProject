@@ -4,7 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.UtilityMethods.UtilityMethods;
@@ -37,7 +37,7 @@ public class TheBlackKnight extends Minion {
         if (properties.contains(Keywords.BATTLECRY)) {
             boolean canTargetEnemy = false;
             for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                if (minion.getProperties().contains(Keywords.TAUNT) && !minion.getProperties().contains(Keywords.STEALTH)) {
+                if (minion.getEnchantments().contains(Keywords.TAUNT) && !minion.getEnchantments().contains(Keywords.STEALTH)) {
                     canTargetEnemy = true;
                 }
             }
@@ -55,7 +55,7 @@ public class TheBlackKnight extends Minion {
             while (1 == 1) {
                 int index = owner.promptTargetIndex(board, 0);
                 minion = targetPlayer.getPlayerSide().get(index);
-                if (minion.getProperties().contains(Keywords.TAUNT) && !minion.getProperties().contains(Keywords.STEALTH)) {
+                if (minion.getEnchantments().contains(Keywords.TAUNT) && !minion.getEnchantments().contains(Keywords.STEALTH)) {
                     break;
                 }
                 System.out.println("Invalid minion, please choose another.\n");

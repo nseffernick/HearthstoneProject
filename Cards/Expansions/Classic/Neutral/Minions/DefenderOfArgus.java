@@ -4,7 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -44,13 +44,13 @@ public class DefenderOfArgus extends Minion {
             right = owner.getPlayerSide().get(position);
         }
         if (left != null) {
-            left.getProperties().add(Keywords.TAUNT);
+            left.getEnchantments().add(Keywords.TAUNT);
             left.addMaxHP(1);
             left.addHp(1, board);
             left.addAtk(1);
         }
         if (right != null) {
-            right.getProperties().add(Keywords.TAUNT);
+            right.getEnchantments().add(Keywords.TAUNT);
             right.addMaxHP(1);
             right.addHp(1, board);
             right.addAtk(1);

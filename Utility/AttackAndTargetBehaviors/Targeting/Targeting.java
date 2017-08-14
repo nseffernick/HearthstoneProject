@@ -2,7 +2,7 @@ package Utility.AttackAndTargetBehaviors.Targeting;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
@@ -69,7 +69,7 @@ public class Targeting {
     private static ArrayList<Integer> findKeyword(Player target, Keywords keyword) {
         ArrayList<Integer> minionIndexes = new ArrayList<>();
         for (Minion minion: target.getPlayerSide()) {
-            if (minion.getProperties().contains(keyword)) {
+            if (minion.getEnchantments().contains(keyword)) {
                 minionIndexes.add(target.getPlayerSide().indexOf(minion));
             }
         }
@@ -85,7 +85,7 @@ public class Targeting {
     }
 
     private static boolean checkImmuneMinions(Player target, int index) {
-        if (target.getPlayerSide().get(index).getProperties()
+        if (target.getPlayerSide().get(index).getEnchantments()
                 .contains(Keywords.IMMUNE)) {
             System.out.println("The enemy is immune.");
             return false;

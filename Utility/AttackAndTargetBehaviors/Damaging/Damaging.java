@@ -3,7 +3,7 @@ package Utility.AttackAndTargetBehaviors.Damaging;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 
 /**
  * Created by Cheech on 3/29/2017. nxs1720@g.rit.edu
@@ -26,7 +26,7 @@ public class Damaging {
             }
         }
         else {
-            if (!target.getPlayerSide().get(index).getProperties().contains(Keywords.IMMUNE)) {
+            if (!target.getPlayerSide().get(index).getEnchantments().contains(Keywords.IMMUNE)) {
                 target.getPlayerSide().get(index).addHp(-dmg, board);
             }
         }

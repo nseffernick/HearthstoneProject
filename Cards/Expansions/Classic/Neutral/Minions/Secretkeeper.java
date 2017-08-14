@@ -5,7 +5,7 @@ import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -32,7 +32,7 @@ public class Secretkeeper extends Minion {
 
     @Override
     public void spellCastedProc(Spell spell, BoardState board) {
-        if (spell.getProperties().contains(Keywords.SECRET)) {
+        if (spell.getEnchantments().contains(Keywords.SECRET)) {
             addAtk(1);
             addMaxHP(1);
             addHp(1, board);

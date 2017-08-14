@@ -4,7 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.UtilityMethods.UtilityMethods;
@@ -38,14 +38,14 @@ public class BloodKnight extends Minion {
         if (properties.contains(Keywords.BATTLECRY)) {
             int numShieldsPopped = 0;
             for (Minion minion: owner.getPlayerSide()) {
-                if (minion.getProperties().contains(Keywords.DIVINESHIELD)) {
-                    minion.getProperties().remove(Keywords.DIVINESHIELD);
+                if (minion.getEnchantments().contains(Keywords.DIVINESHIELD)) {
+                    minion.getEnchantments().remove(Keywords.DIVINESHIELD);
                     numShieldsPopped += 1;
                 }
             }
             for (Minion minion: UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                if (minion.getProperties().contains(Keywords.DIVINESHIELD)) {
-                    minion.getProperties().remove(Keywords.DIVINESHIELD);
+                if (minion.getEnchantments().contains(Keywords.DIVINESHIELD)) {
+                    minion.getEnchantments().remove(Keywords.DIVINESHIELD);
                     numShieldsPopped += 1;
                 }
             }

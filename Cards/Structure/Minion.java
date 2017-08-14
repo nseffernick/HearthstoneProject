@@ -3,10 +3,12 @@ package Cards.Structure;
 import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
@@ -26,13 +28,13 @@ public abstract class Minion extends Card {
     protected HeroClass heroClass;
     protected String name;
     protected String text;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Minion(int hp, int atk, int cost, String name, Player owner,
                   String text, Rarity rarity, Tribe tribe,
-                  HeroClass heroClass, ArrayList<Keywords> properties) {
+                  HeroClass heroClass, ArrayList<Enchantments> enchantments) {
 
-        super(cost, name, text, owner, rarity, heroClass, properties);
+        super(cost, name, text, owner, rarity, heroClass, enchantments);
 
         this.atk = atk;
         this.hp = hp;
@@ -43,7 +45,7 @@ public abstract class Minion extends Card {
         this.rarity = rarity;
         this.tribe = tribe;
         this.heroClass = heroClass;
-        this.properties = properties;
+        this.enchantments = enchantments;
         this.enraged = false;
     }
 
@@ -75,12 +77,14 @@ public abstract class Minion extends Card {
         if (set < 0) {
             onHit();
             if (isDead()) {
-                if (properties.contains(Keywords.AURA)) {
-                    for (Aura aura: owner.getAuras()) {
-                        if (aura.getLink() == this) {
-                            owner.removeAura(aura, board);
-                            deathrattle(board);
-                            break;
+                for (Enchantments enchantments: enchantments) {
+                    if (enchantments.getKeyword() == Keywords.AURA) {
+                        for (Aura aura : owner.getAuras()) {
+                            if (aura.getLink() == this) {
+                                owner.removeAura(aura, board);
+                                deathrattle(board);
+                                break;
+                            }
                         }
                     }
                 }
@@ -124,12 +128,12 @@ public abstract class Minion extends Card {
 
     public void setHp(int set) { hp = set; }
 
-    // Checks various properties that would prevent the minion from attacking.
+    // Checks various enchantments that would prevent the minion from attacking.
     public boolean canAttack() {
-        System.out.println(properties);
-        if (!properties.contains(Keywords.CANTATTACK)) {
+        System.out.println(enchantments);
+        if (!checkKeyword(Keywords.CANTATTACK)) {
             if (atk > 0) {
-                if (properties.contains(Keywords.FREEZE)) {
+                if (checkKeyword(Keywords.FREEZE)) {
                     System.out.println("Your minion is frozen!");
                     return false;
                 }
@@ -137,8 +141,8 @@ public abstract class Minion extends Card {
                     System.out.println("Your minion has already attacked!");
                     return false;
                 }
-                if (properties.contains(Keywords.SUMMONSICKNESS)) {
-                    if (properties.contains(Keywords.CHARGE)) {
+                if (checkKeyword(Keywords.SUMMONSICKNESS)) {
+                    if (checkKeyword(Keywords.CHARGE)) {
                         return true;
                     }
                     else {
@@ -156,11 +160,11 @@ public abstract class Minion extends Card {
     }
 
     private boolean hasAttacked() {
-        if (properties.contains(Keywords.HASATTACKED)) {
-            if (properties.contains(Keywords.WINDFURY)) {
+        if (checkKeyword(Keywords.HASATTACKED)) {
+            if (checkKeyword(Keywords.WINDFURY)) {
                 int atkCount = 0;
-                for (Keywords keywords : properties) {
-                    if (keywords == Keywords.HASATTACKED) {
+                for (Enchantments enchantments : enchantments) {
+                    if (enchantments.getKeyword() == Keywords.HASATTACKED) {
                         atkCount += 1;
                     }
                     if (atkCount == 2) {
@@ -215,28 +219,41 @@ public abstract class Minion extends Card {
     public void healProc() {}
 
     public void cardPlayedProc(Card card, BoardState board) {
-        if (properties.contains(Keywords.CARDPLAYED)) {
-            if (properties.contains(Keywords.CARDPLAYED)) {
+        if (checkKeyword(Keywords.CARDPLAYED)) {
+            if (checkKeyword(Keywords.CARDPLAYED)) {
                 cardPlayedProc(card, board);
             }
         }
         if (card instanceof Weapon) {
-            if (properties.contains(Keywords.WEAPONPLAYED)) {
+            if (checkKeyword(Keywords.WEAPONPLAYED)) {
                 Weapon weapon = (Weapon)card;
                 weaponPlayedProc(weapon, board);
             }
         }
         else if (card instanceof Minion) {
-            if (properties.contains(Keywords.MINIONPLAYED)) {
+            if (checkKeyword(Keywords.MINIONPLAYED)) {
                 Minion minion = (Minion) card;
                 minionPlayedProc(minion, board);
             }
         }
         else if (card instanceof Spell) {
-            if (properties.contains(Keywords.SPELLCASTED)) {
+            if (checkKeyword(Keywords.SPELLCASTED)) {
                 Spell spell = (Spell) card;
                 spellCastedProc(spell, board);
             }
+        }
+    }
+
+    protected void damageAllCharactersExceptThis(BoardState board, int dmg) {
+        Damaging.damageCharacter(board.getP1(), -1, -dmg, board);
+        Damaging.damageCharacter(board.getP2(), -1, -dmg, board);
+        for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {
+            if (board.getP1().getPlayerSide().get(i) == this);
+            else Damaging.damageCharacter(board.getP1(), i, dmg, board);
+        }
+        for (int x = 0; x < board.getP2().getPlayerSide().size(); x++) {
+            if (board.getP2().getPlayerSide().get(x) == this);
+            else Damaging.damageCharacter(board.getP2(), x, dmg, board);
         }
     }
 
@@ -254,12 +271,8 @@ public abstract class Minion extends Card {
 
     public void minionDeath(Minion minion) {}
 
-    public void buffTillEndOfTurn(int set, BoardState board) {
-        properties.add(Keywords.TEMPBUFF);
-    }
-
     private void enrageProc() {
-        if (properties.contains(Keywords.ENRAGE)) {
+        if (enchantments.contains(Keywords.ENRAGE)) {
             if (enraged && hp < maxHP) ;
             else if (enraged && hp == maxHP) {
                 enrage();
@@ -271,6 +284,15 @@ public abstract class Minion extends Card {
             }
             else if (!enraged && hp == maxHP) ;
         }
+    }
+
+    private boolean checkKeyword(Keywords keyword) {
+        for (Enchantments enchantments: enchantments) {
+            if (enchantments.getKeyword() == keyword) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static String fixedLengthString(String string, int length) {

@@ -4,7 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.UtilityMethods.UtilityMethods;
@@ -38,12 +38,12 @@ public class BigGameHunter extends Minion {
             boolean canTargetFriend = false;
             boolean canTargetEnemy = false;
             for (Minion minion : owner.getPlayerSide()) {
-                if (minion.getAtk() >= 7 && !minion.getProperties().contains(Keywords.STEALTH)) {
+                if (minion.getAtk() >= 7 && !minion.getEnchantments().contains(Keywords.STEALTH)) {
                     canTargetFriend = true;
                 }
             }
             for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                if (minion.getAtk() >= 7 && !minion.getProperties().contains(Keywords.STEALTH)) {
+                if (minion.getAtk() >= 7 && !minion.getEnchantments().contains(Keywords.STEALTH)) {
                     canTargetEnemy = true;
                 }
             }
@@ -69,7 +69,7 @@ public class BigGameHunter extends Minion {
                 int index = owner.promptTargetIndex(board, 0);
                 minion = targetPlayer.getPlayerSide().get(index);
                 if (minion.getAtk() >= 7) {
-                    if (targetPlayer != owner && !minion.getProperties().contains(Keywords.STEALTH)) break;
+                    if (targetPlayer != owner && !minion.getEnchantments().contains(Keywords.STEALTH)) break;
                     if (targetPlayer == owner) break;
                 }
                 System.out.println("Invalid minion, please choose another.\n");

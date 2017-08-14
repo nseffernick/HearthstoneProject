@@ -6,7 +6,7 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 

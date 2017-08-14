@@ -5,7 +5,7 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
+import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -22,7 +22,7 @@ public class FrostElemental extends Minion {
     protected Rarity rarity = Rarity.BASIC;
     protected Tribe tribe = Tribe.GENERAL;
     protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected ArrayList<Keywords> properties = new ArrayList<Utility.Enchantments.Structure.Enchantments>();
 
     public FrostElemental(Player owner) {
 
@@ -48,7 +48,7 @@ public class FrostElemental extends Minion {
                 playerTarget.getHero().getProperties().add(Keywords.FREEZE);
             }
             else {
-                playerTarget.getPlayerSide().get(index).getProperties().add(Keywords.FREEZE);
+                playerTarget.getPlayerSide().get(index).getEnchantments().add(Keywords.FREEZE);
             }
         }
     }
