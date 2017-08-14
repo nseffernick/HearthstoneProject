@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Spells.Banana;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.Banana;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;

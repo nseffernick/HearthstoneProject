@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.VioletApprentice;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.VioletApprentice;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;

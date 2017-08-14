@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.FinkleEinhorn;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.FinkleEinhorn;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;

@@ -3,10 +3,10 @@ package Game.Player.HeroPowers;
 import Game.BoardState;
 import Game.Player.Player;
 import Cards.Structure.Card;
-import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.HealingTotem;
-import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.SearingTotem;
-import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.StoneclawTotem;
-import Cards.Expansions.Classic.Uncollectible.Tokens.HeroPowerTotems.WrathOfAir;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.HealingTotem;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.SearingTotem;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.StoneclawTotem;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.WrathOfAir;
 import Cards.Structure.Minion;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package Game.Player.HeroPowers;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.Infernal;
+import Cards.Expansions.Classic.Uncollectible.Warlock.Minions.Infernal;
 import Game.BoardState;
 import Game.Player.Player;
 

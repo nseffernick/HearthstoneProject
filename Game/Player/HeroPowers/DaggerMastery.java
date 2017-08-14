@@ -1,6 +1,6 @@
 package Game.Player.HeroPowers;
 
-import Cards.Expansions.Classic.Uncollectible.Weapons.WickedKnife;
+import Cards.Expansions.Classic.Uncollectible.Rogue.Weapons.WickedKnife;
 import Game.BoardState;
 import Game.Player.Player;
 

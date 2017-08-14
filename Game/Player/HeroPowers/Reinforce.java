@@ -1,6 +1,6 @@
 package Game.Player.HeroPowers;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.SilverHand;
+import Cards.Expansions.Classic.Uncollectible.Paladin.Minions.SilverHand;
 import Game.BoardState;
 import Game.Player.Player;
 

@@ -1,10 +1,10 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Spells.Dream;
-import Cards.Expansions.Classic.Uncollectible.Spells.Nightmare;
-import Cards.Expansions.Classic.Uncollectible.Spells.YseraAwakens;
-import Cards.Expansions.Classic.Uncollectible.Tokens.EmeraldDrake;
-import Cards.Expansions.Classic.Uncollectible.Tokens.LaughingSister;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.Dream;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.Nightmare;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.YseraAwakens;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.EmeraldDrake;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.LaughingSister;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;

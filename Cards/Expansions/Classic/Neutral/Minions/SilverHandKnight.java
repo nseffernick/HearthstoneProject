@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.Squire;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Squire;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;

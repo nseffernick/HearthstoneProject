@@ -1,7 +1,7 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Tokens.Devilsaur;
-import Cards.Expansions.Classic.Uncollectible.Tokens.Squirrel;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Devilsaur;
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Squirrel;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;

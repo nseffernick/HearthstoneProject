@@ -1,9 +1,9 @@
 package Game.Player;
 
+import Cards.Expansions.Classic.Uncollectible.Warlock.Weapons.BloodFury;
 import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Cards.Structure.Weapon;
-import Cards.Expansions.Classic.Uncollectible.Weapons.*;
 import Game.BoardState;
 import Game.Player.HeroPowers.*;
 import Utility.HeroClasses.HeroClass;
@@ -110,7 +110,7 @@ public class Hero {
             player.setHeroPower(heroPower);
             this.name = "Ragnaros The Firelord";
         }
-        else if (who.equals("Lord Jaraxxus")) {
+        else if (who.equals("Lord LordJaraxxus")) {
             this.hp = 15;
             this.maxHP = 15;
             this.atk = 0;
@@ -119,7 +119,7 @@ public class Hero {
             this.weapon = new BloodFury(player);
             HeroPower heroPower = new Inferno();
             player.setHeroPower(heroPower);
-            this.name = "Lord Jaraxxus";
+            this.name = "Lord LordJaraxxus";
         }
         else {
             System.err.println("You are trying to play as a class that doesn't exist!");
