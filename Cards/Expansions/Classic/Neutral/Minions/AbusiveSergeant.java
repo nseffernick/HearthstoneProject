@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,23 +23,20 @@ public class AbusiveSergeant extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public AbusiveSergeant(Player owner) {
 
         super(1, 1, 1, "Abusive Sergeant", owner,"Battlecry: Give a minion +2 Attack this turn.",
-                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            int index = owner.promptTargetIndex(board, 3);
-            if (index == 10);
-            else if (Targeting.characterTargeting(owner, index, true)) {
-                Minion minion = owner.getPlayerSide().get(index);
-            }
+        int index = owner.promptTargetIndex(board, 3);
+        if (index == 10);
+        else if (Targeting.characterTargeting(owner, index, true)) {
+            Minion minion = owner.getPlayerSide().get(index);
         }
     }
 }

@@ -3,6 +3,8 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.SpellDamage1;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -21,13 +23,12 @@ public class AncientMage extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public AncientMage(Player owner) {
 
         super(5, 2, 4, "Ancient Mage", owner, "Battlecry: Give adjacent minions Spell Damage +1.",
-                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override
@@ -43,10 +44,10 @@ public class AncientMage extends Minion {
             right = owner.getPlayerSide().get(position);
         }
         if (left != null) {
-            left.getEnchantments().add(Keywords.SPELLDAMAGE);
+            left.getEnchantments().add(new SpellDamage1(left));
         }
         if (right != null) {
-            right.getEnchantments().add(Keywords.SPELLDAMAGE);
+            right.getEnchantments().add(new SpellDamage1(right));
         }
     }
 }

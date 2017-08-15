@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,34 +23,32 @@ public class CrazedAlchemist extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
+
 
     public CrazedAlchemist(Player owner) {
 
         super(2, 2, 2, "Crazed Alchemist", owner,
                 "Battlecry: Swap a minion's health and attack", Rarity.RARE,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            Player targetPlayer;
-            int index;
-            while (1 == 1) {
-                targetPlayer = owner.promptTargetPlayer(board);
-                index = owner.promptTargetIndex(board, 3);
-                if (Targeting.characterTargeting(targetPlayer, index, true)) {
-                    break;
-                }
+        Player targetPlayer;
+        int index;
+        while (1 == 1) {
+            targetPlayer = owner.promptTargetPlayer(board);
+            index = owner.promptTargetIndex(board, 3);
+            if (Targeting.characterTargeting(targetPlayer, index, true)) {
+                break;
             }
-            Minion minion = targetPlayer.getPlayerSide().get(index);
-            int atk = minion.getAtk();
-            int health = minion.getHp();
-            minion.setAtk(health);
-            minion.setMaxHP(atk);
-            minion.setHp(atk);
         }
+        Minion minion = targetPlayer.getPlayerSide().get(index);
+        int atk = minion.getAtk();
+        int health = minion.getHp();
+        minion.setAtk(health);
+        minion.setMaxHP(atk);
+        minion.setHp(atk);
     }
 }

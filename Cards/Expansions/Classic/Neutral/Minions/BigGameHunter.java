@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,43 +23,41 @@ public class BigGameHunter extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public BigGameHunter(Player owner) {
 
         super(2, 4, 5, "Big Game Hunter", owner,
                 "Battlecry: Destroy a minion with 7 or more attack", Rarity.EPIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            boolean canTargetFriend = false;
-            boolean canTargetEnemy = false;
-            for (Minion minion : owner.getPlayerSide()) {
-                if (minion.getAtk() >= 7 && !minion.getEnchantments().contains(Keywords.STEALTH)) {
-                    canTargetFriend = true;
-                }
+
+        boolean canTargetFriend = false;
+        boolean canTargetEnemy = false;
+        for (Minion minion : owner.getPlayerSide()) {
+            if (minion.getAtk() >= 7 && !minion.getEnchantments().contains(Keywords.STEALTH)) {
+                canTargetFriend = true;
             }
-            for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                if (minion.getAtk() >= 7 && !minion.getEnchantments().contains(Keywords.STEALTH)) {
-                    canTargetEnemy = true;
-                }
-            }
-            Player targetPlayer = null;
-            if (canTargetFriend && canTargetEnemy) {
-                targetPlayer = owner.promptTargetPlayer(board);
-            }
-            else if (canTargetFriend) {
-                targetPlayer = owner;
-            }
-            else if (canTargetEnemy) {
-                targetPlayer = UtilityMethods.findEnemy(board, owner);
-            }
-            chooseMinionToDestroy(board, targetPlayer);
         }
+        for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
+            if (minion.getAtk() >= 7 && !minion.getEnchantments().contains(Keywords.STEALTH)) {
+                canTargetEnemy = true;
+            }
+        }
+        Player targetPlayer = null;
+        if (canTargetFriend && canTargetEnemy) {
+            targetPlayer = owner.promptTargetPlayer(board);
+        }
+        else if (canTargetFriend) {
+            targetPlayer = owner;
+        }
+        else if (canTargetEnemy) {
+            targetPlayer = UtilityMethods.findEnemy(board, owner);
+        }
+        chooseMinionToDestroy(board, targetPlayer);
 
     }
 

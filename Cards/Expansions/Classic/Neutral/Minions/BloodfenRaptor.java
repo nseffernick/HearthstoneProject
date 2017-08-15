@@ -2,6 +2,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -23,12 +24,13 @@ public class BloodfenRaptor extends Minion {
     protected Rarity rarity = Rarity.BASIC;
     protected Tribe tribe = Tribe.BEAST;
     protected HeroClass heroClass = HeroClass.NEUTRAL;
-    protected ArrayList<Keywords> properties = new ArrayList<>();
+    protected ArrayList<Enchantments> enchantments;
+
 
     public BloodfenRaptor(Player owner) {
 
         super(2, 3, 2, "Bloodfen Raptor", owner, "", Rarity.BASIC,
-                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
 }

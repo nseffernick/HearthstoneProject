@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,13 +23,12 @@ public class Alexstrasza extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Alexstrasza(Player owner) {
 
         super(8, 8, 9, "Alexstrasza", owner,"Set a hero's health to 15.", Rarity.LEGENDARY,
-                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override

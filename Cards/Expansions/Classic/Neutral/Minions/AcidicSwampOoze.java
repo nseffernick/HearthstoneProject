@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -25,14 +26,13 @@ public class AcidicSwampOoze extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public AcidicSwampOoze(Player owner) {
 
         super(2, 3, 2, "Acidic Swamp Ooze", owner,
                 "Battlecry: Destroy the opponent's weapon", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     /**
@@ -40,9 +40,7 @@ public class AcidicSwampOoze extends Minion {
      */
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            UtilityMethods.findEnemy(board, owner).getHero().setWeapon(null);
-        }
+        UtilityMethods.findEnemy(board, owner).getHero().setWeapon(null);
     }
 
     public static void main(String[] args) {

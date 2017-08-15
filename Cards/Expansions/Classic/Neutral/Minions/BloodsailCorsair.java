@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,14 +23,13 @@ public class BloodsailCorsair extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
+
 
     public BloodsailCorsair(Player owner) {
-
         super(2, 1, 1, "Bloodsail Corsair", owner,
                 "Battlecry: Remove\n1 Durability from your\nopponent's weapon.", Rarity.RARE,
-                Tribe.PIRATE, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.PIRATE, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     /**
@@ -37,10 +37,8 @@ public class BloodsailCorsair extends Minion {
      */
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            if (!(UtilityMethods.findEnemy(board, owner).getHero().getWeapon() == null)) {
-                UtilityMethods.findEnemy(board, owner).getHero().getWeapon().addDurability(-1);
-            }
+        if (!(UtilityMethods.findEnemy(board, owner).getHero().getWeapon() == null)) {
+            UtilityMethods.findEnemy(board, owner).getHero().getWeapon().addDurability(-1);
         }
     }
 }

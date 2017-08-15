@@ -3,6 +3,9 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.AbominationDeathrattle;
+import Utility.Enchantments.Enchantments.HasTaunt;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,27 +25,14 @@ public class Abomination extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Abomination(Player owner) {
 
         super(4, 4, 5, "Abomination", owner,"Taunt. Deathrattle: Deal 2 damage to ALL characters.",
-                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.DEATHRATTLE);
-        properties.add(Keywords.TAUNT);
+                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new AbominationDeathrattle(this));
+        enchantments.add(new HasTaunt(this));
     }
 
-    @Override
-    public void deathrattle(BoardState board) {
-        if (properties.contains(Keywords.DEATHRATTLE)) {
-            owner.getHero().addHp(owner, -2);
-            UtilityMethods.findEnemy(board, owner).getHero().addHp(UtilityMethods.findEnemy(board, owner), -2);
-            for (Minion minion: owner.getPlayerSide()) {
-                minion.addHp(-2, board);
-            }
-            for (Minion minion: UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                minion.addHp(-2, board);
-            }
-        }
-    }
 }

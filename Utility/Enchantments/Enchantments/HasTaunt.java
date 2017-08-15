@@ -7,8 +7,8 @@ import Utility.Enchantments.Structure.Keywords;
 
 public class HasTaunt extends Enchantments {
 
-    public HasTaunt(Keywords keyword, String name) {
-        super(Keywords.TAUNT, "Taunt");
+    public HasTaunt(Minion link) {
+        super(Keywords.TAUNT, "Taunt", link);
     }
 
     @Override

@@ -2,6 +2,8 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.AcolyteText;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,20 +22,14 @@ public class AcolyteOfPain extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public AcolyteOfPain(Player owner) {
 
         super(3, 1, 3, "Acolyte of Pain", owner,
                 "Whenever this minion takes damage, draw a card", Rarity.COMMON,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.ONHIT);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new AcolyteText(this));
     }
 
-    @Override
-    public void onHit() {
-        if (properties.contains(Keywords.ONHIT)) {
-            owner.drawCard();
-        }
-    }
 }

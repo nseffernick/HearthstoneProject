@@ -5,6 +5,7 @@ import Game.Auras.Aura;
 import Game.Auras.DireWolfAlphaAura;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,13 +24,13 @@ public class DireWolfAlpha extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public DireWolfAlpha(Player owner) {
 
         super(2, 2, 2, "Dire Wolf Alpha", owner,"Adjacent minions have +1 attack.", Rarity.COMMON,
-                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.AURA);
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(null);
     }
 
     public void createAura(BoardState board) {

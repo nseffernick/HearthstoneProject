@@ -4,6 +4,8 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
+import Utility.Enchantments.Enchantments.DemolisherBombs;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,20 +25,13 @@ public class Demolisher extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Demolisher(Player owner) {
 
         super(4, 1, 3, "Demolisher", owner,"At the start of your turn, deal 2 damage to a random enemy.",
-                Rarity.RARE, Tribe.MECH, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.STARTOFYOURTURN);
+                Rarity.RARE, Tribe.MECH, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new DemolisherBombs(this));
     }
 
-    @Override
-    public void startOfYourTurn(BoardState board) {
-        if (properties.contains(Keywords.STARTOFYOURTURN)) {
-            int index = owner.getRng().randomNum(UtilityMethods.findEnemy(board, owner).getPlayerSide().size()) - 1;
-            Damaging.damageCharacter(UtilityMethods.findEnemy(board, owner), index, 2, board);
-        }
-    }
 }

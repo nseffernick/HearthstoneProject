@@ -107,6 +107,15 @@ public abstract class Card {
         }
     }
 
+    protected boolean checkForKeyword(Keywords keyword) {
+        for (Enchantments enchantments: enchantments) {
+            if (enchantments.getKeyword() == keyword) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void chooseOne() {}
 
 }

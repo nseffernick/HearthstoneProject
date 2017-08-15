@@ -7,8 +7,8 @@ import Utility.Enchantments.Structure.Keywords;
 
 public class AbominationDeathrattle extends Enchantments {
 
-    public AbominationDeathrattle(Keywords keyword, String name) {
-        super(Keywords.DEATHRATTLE, "Abomination Deathrattle");
+    public AbominationDeathrattle(Minion link) {
+        super(Keywords.DEATHRATTLE, "Abomination Deathrattle", link);
     }
 
     @Override

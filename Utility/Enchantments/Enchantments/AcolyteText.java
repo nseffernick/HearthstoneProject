@@ -5,10 +5,10 @@ import Game.BoardState;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 
-public class AcolyteDraw extends Enchantments {
+public class AcolyteText extends Enchantments {
 
-    public AcolyteDraw(Keywords keyword, String name) {
-        super(Keywords.ONHIT, "Acolyte Draw");
+    public AcolyteText(Minion link) {
+        super(Keywords.ONHIT, "Acolyte Draw", link);
     }
 
     @Override

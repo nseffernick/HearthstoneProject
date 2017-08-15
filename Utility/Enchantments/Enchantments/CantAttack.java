@@ -5,19 +5,17 @@ import Game.BoardState;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 
-public class AbusiveBuff extends Enchantments {
+public class CantAttack extends Enchantments {
 
-    public AbusiveBuff(Minion link) {
-        super(Keywords.ENDOFYOURTURN, "+2 Temporary Attack", link);
+    public CantAttack(Minion link) {
+        super(Keywords.CANTATTACK, "Can't Attack", link);
     }
 
     @Override
     protected void enchant(BoardState board, Minion minion) {
-        minion.addAtk(2);
     }
 
     @Override
     protected void disenchant(BoardState board, Minion minion) {
-        minion.addAtk(-2);
     }
 }

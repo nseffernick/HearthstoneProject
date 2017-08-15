@@ -5,19 +5,19 @@ import Game.BoardState;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 
-public class AbusiveBuff extends Enchantments {
+public class ChickenEnrage extends Enchantments {
 
-    public AbusiveBuff(Minion link) {
-        super(Keywords.ENDOFYOURTURN, "+2 Temporary Attack", link);
+    public ChickenEnrage(Minion link) {
+        super(Keywords.ENRAGE, "Amani Enrage", link);
     }
 
     @Override
     protected void enchant(BoardState board, Minion minion) {
-        minion.addAtk(2);
+        if (minion.isEnraged()) minion.addAtk(-5);
+        else minion.addAtk(5);
     }
 
     @Override
     protected void disenchant(BoardState board, Minion minion) {
-        minion.addAtk(-2);
     }
 }

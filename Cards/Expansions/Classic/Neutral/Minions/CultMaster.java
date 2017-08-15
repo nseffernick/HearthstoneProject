@@ -2,6 +2,8 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.DrawOnMinionDeath;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,22 +22,15 @@ public class CultMaster extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
+
 
     public CultMaster(Player owner) {
 
         super(2, 4, 4, "Cult Master", owner,
                 "Whenever one of your other minions dies, draw a card.", Rarity.COMMON,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.MINIONDEATH);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new DrawOnMinionDeath(this));
     }
-
-    @Override
-    public void minionDeath(Minion minion) {
-        if (properties.contains(Keywords.MINIONDEATH)) {
-            if (minion.getOwner() == owner) {
-                owner.drawCard();
-            }
-        }
-    }
+    
 }

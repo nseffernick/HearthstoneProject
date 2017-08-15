@@ -5,6 +5,7 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,13 +24,12 @@ public class EarthenRingFarseer extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public EarthenRingFarseer(Player owner) {
 
         super(3, 3, 3, "Earthen Ring Farseer", owner, "Battlecry: Restore 3 health",
-                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override

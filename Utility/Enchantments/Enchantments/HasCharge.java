@@ -5,19 +5,17 @@ import Game.BoardState;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 
-public class AbusiveBuff extends Enchantments {
+public class HasCharge extends Enchantments {
 
-    public AbusiveBuff(Minion link) {
-        super(Keywords.ENDOFYOURTURN, "+2 Temporary Attack", link);
+    public HasCharge(Minion link) {
+        super(Keywords.CHARGE, "Charge", link);
     }
 
     @Override
     protected void enchant(BoardState board, Minion minion) {
-        minion.addAtk(2);
     }
 
     @Override
     protected void disenchant(BoardState board, Minion minion) {
-        minion.addAtk(-2);
     }
 }

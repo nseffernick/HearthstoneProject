@@ -2,6 +2,8 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.HasPoisonous;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,13 +22,14 @@ public class EmperorCobra extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
+
 
     public EmperorCobra(Player owner) {
 
         super(3, 2, 3, "Emperor Cobra", owner,"Poisonous", Rarity.RARE,
-                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.POISONOUS);
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new HasPoisonous(this));
     }
 
 }

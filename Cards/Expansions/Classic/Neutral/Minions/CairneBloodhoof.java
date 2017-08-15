@@ -4,6 +4,8 @@ import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.BaineBloodhoof;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.DeathrattleBaine;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,19 +24,13 @@ public class CairneBloodhoof extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
+
 
     public CairneBloodhoof(Player owner) {
 
         super(5, 4, 6, "Cairne Bloodhoof", owner, "Deathrattle: Summon a 4/5 Baine Bloodhoof.",
-                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.DEATHRATTLE);
-    }
-
-    @Override
-    public void deathrattle(BoardState board) {
-        if (properties.contains(Keywords.DEATHRATTLE)) {
-            owner.summonMinion(new BaineBloodhoof(owner), board);
-        }
+                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new DeathrattleBaine(this));
     }
 }

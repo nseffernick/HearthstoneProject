@@ -5,19 +5,20 @@ import Game.BoardState;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 
-public class AbusiveBuff extends Enchantments {
+public class DrawOnMinionDeath extends Enchantments {
 
-    public AbusiveBuff(Minion link) {
-        super(Keywords.ENDOFYOURTURN, "+2 Temporary Attack", link);
+    public DrawOnMinionDeath(Minion link) {
+        super(Keywords.MINIONDEATH, "Draw on Minion Death", link);
     }
 
     @Override
     protected void enchant(BoardState board, Minion minion) {
-        minion.addAtk(2);
+        if (minion.getOwner() == link.getOwner()) {
+            link.getOwner().drawCard();
+        }
     }
 
     @Override
     protected void disenchant(BoardState board, Minion minion) {
-        minion.addAtk(-2);
     }
 }

@@ -4,6 +4,7 @@ import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,13 +23,12 @@ public class Deathwing extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Deathwing(Player owner) {
 
         super(12, 12, 10, "Deathwing", owner,"Destroy every minion and discard every card in your hand", Rarity.LEGENDARY,
-                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override

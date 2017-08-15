@@ -4,6 +4,7 @@ import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.MechanicalDragonli
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -25,21 +26,18 @@ public class DragonlingMechanic extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
 
     public DragonlingMechanic(Player owner) {
 
         super(4, 2, 4, "Dragonling Mechanic", owner,
                 "Battlecry: Summon a 2/1 Mechanical Dragonling", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     // Summon a 2/1 dragonling
     public void battlecry(BoardState board, Player player, int index) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            owner.summonMinion(new MechanicalDragonling(owner), board);
-        }
+        owner.summonMinion(new MechanicalDragonling(owner), board);
     }
 }

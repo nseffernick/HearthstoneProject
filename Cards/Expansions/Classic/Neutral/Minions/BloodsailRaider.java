@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -21,24 +22,22 @@ public class BloodsailRaider extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
+
 
 
     public BloodsailRaider(Player owner) {
 
         super(3, 2, 2, "Bloodsail Raider", owner, "Battlecry: Battlecry: Gain Attack equal to the Attack" +
                         "of your weapon.", Rarity.COMMON, Tribe.PIRATE, HeroClass.NEUTRAL,
-                new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                new ArrayList<Enchantments>());
     }
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            if (owner.getHero().getWeapon() != null) {
-                int atkIncrease = owner.getHero().getWeapon().getAtk();
-                addAtk(atkIncrease);
-            }
+        if (owner.getHero().getWeapon() != null) {
+            int atkIncrease = owner.getHero().getWeapon().getAtk();
+            addAtk(atkIncrease);
         }
     }
 }
