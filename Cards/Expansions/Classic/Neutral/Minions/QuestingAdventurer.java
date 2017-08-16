@@ -3,13 +3,14 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
-
+//TODO TODO
 public class QuestingAdventurer extends Minion {
 
     // State
@@ -21,13 +22,13 @@ public class QuestingAdventurer extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public QuestingAdventurer(Player owner) {
 
         super(2, 2, 3, "Questing Adventurer", owner,"Whenever you play a card, gain +1/+1.",
-                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CARDPLAYED);
+                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(Keywords.CARDPLAYED);
     }
 
     @Override

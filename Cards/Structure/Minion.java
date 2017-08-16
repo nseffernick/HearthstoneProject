@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * ME 3/19/17
  */
-public abstract class Minion extends Card {
+public abstract class Minion extends Card implements CanHaveEnchantments {
 
     // State
     protected int hp;

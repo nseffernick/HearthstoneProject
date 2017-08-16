@@ -1,8 +1,12 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -21,20 +25,33 @@ public class NatPagle extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public NatPagle(Player owner) {
 
         super(4, 0, 2, "Nat Pagle", owner,"At the start of your turn, you have a 50% chance to draw an extra card.",
-                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.STARTOFYOURTURN);
+                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new NatPagleText(this));
     }
 
-    @Override
-    public void startOfYourTurn(BoardState board) {
-        if (properties.contains(Keywords.STARTOFYOURTURN)) {
-            boolean maybeDraw = owner.getRng().randomBool();
-            if (maybeDraw) { owner.drawCard(); }
+    private class NatPagleText extends Enchantments {
+
+        private NatPagleText(CanHaveEnchantments link) {
+            super(Keywords.STARTOFYOURTURN, "Maybe Draw a Card", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            if (link instanceof Minion) {
+                Minion minionLink = (Minion) link;
+                boolean maybeDraw = owner.getRng().randomBool();
+                if (maybeDraw) { owner.drawCard(); }
+            }
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+
         }
     }
 }

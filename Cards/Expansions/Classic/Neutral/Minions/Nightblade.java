@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -26,21 +27,18 @@ public class Nightblade extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Nightblade(Player owner) {
 
         super(4, 4, 5, "Nightblade", owner,
                 "Battlecry: Deal 3 damage to the enemy hero", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     // Deal three damage to hero
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            MasterTargeter.Main(UtilityMethods.findEnemy(board, player), -1, -3, null, true, board);
-        }
+        MasterTargeter.Main(UtilityMethods.findEnemy(board, player), -1, -3, null, true, board);
     }
 }

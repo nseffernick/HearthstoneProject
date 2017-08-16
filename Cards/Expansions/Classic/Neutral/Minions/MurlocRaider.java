@@ -2,6 +2,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,12 +24,12 @@ public class MurlocRaider extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public MurlocRaider(Player owner) {
 
         super(1, 2, 1, "Murloc Raider", owner,"", Rarity.BASIC,
-                Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+                Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
 }

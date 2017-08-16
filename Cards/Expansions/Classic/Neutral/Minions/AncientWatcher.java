@@ -2,13 +2,11 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
-import Utility.Enchantments.Enchantments.CantAttack;
+import Utility.Enchantments.Enchantments.Keywords.CantAttack;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import org.omg.IOP.ENCODING_CDR_ENCAPS;
 
 import java.util.ArrayList;
 

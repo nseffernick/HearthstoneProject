@@ -4,13 +4,11 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
-import Utility.Enchantments.Enchantments.HasFreeze;
+import Utility.Enchantments.Enchantments.Keywords.HasFreeze;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
 
@@ -47,10 +45,10 @@ public class FrostElemental extends Minion {
         }
         if (index == -1) {
             //TODO Im a bad programmer
-            playerTarget.getHero().getProperties().add(new HasFreeze());
+            playerTarget.getHero().getEnchantments().add(new HasFreeze(playerTarget.getHero()));
         }
         else {
-            playerTarget.getPlayerSide().get(index).getEnchantments().add(Keywords.FREEZE);
+            playerTarget.getPlayerSide().get(index).getEnchantments().add(new HasFreeze(playerTarget.getPlayerSide().get(index)));
         }
     }
 }

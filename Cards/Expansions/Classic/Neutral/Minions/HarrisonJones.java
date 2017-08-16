@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Cards.Structure.Weapon;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,14 +24,13 @@ public class HarrisonJones extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public HarrisonJones(Player owner) {
 
         super(4, 5, 5, "Harrison Jones", owner,
                 "Battlecry: Destroy the opponent's weapon and draw cards equal to its durability",
-                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     /**
@@ -38,13 +38,11 @@ public class HarrisonJones extends Minion {
      */
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            Weapon weapon = UtilityMethods.findEnemy(board, owner).getHero().getWeapon();
-            UtilityMethods.findEnemy(board, owner).getHero().setWeapon(null);
-            if (weapon != null) {
-                for (int i = 0; i >= weapon.getDurability(); i++) {
-                    owner.drawCard();
-                }
+        Weapon weapon = UtilityMethods.findEnemy(board, owner).getHero().getWeapon();
+        UtilityMethods.findEnemy(board, owner).getHero().setWeapon(null);
+        if (weapon != null) {
+            for (int i = 0; i >= weapon.getDurability(); i++) {
+                owner.drawCard();
             }
         }
     }

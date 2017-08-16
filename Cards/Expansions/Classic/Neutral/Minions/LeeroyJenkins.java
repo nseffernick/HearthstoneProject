@@ -4,6 +4,8 @@ import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Whelp;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Keywords.HasCharge;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,14 +25,13 @@ public class LeeroyJenkins  extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public LeeroyJenkins(Player owner) {
 
         super(2, 6, 5, "Leeroy Jenkins", owner,"Charge. Summon 2 1/1 Whelp for your opponent.",
-                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CHARGE);
-        properties.add(Keywords.BATTLECRY);
+                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new HasCharge(this));
     }
 
     @Override

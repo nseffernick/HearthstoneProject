@@ -1,6 +1,7 @@
 package Game.Player;
 
 import Cards.Expansions.Classic.Uncollectible.Warlock.Weapons.BloodFury;
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Cards.Structure.Weapon;
@@ -21,11 +22,11 @@ import java.util.ArrayList;
  * spelldamage, spelldamage is not a part of him), and other more or less
  * automatic attributes like fatigue.
  */
-public class Hero {
+public class Hero implements CanHaveEnchantments {
 
     // State
     private Weapon weapon;
-    private ArrayList<Keywords> properties;
+    private ArrayList<Enchantments> enchantments;
     private int hp;
     private int armor;
     private int maxHP;
@@ -35,7 +36,7 @@ public class Hero {
 
     public Hero(String name, Player player) {
         initializeHero(name, player);
-        this.properties = new ArrayList<Utility.Enchantments.Structure.Enchantments>();
+        this.enchantments = new ArrayList<Enchantments>();
     }
 
     /**
@@ -139,7 +140,7 @@ public class Hero {
             }
             else {
                 target.getPlayerSide().get(index).addHp(-atk, board);
-                if (properties.contains(Keywords.IMMUNE));
+                if (enchantments.contains(Keywords.IMMUNE));
                 else {
                     hp -= target.getPlayerSide().get(index).getAtk();
                 }
@@ -158,10 +159,6 @@ public class Hero {
         return weapon;
     }
 
-    public ArrayList<Enchantments> getProperties() {
-        return properties;
-    }
-
     public int getHp(){
         return hp;
     }
@@ -176,6 +173,10 @@ public class Hero {
 
     public int getAtk() {
         return atk;
+    }
+
+    public ArrayList<Enchantments> getEnchantments() {
+        return enchantments;
     }
 
     public String getName() {
@@ -227,4 +228,6 @@ public class Hero {
         return name + "\n" + heroClass + "\nHP: " + hp + "/" + maxHP + "\nArmor: " + armor +
                 "\nAttack: " + atk + "\nWeapon: " + weaponString;
     }
+
+
 }

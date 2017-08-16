@@ -1,9 +1,12 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,18 +26,23 @@ public class LorewalkerCho extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public LorewalkerCho(Player owner) {
 
         super(4, 0, 2, "Lorewalker Cho", owner,"Whenever a player casts a spell, put a copy into the other player’s hand.",
-                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.SPELLCASTED);
+                Rarity.LEGENDARY, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new ChoText(this));
     }
 
-    @Override
-    public void spellCastedProc(Spell spell, BoardState board) {
-        if (properties.contains(Keywords.SPELLCASTED)) {
+    private class ChoText extends Enchantments {
+
+        private ChoText(CanHaveEnchantments link) {
+            super(Keywords.SPELLCASTED, "Copies spells casted", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
             Player caster = spell.getOwner();
             Player enemyPlayer = UtilityMethods.findEnemy(board, caster);
             if (enemyPlayer.getHand().size() < 10) {
@@ -43,6 +51,11 @@ public class LorewalkerCho extends Minion {
                 newSpell.setOwner(enemyPlayer);
                 enemyPlayer.getHand().add(newSpell);
             }
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+
         }
     }
 }

@@ -1,18 +1,20 @@
-package Utility.Enchantments.Enchantments;
+package Utility.Enchantments.Enchantments.Keywords;
 
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
 import Game.BoardState;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 
 public class HasDivineShield extends Enchantments {
 
-    public HasDivineShield(Minion link) {
+    public HasDivineShield(CanHaveEnchantments link) {
         super(Keywords.DIVINESHIELD, "Divine Shield", link);
     }
 
     @Override
-    protected void enchant(BoardState board, Minion minion) {
+    protected void enchant(BoardState board, Minion minion, Spell spell) {
     }
 
     @Override

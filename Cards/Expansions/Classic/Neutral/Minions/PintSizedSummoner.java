@@ -5,6 +5,7 @@ import Game.Auras.Aura;
 import Game.Auras.PintSizedSummonerAura;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,13 +24,13 @@ public class PintSizedSummoner extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public PintSizedSummoner(Player owner) {
 
         super(2, 2, 2, "Pint Sized Summoner", owner,"The first minion you play each turn costs (1) less.", Rarity.RARE,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.AURA);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        //properties.add(Keywords.AURA);
     }
 
     public void createAura(BoardState board) {

@@ -1,12 +1,14 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
+import Game.BoardState;
 import Game.Player.Player;
-import Utility.Enchantments.Enchantments.DreadCorsairDiscount;
-import Utility.Enchantments.Enchantments.HasTaunt;
+import Utility.Enchantments.Enchantments.Keywords.HasTaunt;
 import Utility.Enchantments.Structure.Enchantments;
-import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
+import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -33,4 +35,29 @@ public class DreadCorsair extends Minion {
         enchantments.add(new DreadCorsairDiscount(this));
     }
 
+    public static class DreadCorsairDiscount extends Enchantments {
+
+        public DreadCorsairDiscount(CanHaveEnchantments link) {
+            super(Keywords.WEAPONSTATE, "Discount Dread Corsair", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            if (link instanceof Minion) {
+                Minion minionLink = (Minion) link;
+                if (minionLink.getOwner().getHero().getWeapon() != null) {
+                    int discount = minionLink.getOwner().getHero().getWeapon().getAtk();
+                    int newCost = 4 - discount;
+                    minionLink.setCost(newCost);
+                }
+            }
+            else {
+                System.out.println(name + " Enchantment failed.");
+            }
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+        }
+    }
 }

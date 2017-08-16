@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Nathan Seffernick on 3/20/2017. nxs1720@g.rit.edu
  */
-public abstract class Weapon extends Card {
+public abstract class Weapon extends Card implements CanHaveEnchantments {
 
     // State
     protected int cost;

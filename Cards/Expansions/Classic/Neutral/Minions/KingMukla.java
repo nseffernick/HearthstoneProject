@@ -4,6 +4,7 @@ import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.Banana;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,13 +24,12 @@ public class KingMukla extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public KingMukla(Player owner) {
 
         super(5, 5, 3, "King Mukla", owner, "Battlecry: Give your opponent 2 Bananas.",
-                Rarity.LEGENDARY, Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Rarity.LEGENDARY, Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override

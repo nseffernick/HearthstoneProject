@@ -2,6 +2,8 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Keywords.SpellDamage1;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,16 +22,16 @@ public class Malygos extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Malygos(Player owner) {
 
         super(12, 4, 9, "Malygos", owner,"Spell Damage +5", Rarity.LEGENDARY,
-                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.SPELLDAMAGE);
-        properties.add(Keywords.SPELLDAMAGE);
-        properties.add(Keywords.SPELLDAMAGE);
-        properties.add(Keywords.SPELLDAMAGE);
-        properties.add(Keywords.SPELLDAMAGE);
+                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new SpellDamage1(this));
+        enchantments.add(new SpellDamage1(this));
+        enchantments.add(new SpellDamage1(this));
+        enchantments.add(new SpellDamage1(this));
+        enchantments.add(new SpellDamage1(this));
     }
 }

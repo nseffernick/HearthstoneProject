@@ -1,16 +1,16 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
-import Utility.Enchantments.Enchantments.AbominationDeathrattle;
-import Utility.Enchantments.Enchantments.HasTaunt;
+import Utility.Enchantments.Enchantments.Keywords.HasTaunt;
 import Utility.Enchantments.Structure.Enchantments;
-import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
+import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -35,4 +35,20 @@ public class Abomination extends Minion {
         enchantments.add(new HasTaunt(this));
     }
 
+    public static class AbominationDeathrattle extends Enchantments {
+
+        public AbominationDeathrattle(CanHaveEnchantments link) {
+            super(Keywords.DEATHRATTLE, "Abomination Deathrattle", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            damageAllCharacters(board, 2);
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+
+        }
+    }
 }

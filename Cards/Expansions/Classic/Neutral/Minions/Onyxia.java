@@ -4,6 +4,7 @@ import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Whelp;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,22 +23,18 @@ public class Onyxia extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Onyxia(Player owner) {
 
         super(8, 8, 9, "Onyxia", owner,
                 "Battlecry: Summon 1/1 Whelps until your side of the battlefield is full.", Rarity.LEGENDARY,
-                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
-    // Summon a 2/1 dragonling
     public void battlecry(BoardState board, Player player, int index) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            if (owner.getPlayerSide().size() < 7) {
-                owner.summonMinion(new Whelp(owner), board);
-            }
+        if (owner.getPlayerSide().size() < 7) {
+            owner.summonMinion(new Whelp(owner), board);
         }
     }
 }

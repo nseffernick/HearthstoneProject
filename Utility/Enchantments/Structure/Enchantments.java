@@ -1,6 +1,8 @@
 package Utility.Enchantments.Structure;
 
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
 import Game.BoardState;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 
@@ -8,9 +10,9 @@ public abstract class Enchantments {
 
     protected Keywords keyword;
     protected String name;
-    protected Minion link;
+    protected CanHaveEnchantments link;
 
-    public Enchantments(Keywords keyword, String name, Minion link) {
+    public Enchantments(Keywords keyword, String name, CanHaveEnchantments link) {
         this.keyword = keyword;
         this.name = name;
         this.link = link;
@@ -20,7 +22,7 @@ public abstract class Enchantments {
 
     public String getName() { return name; }
 
-    protected abstract void enchant(BoardState board, Minion minion);
+    protected abstract void enchant(BoardState board, Minion minion, Spell spell);
 
     protected abstract void disenchant(BoardState board, Minion minion);
 
@@ -55,6 +57,11 @@ public abstract class Enchantments {
             }
         }
         return false;
+    }
+
+    protected void attackHealthBuff(Minion minionLink, int set) {
+        minionLink.addMaxHP(set);
+        minionLink.addAtk(set);
     }
 
 }

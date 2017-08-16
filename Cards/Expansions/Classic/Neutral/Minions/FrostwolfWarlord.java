@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -24,23 +25,20 @@ public class FrostwolfWarlord extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public FrostwolfWarlord(Player owner) {
 
         super(4, 4, 5, "Frostwolf Warlord", owner,
                 "Battlecry: Gain +X/+X for each " + "friendly minion on the board", Rarity.BASIC, Tribe.GENERAL,
-                HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            int set = player.getPlayerSide().size();
-            addAtk(set);
-            addMaxHP(set);
-            addHp(set, board);
-        }
+        int set = player.getPlayerSide().size();
+        addAtk(set);
+        addMaxHP(set);
+        addHp(set, board);
     }
 }

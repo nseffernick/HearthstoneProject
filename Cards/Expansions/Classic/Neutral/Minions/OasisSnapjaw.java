@@ -2,6 +2,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -23,12 +24,12 @@ public class OasisSnapjaw extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public OasisSnapjaw(Player owner) {
 
         super(7, 2, 4, "Oasis Snapjaw", owner,"", Rarity.BASIC,
-                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
 }

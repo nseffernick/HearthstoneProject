@@ -1,9 +1,12 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,19 +25,32 @@ public class Hogger extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Hogger(Player owner) {
 
         super(4, 4, 6, "Hogger", owner,"At the end of your turn, summon a 2/2 Gnoll with Taunt.", Rarity.LEGENDARY,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.ENDOFYOURTURN);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new HoggerText(this));
     }
 
-    @Override
-    public void endOfYourTurn(BoardState board) {
-        if (properties.contains(Keywords.ENDOFYOURTURN)) {
-            owner.summonMinion(new Gnoll(owner), board);
+    private class HoggerText extends Enchantments {
+
+        private HoggerText(CanHaveEnchantments link) {
+            super(Keywords.ENDOFYOURTURN, "Spawn Gnolls", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            if (link instanceof Minion) {
+                Minion minionLink = (Minion) link;
+                minionLink.getOwner().summonMinion(new Gnoll(minionLink.getOwner()), board);
+            }
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+
         }
     }
 }

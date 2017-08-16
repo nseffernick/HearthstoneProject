@@ -1,7 +1,12 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
+import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -9,7 +14,7 @@ import Utility.Tribes.Tribe;
 
 import java.util.ArrayList;
 
-public class MoltenGiant extends Minion{
+public class MoltenGiant extends Minion {
 
     // State
     protected int hp;
@@ -20,18 +25,33 @@ public class MoltenGiant extends Minion{
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public MoltenGiant(Player owner) {
 
         super(8, 8, 25, "Molten Giant", owner,"Costs (1) less for each damage your hero has taken.", Rarity.EPIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
-    @Override
-    public void updateCostFromHeroHP() {
-        int defaultCost = 25;
-        int set = owner.getHero().getMaxHP() - owner.getHero().getHp();
-        cost = defaultCost - set;
+    private class MoltenGiantText extends Enchantments {
+
+        private MoltenGiantText(CanHaveEnchantments link) {
+            super(Keywords.UPDATECOSTFROMHEROHEALTH, "Less Health Less Cost", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            if (link instanceof Minion) {
+                Minion minionLink = (Minion) link;
+                int defaultCost = 25;
+                int set = owner.getHero().getMaxHP() - owner.getHero().getHp();
+                cost = defaultCost - set;
+            }
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+
+        }
     }
 }

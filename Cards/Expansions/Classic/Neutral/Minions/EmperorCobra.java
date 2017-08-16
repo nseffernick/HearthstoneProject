@@ -2,10 +2,9 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
-import Utility.Enchantments.Enchantments.HasPoisonous;
+import Utility.Enchantments.Enchantments.Keywords.HasPoisonous;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 

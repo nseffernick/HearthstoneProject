@@ -1,12 +1,13 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
-import Utility.Enchantments.Enchantments.BaronGeddonAoE;
 import Utility.Enchantments.Structure.Enchantments;
-import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
+import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -34,4 +35,23 @@ public class BaronGeddon extends Minion {
     }
 
     //TODO change like everything to damaging instead of addHP Damaging.damageCharacter(UtilityMethods.findEnemy(board, owner), index, 1, board);
+
+    public static class BaronGeddonAoE extends Enchantments {
+
+        public BaronGeddonAoE(CanHaveEnchantments link) {
+            super(Keywords.ENDOFYOURTURN, "Baron AoE", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            if (link instanceof Minion) {
+                Minion minionLink = (Minion) link;
+                damageAllCharactersExceptThis(board, 2, minionLink);
+            }
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+        }
+    }
 }

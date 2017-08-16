@@ -1,11 +1,10 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
-import Cards.Structure.Spell;
-import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Text.DrawOnCast;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -22,19 +21,13 @@ public class GadgetzanAuctioneer extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public GadgetzanAuctioneer(Player owner) {
 
         super(4, 4, 6, "Gadgetzan Auctioneer", owner,"Whenever you cast a spell, draw a card.",
-                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.SPELLCASTED);
+                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new DrawOnCast(this));
     }
 
-    @Override
-    public void spellCastedProc(Spell spell, BoardState board) {
-        if (properties.contains(Keywords.SPELLCASTED)) {
-            owner.drawCard();
-        }
-    }
 }

@@ -5,6 +5,7 @@ import Game.Auras.Aura;
 import Game.Auras.MurlocWarleaderAura;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,14 +24,14 @@ public class MurlocWarleader extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public MurlocWarleader(Player owner) {
 
         super(3, 3, 3, "Murloc Warleader", owner,
                 "Your other murlocs have +2/+1", Rarity.EPIC,
-                Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.AURA);
+                Tribe.MURLOC, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        //properties.add(Keywords.AURA);
     }
 
     public void createAura(BoardState board) {

@@ -2,14 +2,12 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
-import Utility.Enchantments.Enchantments.HasCharge;
-import Utility.Enchantments.Enchantments.HasDivineShield;
-import Utility.Enchantments.Enchantments.HasTaunt;
+import Utility.Enchantments.Enchantments.Keywords.HasCharge;
+import Utility.Enchantments.Enchantments.Keywords.HasDivineShield;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
