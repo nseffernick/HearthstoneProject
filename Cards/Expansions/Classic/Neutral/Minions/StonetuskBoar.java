@@ -2,6 +2,8 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Keywords.HasCharge;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -23,13 +25,13 @@ public class StonetuskBoar extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public StonetuskBoar(Player owner) {
 
         super(1, 1, 1, "Stonetusk Boar", owner,"Charge", Rarity.BASIC,
-                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.CHARGE);
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new HasCharge(this));
     }
 
 }

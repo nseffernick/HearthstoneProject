@@ -11,13 +11,12 @@ import java.util.ArrayList;
 
 public class ExcessMana extends Spell {
 
-
-    public ExcessMana(int cost, String name, String text, Player owner, Rarity rarity, HeroClass heroClass, ArrayList<Keywords> properties) {
-        super(cost, name, text, owner, rarity, heroClass, properties);
+    public ExcessMana(Player owner) {
+        super(0, "Excess Mana", "Draw a card", owner, Rarity.BASIC, HeroClass.DRUID);
     }
 
     @Override
     public void castSpell(BoardState board) {
-
+        owner.drawCard();
     }
 }

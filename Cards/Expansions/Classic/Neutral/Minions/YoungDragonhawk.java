@@ -2,6 +2,8 @@ package Cards.Expansions.Classic.Neutral.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Keywords.HasWindfury;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,13 +22,13 @@ public class YoungDragonhawk extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public YoungDragonhawk(Player owner) {
 
         super(1, 1, 1, "Young Dragonhawk", owner,"Windfury", Rarity.COMMON,
-                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.WINDFURY);
+                Tribe.BEAST, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new HasWindfury(this));
     }
 
 }

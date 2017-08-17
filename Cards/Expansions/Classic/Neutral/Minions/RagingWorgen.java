@@ -1,7 +1,13 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
+import Cards.Structure.Spell;
+import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Keywords.HasWindfury;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,24 +26,58 @@ public class RagingWorgen extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public RagingWorgen(Player owner) {
 
         super(3, 3, 3, "Raging Worgen", owner,"Enrage: Windfury and +1 Attack.",
-                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.ENRAGE);
+                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new RagingText(this));
     }
 
     @Override
     public void enrage() {
-        if (enraged) {
-            addAtk(-1);
-            properties.remove(Keywords.WINDFURY);
+
+    }
+
+    private class RagingText extends Enchantments {
+
+        private RagingText(CanHaveEnchantments link) {
+            super(Keywords.ENRAGE, "Gain Attack and Windfury", link);
         }
-        else {
-            addAtk(1);
-            properties.add(Keywords.WINDFURY);
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            if (link instanceof Minion) {
+                Minion minionLink = (Minion) link;
+                if (enraged) {
+                    addAtk(-1);
+                    for (Enchantments ench: enchantments) {
+                        if (ench instanceof HasWindfury) {
+                            enchantments.remove(ench);
+                        }
+                    }
+                }
+                else {
+                    addAtk(1);
+                    enchantments.add(new HasWindfury(minionLink));
+                }
+            }
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+            if (link instanceof Minion) {
+                Minion minionLink = (Minion) link;
+                if (enraged) {
+                    addAtk(-1);
+                    for (Enchantments ench : enchantments) {
+                        if (ench instanceof HasWindfury) {
+                            enchantments.remove(ench);
+                        }
+                    }
+                }
+            }
         }
     }
 }

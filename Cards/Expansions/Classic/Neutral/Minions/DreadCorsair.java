@@ -35,9 +35,9 @@ public class DreadCorsair extends Minion {
         enchantments.add(new DreadCorsairDiscount(this));
     }
 
-    public static class DreadCorsairDiscount extends Enchantments {
+    private class DreadCorsairDiscount extends Enchantments {
 
-        public DreadCorsairDiscount(CanHaveEnchantments link) {
+        private DreadCorsairDiscount(CanHaveEnchantments link) {
             super(Keywords.WEAPONSTATE, "Discount Dread Corsair", link);
         }
 

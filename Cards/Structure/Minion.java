@@ -34,7 +34,7 @@ public abstract class Minion extends Card implements CanHaveEnchantments {
                   String text, Rarity rarity, Tribe tribe,
                   HeroClass heroClass, ArrayList<Enchantments> enchantments) {
 
-        super(cost, name, text, owner, rarity, heroClass, enchantments);
+        super(cost, name, text, owner, rarity, heroClass);
 
         this.atk = atk;
         this.hp = hp;
@@ -69,6 +69,8 @@ public abstract class Minion extends Card implements CanHaveEnchantments {
     public Tribe getTribe() {
         return tribe;
     }
+
+    public ArrayList<Enchantments> getEnchantments() { return enchantments; }
 
     public boolean isEnraged() { return enraged; }
 
@@ -135,9 +137,9 @@ public abstract class Minion extends Card implements CanHaveEnchantments {
     // Checks various enchantments that would prevent the minion from attacking.
     public boolean canAttack() {
         System.out.println(enchantments);
-        if (!checkForKeyword(Keywords.CANTATTACK)) {
+        if (!checkForKeyword(Keywords.CANTATTACK, enchantments)) {
             if (atk > 0) {
-                if (checkForKeyword(Keywords.FREEZE)) {
+                if (checkForKeyword(Keywords.FREEZE, enchantments)) {
                     System.out.println("Your minion is frozen!");
                     return false;
                 }
@@ -145,8 +147,8 @@ public abstract class Minion extends Card implements CanHaveEnchantments {
                     System.out.println("Your minion has already attacked!");
                     return false;
                 }
-                if (checkForKeyword(Keywords.SUMMONSICKNESS)) {
-                    if (checkForKeyword(Keywords.CHARGE)) {
+                if (checkForKeyword(Keywords.SUMMONSICKNESS, enchantments)) {
+                    if (checkForKeyword(Keywords.CHARGE, enchantments)) {
                         return true;
                     }
                     else {
@@ -164,8 +166,8 @@ public abstract class Minion extends Card implements CanHaveEnchantments {
     }
 
     private boolean hasAttacked() {
-        if (checkForKeyword(Keywords.HASATTACKED)) {
-            if (checkForKeyword(Keywords.WINDFURY)) {
+        if (checkForKeyword(Keywords.HASATTACKED, enchantments)) {
+            if (checkForKeyword(Keywords.WINDFURY, enchantments)) {
                 int atkCount = 0;
                 for (Enchantments enchantments : enchantments) {
                     if (enchantments.getKeyword() == Keywords.HASATTACKED) {
@@ -223,25 +225,25 @@ public abstract class Minion extends Card implements CanHaveEnchantments {
     public void healProc() {}
 
     public void cardPlayedProc(Card card, BoardState board) {
-        if (checkForKeyword(Keywords.CARDPLAYED)) {
-            if (checkForKeyword(Keywords.CARDPLAYED)) {
+        if (checkForKeyword(Keywords.CARDPLAYED, enchantments)) {
+            if (checkForKeyword(Keywords.CARDPLAYED, enchantments)) {
                 cardPlayedProc(card, board);
             }
         }
         if (card instanceof Weapon) {
-            if (checkForKeyword(Keywords.WEAPONPLAYED)) {
+            if (checkForKeyword(Keywords.WEAPONPLAYED, enchantments)) {
                 Weapon weapon = (Weapon)card;
                 weaponPlayedProc(weapon, board);
             }
         }
         else if (card instanceof Minion) {
-            if (checkForKeyword(Keywords.MINIONPLAYED)) {
+            if (checkForKeyword(Keywords.MINIONPLAYED, enchantments)) {
                 Minion minion = (Minion) card;
                 minionPlayedProc(minion, board);
             }
         }
         else if (card instanceof Spell) {
-            if (checkForKeyword(Keywords.SPELLCASTED)) {
+            if (checkForKeyword(Keywords.SPELLCASTED, enchantments)) {
                 Spell spell = (Spell) card;
                 spellCastedProc(spell, board);
             }
@@ -263,7 +265,7 @@ public abstract class Minion extends Card implements CanHaveEnchantments {
     public void minionDeath(Minion minion) {}
 
     private void enrageProc() {
-        if (checkForKeyword(Keywords.ENRAGE)) {
+        if (checkForKeyword(Keywords.ENRAGE, enchantments)) {
             if (enraged && hp < maxHP) ;
             else if (enraged && hp == maxHP) {
                 enrage();

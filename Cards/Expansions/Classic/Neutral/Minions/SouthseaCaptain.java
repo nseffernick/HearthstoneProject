@@ -5,6 +5,7 @@ import Game.Auras.Aura;
 import Game.Auras.SouthseaCaptainAura;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,13 +24,13 @@ public class SouthseaCaptain extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public SouthseaCaptain(Player owner) {
 
         super(3, 3, 3, "Southsea Captain", owner,"Adjacent minions have +1 attack.",
-                Rarity.EPIC, Tribe.PIRATE, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.AURA);
+                Rarity.EPIC, Tribe.PIRATE, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        //properties.add(Keywords.AURA);
     }
 
     public void createAura(BoardState board) {

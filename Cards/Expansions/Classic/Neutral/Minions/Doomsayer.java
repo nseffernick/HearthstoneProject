@@ -33,7 +33,7 @@ public class Doomsayer extends Minion {
         enchantments.add(new DoomIsNear(this));
     }
 
-    public static class DoomIsNear extends Enchantments {
+    public class DoomIsNear extends Enchantments {
 
         public DoomIsNear(CanHaveEnchantments link) {
             super(Keywords.STARTOFYOURTURN, "Kill all minions", link);

@@ -2,6 +2,8 @@ package Cards.Expansions.Classic.Druid.Minions;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Keywords.HasTaunt;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,14 +22,14 @@ public class IronbarkProtector extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
 
     public IronbarkProtector(Player owner) {
 
         super(8, 8, 8, "Ironbark Protector", owner,"Taunt", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.DRUID, new ArrayList<Keywords>());
-        properties.add(Keywords.TAUNT);
+                Tribe.GENERAL, HeroClass.DRUID, new ArrayList<Enchantments>());
+        enchantments.add(new HasTaunt(this));
     }
 
 }

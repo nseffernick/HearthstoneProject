@@ -25,17 +25,15 @@ public abstract class Card {
     protected String name;
     protected String text;
     protected Player owner;
-    protected ArrayList<Enchantments> enchantments;
 
     public Card(int cost, String name, String text, Player owner,
-                Rarity rarity, HeroClass heroClass, ArrayList<Enchantments> enchantments) {
+                Rarity rarity, HeroClass heroClass) {
 
         this.cost = cost;
         this.name = name;
         this.text = text;
         this.rarity = rarity;
         this.heroClass = heroClass;
-        this.enchantments = enchantments;
         this.owner = owner;
     }
 
@@ -46,8 +44,6 @@ public abstract class Card {
         this.name = copyCard.name;
         this.text = copyCard.text;
         this.heroClass = copyCard.heroClass;
-        this.enchantments = new ArrayList<>();
-        enchantments.addAll(copyCard.enchantments);
         this.owner = copyCard.owner;
     }
 
@@ -60,8 +56,6 @@ public abstract class Card {
     public String getName() { return name; }
 
     public String getText() { return text; }
-
-    public ArrayList<Enchantments> getEnchantments() { return enchantments; }
 
     public Player getOwner() { return owner; }
 
@@ -97,8 +91,8 @@ public abstract class Card {
     }
 
     protected void damageAllCharacters(BoardState board, int dmg) {
-        Damaging.damageCharacter(board.getP1(), -1, -dmg, board);
-        Damaging.damageCharacter(board.getP2(), -1, -dmg, board);
+        Damaging.damageCharacter(board.getP1(), -1, dmg, board);
+        Damaging.damageCharacter(board.getP2(), -1, dmg, board);
         for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {
             Damaging.damageCharacter(board.getP1(), i, dmg, board);
         }
@@ -107,13 +101,17 @@ public abstract class Card {
         }
     }
 
-    protected boolean checkForKeyword(Keywords keyword) {
-        for (Enchantments enchantments: enchantments) {
-            if (enchantments.getKeyword() == keyword) {
-                return true;
-            }
+    protected void damageAllCharactersExceptThis(BoardState board, int dmg, Minion thisMinion) {
+        Damaging.damageCharacter(board.getP1(), -1, dmg, board);
+        Damaging.damageCharacter(board.getP2(), -1, dmg, board);
+        for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {
+            if (board.getP1().getPlayerSide().get(i) == thisMinion);
+            else Damaging.damageCharacter(board.getP1(), i, dmg, board);
         }
-        return false;
+        for (int x = 0; x < board.getP2().getPlayerSide().size(); x++) {
+            if (board.getP2().getPlayerSide().get(x) == thisMinion);
+            else Damaging.damageCharacter(board.getP2(), x, dmg, board);
+        }
     }
 
     protected void chooseOne() {}

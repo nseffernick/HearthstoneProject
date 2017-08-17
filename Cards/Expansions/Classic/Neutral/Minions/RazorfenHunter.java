@@ -4,6 +4,7 @@ import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Boar;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -25,20 +26,17 @@ public class RazorfenHunter extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public RazorfenHunter(Player owner) {
 
         super(3, 2, 3, "Razorfen Hunter", owner,
                 "Battlecry: Summon a 1/1 Boar", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     // Summon a 1/1 boar
     public void battlecry(BoardState board, Player player, int index) {
-        if (properties.contains(Keywords.BATTLECRY)) {
             owner.summonMinion(new Boar(owner), board);
-        }
     }
 }

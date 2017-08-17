@@ -1,6 +1,7 @@
 package Cards.Structure;
 
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -20,12 +21,12 @@ public abstract class Weapon extends Card implements CanHaveEnchantments {
     protected String text;
     protected Rarity rarity;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public Weapon(int cost, int atk, int durability, String name, String text, Player player,
-                  Rarity rarity, HeroClass heroClass, ArrayList properties) {
+                  Rarity rarity, HeroClass heroClass, ArrayList<Enchantments> enchantments) {
 
-        super(cost, name, text, player, rarity, heroClass, properties);
+        super(cost, name, text, player, rarity, heroClass);
 
         this.cost = cost;
         this.durability = durability;
@@ -34,7 +35,7 @@ public abstract class Weapon extends Card implements CanHaveEnchantments {
         this.text = text;
         this.rarity = rarity;
         this.heroClass = heroClass;
-        this.properties = properties;
+        this.enchantments = enchantments;
     }
 
     public int getAtk() {
@@ -44,6 +45,8 @@ public abstract class Weapon extends Card implements CanHaveEnchantments {
     public int getDurability() {
         return durability;
     }
+
+    public ArrayList<Enchantments> getEnchantments() { return enchantments; }
 
     public boolean canTarget(int atk, Player player) {
         return false;

@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -21,13 +22,12 @@ public class TwilightDrake extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public TwilightDrake(Player owner) {
 
         super(1, 4, 4, "Twilight Drake", owner,"Gain health equal to number of cards in your hand.",
-                Rarity.RARE, Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Rarity.RARE, Tribe.DRAGON, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override

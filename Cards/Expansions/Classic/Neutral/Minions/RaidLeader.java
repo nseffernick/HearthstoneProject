@@ -5,6 +5,7 @@ import Game.Auras.Aura;
 import Game.Auras.RaidLeaderAura;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -26,13 +27,13 @@ public class RaidLeader extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public RaidLeader(Player owner) {
 
         super(2, 2, 3, "Raid Leader", owner,"", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.AURA);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        //properties.add(Keywords.AURA);
     }
 
     public void createAura(BoardState board) {

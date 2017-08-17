@@ -8,6 +8,7 @@ import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.Enchantments.Enchantments.Keywords.HasSummonSickness;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.UtilityMethods.UtilityMethods;
 import Utility.UtilityMethods.hsCeption;
@@ -156,7 +157,15 @@ public class Player {
         mana += set;
     }
 
-    public void addManaCrystals(int set) { manaCrystals += set; }
+    public void addManaCrystals(int set) {
+        if (manaCrystals < 10) {
+            int totalMana = manaCrystals + set;
+            if (totalMana > 10 ) {
+                set = totalMana - 10;
+            }
+            manaCrystals += set;
+        }
+    }
 
     /**
      * Runs the mulligan phase
@@ -365,7 +374,7 @@ public class Player {
 
     private void playMinion(Card card, int index, BoardState board) {
         Minion minion = (Minion) (card);
-        minion.getEnchantments().add(Keywords.SUMMONSICKNESS);
+        minion.getEnchantments().add(new HasSummonSickness(minion));
         minion.battlecry(board, this, index);
         if (playerSide.isEmpty()) {
             playerSide.add(minion);
@@ -389,7 +398,7 @@ public class Player {
      */
     public void summonMinion(Minion minion, BoardState board) {
         if (playerSide.size() < BOARD_SLOTS) {
-            minion.getEnchantments().add(Keywords.SUMMONSICKNESS);
+            minion.getEnchantments().add(new HasSummonSickness(minion));
             minion.createAura(board);
             playerSide.add(minion);
             updateCardCostFromBoard(board);

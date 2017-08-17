@@ -5,6 +5,7 @@ import Game.Auras.Aura;
 import Game.Auras.StormwindChampionAura;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -26,14 +27,14 @@ public class StormwindChampion extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public StormwindChampion(Player owner) {
 
         super(6, 6, 7, "Stormwind Champion", owner,
                 "Your other minions have +1/+1", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.AURA);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        //properties.add(Keywords.AURA);
     }
 
     public void createAura(BoardState board) {

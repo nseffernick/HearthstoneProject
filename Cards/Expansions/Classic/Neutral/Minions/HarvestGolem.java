@@ -34,10 +34,10 @@ public class HarvestGolem extends Minion {
         enchantments.add(new DeathrattleHarvestGolem(this));
     }
 
-    public static class DeathrattleHarvestGolem extends Enchantments {
+    private class DeathrattleHarvestGolem extends Enchantments {
 
-        public DeathrattleHarvestGolem(CanHaveEnchantments link) {
-            super(Keywords.DEATHRATTLE, "Acolyte Draw", link);
+        private DeathrattleHarvestGolem(CanHaveEnchantments link) {
+            super(Keywords.DEATHRATTLE, "Summon Damaged Golem", link);
         }
 
         @Override

@@ -11,9 +11,10 @@ public class AttackHealthBuff extends Enchantments {
     private int health;
     private int attack;
 
-    public AttackHealthBuff(CanHaveEnchantments link, int attack) {
+    public AttackHealthBuff(CanHaveEnchantments link, int attack, int health) {
         super(null, "Attack Buff", link);
         this.attack = attack;
+        this.health = health;
         enchant(null, null, null);
     }
 

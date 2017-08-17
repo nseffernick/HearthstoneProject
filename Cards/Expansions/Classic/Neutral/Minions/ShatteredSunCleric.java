@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -25,28 +26,25 @@ public class ShatteredSunCleric extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public ShatteredSunCleric(Player owner) {
 
         super(2, 3, 3, "Shattered Sun Cleric", owner,
                 "Battlecry: Give a friendly minion +1/+1", Rarity.BASIC,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     // Give +1/+1 to a friendly
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            int index = player.promptTargetIndex(board, 2);
-            if (index == 10);
-            else if (Targeting.characterTargeting(owner, index, true)) {
-                Minion minion = owner.getPlayerSide().get(index);
-                minion.addAtk(1);
-                minion.addMaxHP(1);
-                minion.addHp(1, board);
-            }
+        int index = player.promptTargetIndex(board, 2);
+        if (index == 10);
+        else if (Targeting.characterTargeting(owner, index, true)) {
+            Minion minion = owner.getPlayerSide().get(index);
+            minion.addAtk(1);
+            minion.addMaxHP(1);
+            minion.addHp(1, board);
         }
     }
 }

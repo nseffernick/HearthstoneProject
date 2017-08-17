@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -22,31 +23,28 @@ public class TheBlackKnight extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public TheBlackKnight(Player owner) {
 
         super(5, 4, 6, "The Black Knight", owner,
                 "Battlecry: Destroy an enemy minion with taunt.", Rarity.LEGENDARY,
-                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            boolean canTargetEnemy = false;
-            for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                if (minion.getEnchantments().contains(Keywords.TAUNT) && !minion.getEnchantments().contains(Keywords.STEALTH)) {
-                    canTargetEnemy = true;
-                }
+        boolean canTargetEnemy = false;
+        for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
+            if (minion.getEnchantments().contains(Keywords.TAUNT) && !minion.getEnchantments().contains(Keywords.STEALTH)) {
+                canTargetEnemy = true;
             }
-            Player targetPlayer = null;
-            if (canTargetEnemy) {
-                targetPlayer = UtilityMethods.findEnemy(board, owner);
-            }
-            chooseMinionToDestroy(board, targetPlayer);
         }
+        Player targetPlayer = null;
+        if (canTargetEnemy) {
+            targetPlayer = UtilityMethods.findEnemy(board, owner);
+        }
+        chooseMinionToDestroy(board, targetPlayer);
     }
 
     private void chooseMinionToDestroy(BoardState board, Player targetPlayer) {

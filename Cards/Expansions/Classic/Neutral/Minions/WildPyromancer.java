@@ -1,9 +1,12 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
+import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.VioletApprentice;
+import Cards.Structure.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -23,24 +26,29 @@ public class WildPyromancer extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public WildPyromancer(Player owner) {
 
         super(2, 3, 2, "Wild Pyromancer", owner,"After you cast a spell, deal 1 damage to ALL minions.",
-                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.SPELLCASTED);
+                Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
+        enchantments.add(new PyroText(this));
     }
 
-    @Override
-    public void spellCastedProc(Spell spell, BoardState board) {
-        if (properties.contains(Keywords.SPELLCASTED)) {
-            for (Minion minion: owner.getPlayerSide()) {
-                minion.addHp(-1, board);
-            }
-            for (Minion minion: UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-                minion.addHp(-1, board);
-            }
+    private class PyroText extends Enchantments {
+
+        private PyroText(CanHaveEnchantments link) {
+            super(Keywords.SPELLCASTED, "Deal one damage to all Minions", link);
+        }
+
+        @Override
+        protected void enchant(BoardState board, Minion minion, Spell spell) {
+            damageToAllMinions(board, 1);
+        }
+
+        @Override
+        protected void disenchant(BoardState board, Minion minion) {
+
         }
     }
 }

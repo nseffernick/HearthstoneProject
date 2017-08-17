@@ -29,17 +29,9 @@ public class SeaGiant  extends Minion {
 
     public SeaGiant(Player owner) {
 
-        super(8, 8, 12, "Mountain Giant", owner,"Costs (1) less for each card you have in your hand.", Rarity.EPIC,
+        super(8, 8, 10, "Sea Giant", owner,"Costs (1) less for each minion on the board.", Rarity.EPIC,
                 Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
-    }
-
-    @Override
-    public void updateCostFromBoardSize(BoardState board) {
-        int defaultCost = 10;
-        int set = owner.getPlayerSide().size();
-        int set1 = UtilityMethods.findEnemy(board, owner).getPlayerSide().size();
-
-        cost = defaultCost - set - set1;
+        enchantments.add(new SeaGiantText(this));
     }
 
     private class SeaGiantText extends Enchantments {
@@ -50,13 +42,10 @@ public class SeaGiant  extends Minion {
 
         @Override
         protected void enchant(BoardState board, Minion minion, Spell spell) {
-            if (link instanceof Minion) {
-                Minion minionLink = (Minion) link;
-                int defaultCost = 10;
-                int set = owner.getPlayerSide().size();
-                int set1 = UtilityMethods.findEnemy(board, owner).getPlayerSide().size();
-                cost = defaultCost - set - set1;
-            }
+            int defaultCost = 10;
+            int set = owner.getPlayerSide().size();
+            int set1 = UtilityMethods.findEnemy(board, owner).getPlayerSide().size();
+            cost = defaultCost - set - set1;
         }
 
         @Override

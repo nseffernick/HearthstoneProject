@@ -16,12 +16,11 @@ public class Dream extends Spell{
     protected String text;
     protected Rarity rarity;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
 
     public Dream(Player owner) {
 
         super(0, "Dream", "Return a minion to it's owner's hand", owner,
-                Rarity.BASIC, HeroClass.NEUTRAL, new ArrayList<>());
+                Rarity.BASIC, HeroClass.NEUTRAL);
     }
 
     @Override

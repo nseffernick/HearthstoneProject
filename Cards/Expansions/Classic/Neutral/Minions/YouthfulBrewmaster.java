@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -24,40 +25,20 @@ public class YouthfulBrewmaster extends Minion {
     protected Rarity rarity;
     protected Tribe tribe;
     protected HeroClass heroClass;
-    protected ArrayList<Keywords> properties;
+    protected ArrayList<Enchantments> enchantments;
 
     public YouthfulBrewmaster(Player owner) {
 
         super(2, 3, 2, "Youthful Brewmaster", owner,"Battlecry: Return a friendly minion from the battlefield to your hand.",
-                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Keywords>());
-        properties.add(Keywords.BATTLECRY);
+                Rarity.COMMON, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        if (properties.contains(Keywords.BATTLECRY)) {
-            int index = owner.promptTargetIndex(board, 2);
-            if (index == 10);
-            else if (Targeting.characterTargeting(owner, index, true)) {
-                returnBackToHand(index, );
-            }
-        }
-    }
-
-    private void returnBackToHand(int index, Player target) {
-        Minion minion = owner.getPlayerSide().get(index);
-        owner.getPlayerSide().remove(minion);
-        Class newMinion = minion.getClass();
-        try {
-            Constructor constructor = newMinion.getConstructor(Player.class);
-            Object card1 = constructor.newInstance(owner);
-            if (card1 instanceof Minion) {
-                Minion minion1 = (Minion) card1;
-                owner.getHand().add(minion1);
-            }
-        }
-        catch (InstantiationException | InvocationTargetException | IllegalAccessException |  NoSuchMethodException e) {
-            e.printStackTrace();
+        int index = owner.promptTargetIndex(board, 2);
+        if (index == 10);
+        else if (Targeting.characterTargeting(owner, index, true)) {
+            returnBackToHand(index, owner);
         }
     }
 }
