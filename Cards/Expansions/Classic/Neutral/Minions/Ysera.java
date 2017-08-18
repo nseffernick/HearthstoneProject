@@ -1,12 +1,11 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
 import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.Dream;
 import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.Nightmare;
 import Cards.Expansions.Classic.Uncollectible.Neutral.Spells.YseraAwakens;
 import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.EmeraldDrake;
 import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.LaughingSister;
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
@@ -47,7 +46,7 @@ public class Ysera extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             int randomNum = owner.getRng().randomNum(5);
             Card dreamCard;
             if (randomNum == 0) {
@@ -71,7 +70,7 @@ public class Ysera extends Minion {
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
 
         }
     }

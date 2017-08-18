@@ -1,6 +1,6 @@
 package Utility.Enchantments.Structure;
 
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -22,9 +22,9 @@ public abstract class Enchantments {
 
     public String getName() { return name; }
 
-    protected abstract void enchant(BoardState board, Minion minion, Spell spell);
+    public abstract void enchant(BoardState board, Minion minion, Spell spell);
 
-    protected abstract void disenchant(BoardState board, Minion minion);
+    public abstract void disenchant(BoardState board, Minion minion);
 
     protected void damageToAllMinions(BoardState board, int dmg) {
         for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {

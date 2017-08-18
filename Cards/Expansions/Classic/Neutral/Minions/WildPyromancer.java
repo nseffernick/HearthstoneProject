@@ -1,7 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.VioletApprentice;
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -11,7 +10,6 @@ import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -42,12 +40,12 @@ public class WildPyromancer extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             damageToAllMinions(board, 1);
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
 
         }
     }

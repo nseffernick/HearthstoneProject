@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -40,7 +40,7 @@ public class Doomsayer extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             for (Minion minion1: board.getP1().getPlayerSide()) {
                 minion1.destroy(board);
             }
@@ -50,7 +50,7 @@ public class Doomsayer extends Minion {
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
         }
     }
 }

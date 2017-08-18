@@ -4,6 +4,8 @@ package Cards.Structure;
 import Game.Player.Player;
 import Game.BoardState;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
+import Utility.Enchantments.Enchantments.Keywords.HasAttacked;
+import Utility.Enchantments.Enchantments.Keywords.HasSummonSickness;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
@@ -114,6 +116,14 @@ public abstract class Card {
         }
     }
 
-    protected void chooseOne() {}
-
+    public void silence(Minion minion, BoardState board) {
+        for (Enchantments enchantment: minion.getEnchantments()) {
+            if (enchantment instanceof HasAttacked);
+            else if (enchantment instanceof HasSummonSickness);
+            else {
+                enchantment.disenchant(board, null);
+                minion.getEnchantments().remove(enchantment);
+            }
+        }
+    }
 }

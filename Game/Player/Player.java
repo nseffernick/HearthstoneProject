@@ -167,6 +167,14 @@ public class Player {
         }
     }
 
+    public void addToHand(Card card) {
+        if (hand.size() < 10) {
+            hand.add(card);
+            updateCardCostFromHand();
+        }
+        else System.out.println(card + " was burned!");
+    }
+
     /**
      * Runs the mulligan phase
      */
@@ -413,13 +421,7 @@ public class Player {
     public void drawCard() {
         if (!deck.isEmpty()) {
             Card card = deck.remove();
-            if (hand.size() < MAX_HAND_SIZE) {
-                hand.add(card);
-                updateCardCostFromHand();
-            }
-            else {
-                System.out.println(card + " was burned!");
-            }
+            addToHand(card);
         }
         else {
             fatigue += 1;
@@ -496,6 +498,11 @@ public class Player {
         System.out.println(name + " discarded " + card.getName() + "!");
     }
 
+    public void transform(Minion originalMinion, Minion newMinion) {
+        int index = playerSide.indexOf(originalMinion);
+        playerSide.set(index, newMinion);
+    }
+
     public Player promptTargetPlayer(BoardState board) {
         System.out.println("Will your target be the enemy, " + UtilityMethods.findEnemy(board, this).name +
         ", or yourself");
@@ -535,7 +542,6 @@ public class Player {
                 System.out.println("There are no valid targets");
                 return 10;
             }
-            promptTargetPlayer(board);
         }
         board.peekYourHand(this);
         board.peekBoard(this);
@@ -546,6 +552,15 @@ public class Player {
         int targetIndex = playerInput.nextInt() - 1;
         System.out.println();
         return targetIndex;
+    }
+
+    public Minion promptAMinion(BoardState board, int targetType) {
+        Player player = promptTargetPlayer(board);
+        int index = promptTargetIndex(board, targetType);
+        if (index == 10) {
+            return null;
+        }
+        return player.getPlayerSide().get(index);
     }
 
     public void concede() {

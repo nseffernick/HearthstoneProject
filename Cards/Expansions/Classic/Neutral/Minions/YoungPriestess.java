@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -41,7 +41,7 @@ public class YoungPriestess extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             if (owner.getPlayerSide().size() > 1) {
                 int index = owner.getRng().randomNum(owner.getPlayerSide().size());
                 while (!(owner.getPlayerSide().get(index) == link)) {
@@ -52,7 +52,7 @@ public class YoungPriestess extends Minion {
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
 
         }
     }

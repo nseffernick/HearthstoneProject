@@ -1,6 +1,5 @@
 package Cards.Expansions.Classic.Druid.Spells;
 
-import Cards.Expansions.Classic.Uncollectible.Druid.Minions.Treant;
 import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
@@ -28,6 +27,7 @@ public class HealingTouch extends Spell {
 
     @Override
     public void castSpell(BoardState board) {
+        //TODO
         owner.getHero().addHp(owner, 8);
     }
 }

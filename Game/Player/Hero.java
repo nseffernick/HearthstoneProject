@@ -1,12 +1,13 @@
 package Game.Player;
 
 import Cards.Expansions.Classic.Uncollectible.Warlock.Weapons.BloodFury;
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Cards.Structure.Weapon;
 import Game.BoardState;
 import Game.Player.HeroPowers.*;
+import Game.Targetable;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * spelldamage, spelldamage is not a part of him), and other more or less
  * automatic attributes like fatigue.
  */
-public class Hero implements CanHaveEnchantments {
+public class Hero implements CanHaveEnchantments, Targetable {
 
     // State
     private Weapon weapon;

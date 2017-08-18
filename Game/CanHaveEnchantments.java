@@ -1,4 +1,4 @@
-package Cards.Structure;
+package Game;
 
 import Utility.Enchantments.Enchantments.Keywords.HasWindfury;
 import Utility.Enchantments.Structure.Enchantments;

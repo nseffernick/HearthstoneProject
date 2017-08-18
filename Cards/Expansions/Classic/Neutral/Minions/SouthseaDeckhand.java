@@ -1,14 +1,12 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Cards.Structure.Weapon;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.Enchantments.Enchantments.Keywords.HasCharge;
-import Utility.Enchantments.Enchantments.Keywords.HasWindfury;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Enchantments.Structure.Keywords;
@@ -49,7 +47,7 @@ public class SouthseaDeckhand extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             boolean hasCharge = false;
             if (owner.getHero().getWeapon() != null) {
                 addCharge(hasCharge);
@@ -82,7 +80,7 @@ public class SouthseaDeckhand extends Minion {
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
 
         }
     }

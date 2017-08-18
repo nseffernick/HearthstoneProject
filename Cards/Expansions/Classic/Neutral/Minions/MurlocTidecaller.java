@@ -1,7 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Expansions.Classic.Uncollectible.Neutral.Minions.Gnoll;
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -44,7 +43,7 @@ public class MurlocTidecaller extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             if (link instanceof Minion) {
                 Minion minionLink = (Minion) link;
                 if (minion.getTribe() == Tribe.MURLOC) {
@@ -55,7 +54,7 @@ public class MurlocTidecaller extends Minion {
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
             if (link instanceof Minion) {
                 Minion minionLink = (Minion) link;
                 minionLink.addAtk(-murlocs);

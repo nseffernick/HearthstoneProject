@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -42,13 +42,13 @@ public class KnifeJuggler extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             int index = owner.getRng().randomNum(UtilityMethods.findEnemy(board, owner).getPlayerSide().size()) - 1;
             Damaging.damageCharacter(UtilityMethods.findEnemy(board, owner), index, 1, board);
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
 
         }
     }

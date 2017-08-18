@@ -2,8 +2,9 @@ package Cards.Structure;
 
 import Game.Auras.Aura;
 import Game.BoardState;
+import Game.CanHaveEnchantments;
 import Game.Player.Player;
-import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
+import Game.Targetable;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * ME 3/19/17
  */
-public abstract class Minion extends Card implements CanHaveEnchantments {
+public abstract class Minion extends Card implements CanHaveEnchantments, Targetable {
 
     // State
     protected int hp;

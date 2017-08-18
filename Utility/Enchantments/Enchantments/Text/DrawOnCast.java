@@ -1,6 +1,6 @@
 package Utility.Enchantments.Enchantments.Text;
 
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -14,7 +14,7 @@ public class DrawOnCast extends Enchantments {
     }
 
     @Override
-    protected void enchant(BoardState board, Minion minion, Spell spell) {
+    public void enchant(BoardState board, Minion minion, Spell spell) {
         if (link instanceof Minion) {
             Minion minionLink = (Minion) link;
             minionLink.getOwner().drawCard();
@@ -22,6 +22,6 @@ public class DrawOnCast extends Enchantments {
     }
 
     @Override
-    protected void disenchant(BoardState board, Minion minion) {
+    public void disenchant(BoardState board, Minion minion) {
     }
 }

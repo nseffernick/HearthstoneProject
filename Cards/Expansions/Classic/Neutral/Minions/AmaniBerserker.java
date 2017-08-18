@@ -1,6 +1,6 @@
 package Cards.Expansions.Classic.Neutral.Minions;
 
-import Cards.Structure.CanHaveEnchantments;
+import Game.CanHaveEnchantments;
 import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
@@ -41,7 +41,7 @@ public class AmaniBerserker extends Minion {
         }
 
         @Override
-        protected void enchant(BoardState board, Minion minion, Spell spell) {
+        public void enchant(BoardState board, Minion minion, Spell spell) {
             if (link instanceof Minion) {
                 Minion minionLink = (Minion) link;
                 if (minionLink.isEnraged()) minionLink.addAtk(-3);
@@ -50,7 +50,7 @@ public class AmaniBerserker extends Minion {
         }
 
         @Override
-        protected void disenchant(BoardState board, Minion minion) {
+        public void disenchant(BoardState board, Minion minion) {
         }
     }
 }
