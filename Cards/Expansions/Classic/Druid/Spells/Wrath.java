@@ -16,7 +16,7 @@ public class Wrath extends Spell implements ChooseOne {
     protected Rarity rarity;
     protected HeroClass heroClass;
 
-    public Innervate(Player owner) {
+    public Wrath(Player owner) {
 
         super(0, "Innervate", "Give yourself two mana this turn.", owner,
                 Rarity.BASIC, HeroClass.DRUID);
@@ -29,11 +29,13 @@ public class Wrath extends Spell implements ChooseOne {
 
     @Override
     public boolean presentChoice(BoardState board) {
-
+        return false;
     }
 
+    /*
     @Override
     public void fandralInteratction(BoardState board) {
 
     }
+    */
 }

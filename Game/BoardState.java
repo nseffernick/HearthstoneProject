@@ -169,6 +169,7 @@ public class BoardState extends Observable {
 
             if (fields[0].equals(PASS)) {
                 System.out.println(player.getName() + " ends their turn!");
+                System.out.println("testsssss");
                 break;
             }
             commands(player, fields);
