@@ -28,8 +28,6 @@ public class DarkscaleHealer extends Minion {
     protected HeroClass heroClass;
     protected ArrayList<Enchantments> enchantments;
 
-
-    //TODO Prolly fix this card
     public DarkscaleHealer(Player owner) {
 
         super(5, 4, 5, "Darkscale Healer", owner,

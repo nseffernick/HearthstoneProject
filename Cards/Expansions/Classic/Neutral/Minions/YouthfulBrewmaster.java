@@ -6,12 +6,9 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class YouthfulBrewmaster extends Minion {
@@ -35,7 +32,7 @@ public class YouthfulBrewmaster extends Minion {
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        int index = owner.promptTargetIndex(board, 2);
+        int index = owner.promptTargetIndex(board, );
         if (index == 10);
         else if (Targeting.characterTargeting(owner, index, true)) {
             returnBackToHand(index, owner);

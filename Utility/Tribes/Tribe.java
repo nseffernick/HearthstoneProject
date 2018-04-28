@@ -5,6 +5,8 @@ package Utility.Tribes;
  *
  * All the tribes present in Hearthstone, needed for certain synergies
  */
+
+// Minion tribes
 public enum Tribe {
     TOTEM,
     BEAST,

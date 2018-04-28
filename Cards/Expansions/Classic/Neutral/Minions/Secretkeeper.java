@@ -38,7 +38,7 @@ public class Secretkeeper extends Minion {
         if (spell.getEnchantments().contains(Keywords.SECRET)) {
             addAtk(1);
             addMaxHP(1);
-            addHp(1, board);
+            addHp(board, 1, );
         }
     }
 

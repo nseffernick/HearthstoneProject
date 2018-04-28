@@ -44,7 +44,7 @@ public class LeperGnome extends Minion {
         public void enchant(BoardState board, Minion minion, Spell spell) {
             if (link instanceof Minion) {
                 Minion minionLink = (Minion) link;
-                UtilityMethods.findEnemy(board, owner).getHero().addHp(UtilityMethods.findEnemy(board, owner), -2);
+                UtilityMethods.findEnemy(board, owner).getHero().addHp(-2);
             }
         }
 

@@ -19,7 +19,6 @@ public class Innervate extends Spell {
 
         super(0, "Innervate", "Give yourself two mana this turn.", owner,
                 Rarity.BASIC, HeroClass.DRUID);
-        System.out.println("ding fong");
     }
 
     @Override

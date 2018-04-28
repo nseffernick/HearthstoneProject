@@ -18,4 +18,14 @@ public interface CanHaveEnchantments {
         }
         return false;
     }
+
+    default boolean checkForEnchantment(Enchantments enchantmentType, ArrayList<Enchantments> enchantmentsList) {
+        for (Enchantments ench: enchantmentsList) {
+            if (ench.getClass().isInstance(enchantmentType)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+

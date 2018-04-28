@@ -6,10 +6,7 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.Enchantments.Enchantments.Text.AttackHealthBuff;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
-
-import java.util.ArrayList;
 
 public class Banana extends Spell {
 
@@ -28,8 +25,8 @@ public class Banana extends Spell {
 
     @Override
     public void castSpell(BoardState board) {
-        Player player = owner.promptTargetPlayer(board);
-        int index = owner.promptTargetIndex(board, 2);
+        Player player = owner.promptTargetPlayer(board, );
+        int index = owner.promptTargetIndex(board, );
         if (index == 10);
         else {
             Minion minion = player.getPlayerSide().get(index);

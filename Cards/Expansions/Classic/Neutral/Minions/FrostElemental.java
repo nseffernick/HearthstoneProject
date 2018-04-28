@@ -37,8 +37,8 @@ public class FrostElemental extends Minion {
         Player playerTarget = null;
         int index = -2;
         while (1 == 1) {
-            playerTarget = owner.promptTargetPlayer(board);
-            index = owner.promptTargetIndex(board, 0);
+            playerTarget = owner.promptTargetPlayer(board, );
+            index = owner.promptTargetIndex(board, );
             if (Targeting.characterTargeting(playerTarget, index, true)) {
                 break;
             }

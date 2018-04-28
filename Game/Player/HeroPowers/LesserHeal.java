@@ -15,8 +15,8 @@ public class LesserHeal extends HeroPower {
 
     @Override
     public boolean Cast(Player player, BoardState board) {
-        Player targetPlayer = player.promptTargetPlayer(board);
-        int index = player.promptTargetIndex(board, 0);
+        Player targetPlayer = player.promptTargetPlayer(board, ANY_TARGET);
+        int index = player.promptTargetIndex(board, targetPlayer);
         if (MasterTargeter.Main(targetPlayer, index, -2, null, false, board)) {
             wasCast = true;
             return true;

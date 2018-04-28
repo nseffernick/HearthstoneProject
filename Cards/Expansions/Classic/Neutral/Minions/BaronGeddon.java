@@ -34,8 +34,6 @@ public class BaronGeddon extends Minion {
         enchantments.add(new BaronGeddonAoE(this));
     }
 
-    //TODO change like everything to damaging instead of addHP Damaging.damageCharacter(UtilityMethods.findEnemy(board, owner), index, 1, board);
-
     public static class BaronGeddonAoE extends Enchantments {
 
         public BaronGeddonAoE(CanHaveEnchantments link) {

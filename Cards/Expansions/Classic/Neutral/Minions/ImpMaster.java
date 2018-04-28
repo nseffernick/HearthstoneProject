@@ -46,7 +46,7 @@ public class ImpMaster extends Minion {
             if (link instanceof Minion) {
                 Minion minionLink = (Minion) link;
                 minionLink.getOwner().summonMinion(new Imp(minionLink.getOwner()), board);
-                minionLink.addHp(-1, board);
+                minionLink.addHp(board, , -1, );
             }
         }
 

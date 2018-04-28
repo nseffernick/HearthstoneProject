@@ -51,7 +51,7 @@ public class TheBlackKnight extends Minion {
         if (targetPlayer != null) {
             Minion minion;
             while (1 == 1) {
-                int index = owner.promptTargetIndex(board, 0);
+                int index = owner.promptTargetIndex(board, );
                 minion = targetPlayer.getPlayerSide().get(index);
                 if (minion.getEnchantments().contains(Keywords.TAUNT) && !minion.getEnchantments().contains(Keywords.STEALTH)) {
                     break;

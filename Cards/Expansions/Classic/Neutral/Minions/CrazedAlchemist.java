@@ -6,7 +6,6 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -38,8 +37,8 @@ public class CrazedAlchemist extends Minion {
         Player targetPlayer;
         int index;
         while (1 == 1) {
-            targetPlayer = owner.promptTargetPlayer(board);
-            index = owner.promptTargetIndex(board, 3);
+            targetPlayer = owner.promptTargetPlayer(board, );
+            index = owner.promptTargetIndex(board, );
             if (Targeting.characterTargeting(targetPlayer, index, true)) {
                 break;
             }

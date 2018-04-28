@@ -5,7 +5,6 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -36,7 +35,7 @@ public class ColdlightSeer extends Minion {
         for (Minion minion: owner.getPlayerSide()) {
             if (minion.getTribe() == Tribe.MURLOC) {
                 minion.addMaxHP(2);
-                minion.addHp(2, board);
+                minion.addHp(board, 2, );
             }
         }
     }

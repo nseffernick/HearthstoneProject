@@ -6,7 +6,6 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.UtilityMethods.UtilityMethods;
@@ -52,8 +51,8 @@ public class MadBomber extends Minion {
                 Damaging.damageCharacter(owner, index, 1, board);
             }
             numBombs -= 1;
-            owner.checkBoardForDead(board);
-            UtilityMethods.findEnemy(board, player).checkBoardForDead(board);
+            owner.checkBoardForDead();
+            UtilityMethods.findEnemy(board, player).checkBoardForDead();
         }
     }
 }

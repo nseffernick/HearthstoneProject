@@ -51,6 +51,6 @@ public class BloodKnight extends Minion {
         }
         addAtk(3 * numShieldsPopped);
         addMaxHP(3 * numShieldsPopped);
-        addHp(3 * numShieldsPopped, board);
+        addHp(board, 3 * numShieldsPopped, );
     }
 }

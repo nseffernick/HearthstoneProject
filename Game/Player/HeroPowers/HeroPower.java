@@ -8,6 +8,11 @@ import Game.Player.Player;
  */
 public abstract class HeroPower {
 
+    //Constants
+    protected final int ANY_TARGET = 0;
+    protected final int FRIENDLY_TARGET = 1;
+    protected final int ENEMY_TARGET = 2;
+    protected final int HERO_TARGET = -1;
     protected int cost;
     protected boolean wasCast;
 
