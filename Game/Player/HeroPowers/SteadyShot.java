@@ -1,5 +1,6 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 
@@ -13,8 +14,16 @@ public class SteadyShot extends HeroPower{
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        MasterTargeter.Main(player, -1, 2, null);
-        wasCast = true;
+    public boolean Cast(Player player, BoardState board) {
+        if(MasterTargeter.Main(player, -1, 2, null, false, board)) {
+            wasCast = true;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Steady Shot - Deal 2 damage to the enemy hero \nCost " + cost + " mana";
     }
 }

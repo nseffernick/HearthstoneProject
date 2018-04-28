@@ -1,6 +1,6 @@
 package Game.Auras;
 
-import Cards.Minion;
+import Cards.Structure.Minion;
 import Utility.Tribes.Tribe;
 
 /**

@@ -1,5 +1,6 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -13,9 +14,14 @@ public class ArmorUp extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        player.getHero().setArmor(2);
+    public boolean Cast(Player player, BoardState board) {
+        player.getHero().addArmor(2);
         wasCast = true;
+        return true;
     }
 
+    @Override
+    public String toString() {
+        return "Armor Up - Gain 2 Armor \nCost " + cost + " Mana";
+    }
 }

@@ -1,9 +1,6 @@
 package Game.Auras;
 
-import Cards.Minion;
-import Game.BoardState;
-import Game.Player.Player;
-import Utility.Keywords.Keywords;
+import Cards.Structure.Minion;
 import Utility.Tribes.Tribe;
 
 /**
@@ -22,18 +19,11 @@ public abstract class Aura {
     protected String where;
     protected String effect;
     protected Tribe tribe;
-    protected boolean other;
     protected boolean adjacent;
 
     public Aura(Minion link, String name) {
         this.link = link;
         this.name = name;
-    }
-
-    public void checkAlive() {
-        if (link.isDead() || !link.getProperties().contains(Keywords.AURA)) {
-            BoardState.removeAura(this);
-        }
     }
 
     public String toString() {
@@ -52,10 +42,6 @@ public abstract class Aura {
         return tribe;
     }
 
-    public boolean getOther() {
-        return other;
-    }
-
     public boolean getAdjacent() {
         return adjacent;
     }
@@ -63,4 +49,6 @@ public abstract class Aura {
     public Minion getLink() {
         return link;
     }
+
+    public String getName() { return name;}
 }

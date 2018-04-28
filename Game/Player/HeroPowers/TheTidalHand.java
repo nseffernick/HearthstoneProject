@@ -1,6 +1,7 @@
 package Game.Player.HeroPowers;
 
-import Cards.WhispersOfTheOldGods.Uncollectible.Tokens.SilverHandMurloc;
+import Cards.Expansions.WhispersOfTheOldGods.Uncollectible.Tokens.SilverHandMurloc;
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -13,8 +14,9 @@ public class TheTidalHand extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        player.summonCard(new SilverHandMurloc());
+    public boolean Cast(Player player, BoardState board) {
+        player.summonMinion(new SilverHandMurloc(player), board);
         wasCast = true;
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package Game.Player.HeroPowers;
 
-import Cards.Classic.Uncollectible.Tokens.SilverHand;
+import Cards.Expansions.Classic.Uncollectible.Paladin.Minions.SilverHand;
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -13,8 +14,13 @@ public class Reinforce extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        player.summonCard(new SilverHand());
+    public boolean Cast(Player player, BoardState board) {
+        player.summonMinion(new SilverHand(player), board);
         wasCast = true;
+        return true;
+    }
+
+    public String toString() {
+        return "Reinforce - Summon a 1/1 Silver Hand Recruit \nCost two mana";
     }
 }

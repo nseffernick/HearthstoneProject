@@ -1,6 +1,7 @@
 package Game.Player.HeroPowers;
 
-import Cards.Classic.Uncollectible.Tokens.Infernal;
+import Cards.Expansions.Classic.Uncollectible.Warlock.Minions.Infernal;
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -13,8 +14,9 @@ public class Inferno extends HeroPower{
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        player.summonCard(new Infernal());
+    public boolean Cast(Player player, BoardState board) {
+        player.summonMinion(new Infernal(player), board);
         wasCast = true;
+        return true;
     }
 }

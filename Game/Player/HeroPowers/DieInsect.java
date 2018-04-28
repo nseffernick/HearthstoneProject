@@ -1,5 +1,6 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 
@@ -13,9 +14,12 @@ public class DieInsect extends HeroPower{
     }
 
     @Override
-    public void Cast(Player player, int index) {
+    public boolean Cast(Player player, BoardState board) {
         int random = player.getRng().randomNum(player.getPlayerSide().size());
-        MasterTargeter.Main(player, random, 8, null);
-        wasCast = true;
+        if (MasterTargeter.Main(player, random, 8, null, false, board)) {
+            wasCast = true;
+            return true;
+        }
+        return false;
     }
 }

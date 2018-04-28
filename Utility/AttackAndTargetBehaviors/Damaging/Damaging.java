@@ -1,7 +1,9 @@
 package Utility.AttackAndTargetBehaviors.Damaging;
 
-import Cards.Minion;
+import Cards.Structure.Minion;
+import Game.BoardState;
 import Game.Player.Player;
+import Utility.Enchantments.Structure.Keywords;
 
 /**
  * Created by Cheech on 3/29/2017. nxs1720@g.rit.edu
@@ -17,44 +19,28 @@ public class Damaging {
      * @param index
      * @param dmg
      */
-    public static void damageCharacter(Player target, int index, int dmg) {
-        if (index < 0) {
-            // if the hero is getting healed
-            if (dmg < 0) {
-                if (target.getHero().getHp() - dmg >
-                        target.getHero().getMaxHP()) {
-                    dmg = target.getHero().getMaxHP() -
-                            target.getHero().getHp();
-                }
-                target.getHero().addHp(dmg);
-            }
-            else {
-                target.getHero().addHp(-dmg);
+    public static void damageCharacter(Player target, int index, int dmg, BoardState board) {
+        if (index == -1) {
+            if (!target.getHero().getProperties().contains(Keywords.IMMUNE)) {
+                target.getHero().addHp(target, -dmg);
             }
         }
         else {
-            // If the character is getting healed
-            if (dmg < 0) {
-                if (target.getPlayerSide().get(index).getHp() - dmg >
-                        target.getPlayerSide().get(index).getMaxHP()) {
-                    dmg = target.getPlayerSide().get(index).getMaxHP() -
-                            target.getPlayerSide().get(index).getHp();
-                }
-                target.getPlayerSide().get(index).addHp(dmg);
-            }
-            else {
-                target.getPlayerSide().get(index).addHp(-dmg);
+            if (!target.getPlayerSide().get(index).getEnchantments().contains(Keywords.IMMUNE)) {
+                target.getPlayerSide().get(index).addHp(-dmg, board);
             }
         }
     }
     
-    public static void minionCombat(Player target, int index, Minion minion) {
-        if (index < 0) {
-            target.getHero().addHp(-minion.getAtk());
+    public static void minionCombat(Player target, int index, Minion minion, BoardState board) {
+        if (index == -1) {
+            target.getHero().addHp(target, -minion.getAtk());
         }
         else {
-            target.getPlayerSide().get(index).addHp(-minion.getAtk());
-            minion.addHp(-target.getPlayerSide().get(index).getAtk());
+            int atkingDmg = -minion.getAtk();
+            int defendingDmg = -target.getPlayerSide().get(index).getAtk();
+            target.getPlayerSide().get(index).addHp(atkingDmg, board);
+            minion.addHp(defendingDmg, board);
         }
     }
 

@@ -1,13 +1,10 @@
 package Utility.UtilityMethods;
 
-import Cards.Card;
-import Game.Player.Player;
-import Cards.Classic.Neutral.Minions.RiverCroc;
-import Utility.HeroClasses.HeroClass;
-import Utility.Keywords.Keywords;
-import Utility.Rarities.Rarity;
+import Cards.Structure.Card;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Collections;
+import java.util.LinkedList;
 
 /**
  * Created by Cheech on 3/27/2017. nxs1720@g.rit.edu
@@ -19,7 +16,7 @@ public class hsCeption {
     private Random randomEffect;
 
     public hsCeption() {
-        randomEffect = new Random(3);
+        randomEffect = new Random();
     }
 
     /**
@@ -39,9 +36,11 @@ public class hsCeption {
         return randomEffect.nextInt(bound);
     }
 
-    public Card discover() {
-        return new RiverCroc();
-    }
+    public boolean randomBool() { return randomEffect.nextBoolean(); }
+
+    //public Card discover() {
+    //    return new RiverCroc();
+    //}
 
     public void joust() {}
 

@@ -1,12 +1,13 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
-import Cards.Card;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.HealingTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.SearingTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.StoneclawTotem;
-import Cards.Classic.Uncollectible.Tokens.HeroPowerTotems.WrathOfAir;
-import Cards.Minion;
+import Cards.Structure.Card;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.HealingTotem;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.SearingTotem;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.StoneclawTotem;
+import Cards.Expansions.Classic.Uncollectible.Shaman.Minions.HeroPowerTotems.WrathOfAir;
+import Cards.Structure.Minion;
 
 import java.util.ArrayList;
 
@@ -20,17 +21,18 @@ public class TotemicCall extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        shamanHeroPowerRoll(player);
+    public boolean Cast(Player player, BoardState board) {
+        shamanHeroPowerRoll(player, board);
         wasCast = true;
+        return true;
     }
 
-    private void shamanHeroPowerRoll(Player player) {
+    private void shamanHeroPowerRoll(Player player, BoardState board) {
         ArrayList<Minion> canSummon = new ArrayList<>();
-        Minion heal = new HealingTotem();
-        Minion taunt = new StoneclawTotem();
-        Minion spell = new WrathOfAir();
-        Minion searing = new SearingTotem();
+        Minion heal = new HealingTotem(player);
+        Minion taunt = new StoneclawTotem(player);
+        Minion spell = new WrathOfAir(player);
+        Minion searing = new SearingTotem(player);
         canSummon.add(heal);
         canSummon.add(taunt);
         canSummon.add(spell);
@@ -60,8 +62,12 @@ public class TotemicCall extends HeroPower {
         if (!(canSummon.isEmpty())) {
             Minion totem = canSummon.get(player.getRng().randomNum
                     (canSummon.size()-1));
-            player.summonCard(totem);
+            player.summonMinion(totem, board);
         }
     }
 
+    @Override
+    public String toString() {
+        return "Totemic Call - Summon a random Totem \nCost " + cost + " mana";
+    }
 }

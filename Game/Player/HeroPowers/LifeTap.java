@@ -1,5 +1,6 @@
 package Game.Player.HeroPowers;
 
+import Game.BoardState;
 import Game.Player.Player;
 
 /**
@@ -12,9 +13,15 @@ public class LifeTap extends HeroPower {
     }
 
     @Override
-    public void Cast(Player player, int index) {
-        player.getHero().setHp(-2);
+    public boolean Cast(Player player, BoardState board) {
+        player.getHero().addHp(-2);
         player.drawCard();
         wasCast = true;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Life Tap - Take 2 damage Draw a Card \nCost " + cost + "Mana";
     }
 }

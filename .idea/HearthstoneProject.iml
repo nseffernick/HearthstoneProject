@@ -7,5 +7,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" exported="" name="com.google.guava:guava:18.0" level="project" />
+    <orderEntry type="library" name="ai.h2o:reflections:0.9.11-SNAPSHOT" level="project" />
   </component>
 </module>
