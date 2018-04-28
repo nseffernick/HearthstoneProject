@@ -8,9 +8,9 @@ import Cards.Structure.Weapon;
 import Game.BoardState;
 import Game.Player.HeroPowers.*;
 import Game.Targetable;
+import Utility.Enchantments.Enchantments.Keywords.HasImmune;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
@@ -34,10 +34,12 @@ public class Hero implements CanHaveEnchantments, Targetable {
     private int atk;
     private HeroClass heroClass;
     private String name;
+    private Player link;
 
     public Hero(String name, Player player) {
         initializeHero(name, player);
         this.enchantments = new ArrayList<Enchantments>();
+        this.link = player;
     }
 
     /**
@@ -140,15 +142,15 @@ public class Hero implements CanHaveEnchantments, Targetable {
                 target.getHero().hp -= atk;
             }
             else {
-                target.getPlayerSide().get(index).addHp(-atk, board);
-                if (enchantments.contains(Keywords.IMMUNE));
+                target.getPlayerSide().get(index).addHp(-atk );
+                if (checkForEnchantment(new HasImmune(this), enchantments));
                 else {
                     hp -= target.getPlayerSide().get(index).getAtk();
                 }
             }
         }
         else {
-            System.out.println("You're hero has no attack!");
+            System.out.println("Your hero has no attack!");
         }
     }
 
@@ -188,13 +190,13 @@ public class Hero implements CanHaveEnchantments, Targetable {
         armor += set;
     }
 
-    public void addHp(Player player, int set) {
+    public void addHp(int set) {
         hp += set;
-        for (Card card: player.getHand()) {
+        for (Card card: link.getHand()) {
             card.updateCostFromHeroHP();
         }
         if (set > 0) {
-            for (Minion minion: player.getPlayerSide()) {
+            for (Minion minion: link.getPlayerSide()) {
                 minion.healProc();
             }
         }

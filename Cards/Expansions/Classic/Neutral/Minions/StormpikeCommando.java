@@ -6,7 +6,6 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -38,6 +37,6 @@ public class StormpikeCommando extends Minion {
     // Deal two damage
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        MasterTargeter.Main(player.promptTargetPlayer(board), player.promptTargetIndex(board, 0), 2, null, true, board);
+        MasterTargeter.Main(player.promptTargetPlayer(board, ), player.promptTargetIndex(board, ), 2, null, true, board);
     }
 }

@@ -5,7 +5,6 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 import Utility.UtilityMethods.UtilityMethods;
@@ -52,13 +51,13 @@ public class HungryCrab extends Minion {
     private void destroyMurloc(BoardState board) {
         while(1 == 1) {
             try {
-                Player targetPlayer = owner.promptTargetPlayer(board);
-                int index = owner.promptTargetIndex(board, 0) - 1;
+                Player targetPlayer = owner.promptTargetPlayer(board, );
+                int index = owner.promptTargetIndex(board, ) - 1;
                 if (targetPlayer.getPlayerSide().get(index).getTribe() == Tribe.MURLOC) {
                     targetPlayer.getPlayerSide().get(index).destroy(board);
                     addAtk(2);
                     addMaxHP(2);
-                    addHp(2, board);
+                    addHp(board, 2, );
                     break;
                 }
                 else {

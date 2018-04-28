@@ -17,7 +17,7 @@ public class DrawOnCast extends Enchantments {
     public void enchant(BoardState board, Minion minion, Spell spell) {
         if (link instanceof Minion) {
             Minion minionLink = (Minion) link;
-            minionLink.getOwner().drawCard();
+            minionLink.getOwner().drawCard(board);
         }
     }
 

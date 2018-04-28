@@ -6,7 +6,6 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -33,7 +32,7 @@ public class Alexstrasza extends Minion {
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        Player targetPlayer = owner.promptTargetPlayer(board);
+        Player targetPlayer = owner.promptTargetPlayer(board, );
         if (targetPlayer.getHero().getMaxHP() < 15) {
             targetPlayer.getHero().setMaxHP(15);
         }

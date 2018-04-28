@@ -3,6 +3,8 @@ package Utility.Enchantments.Structure;
 /**
  * Created by Cheech on 3/19/2017.
  */
+
+//Describes the keywords that may be on cards
 public enum Keywords {
     BATTLECRY,
     DEATHRATTLE,

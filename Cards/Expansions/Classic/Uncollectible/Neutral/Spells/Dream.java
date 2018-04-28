@@ -4,10 +4,7 @@ import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
-
-import java.util.ArrayList;
 
 public class Dream extends Spell{
 
@@ -25,8 +22,8 @@ public class Dream extends Spell{
 
     @Override
     public void castSpell(BoardState board) {
-        Player player = owner.promptTargetPlayer(board);
-        int index = owner.promptTargetIndex(board, 2);
+        Player player = owner.promptTargetPlayer(board, );
+        int index = owner.promptTargetIndex(board, );
         if (index == 10);
         else returnBackToHand(index, player);
     }

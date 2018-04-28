@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.Enchantments.Enchantments.Keywords.HasTaunt;
+import Utility.Enchantments.Enchantments.Text.AttackHealthBuff;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -30,7 +31,6 @@ public class DefenderOfArgus extends Minion {
                 Rarity.RARE, Tribe.GENERAL, HeroClass.NEUTRAL, new ArrayList<Enchantments>());
     }
 
-    //TODO buffs shouldnt count as healing lmaoooooaoaoaoaoaoaao
     @Override
     public void battlecry(BoardState board, Player player, int position) {
         Minion left = null;
@@ -45,15 +45,11 @@ public class DefenderOfArgus extends Minion {
         }
         if (left != null) {
             left.getEnchantments().add(new HasTaunt(left));
-            left.addMaxHP(1);
-            left.addHp(1, board);
-            left.addAtk(1);
+            left.getEnchantments().add(new AttackHealthBuff(left, 1, 1));
         }
         if (right != null) {
             right.getEnchantments().add(new HasTaunt(right));
-            right.addMaxHP(1);
-            right.addHp(1, board);
-            right.addAtk(1);
+            right.getEnchantments().add(new AttackHealthBuff(right, 1, 1));
         }
     }
 }

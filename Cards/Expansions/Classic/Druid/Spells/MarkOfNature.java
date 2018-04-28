@@ -22,7 +22,7 @@ public class MarkOfNature extends Spell implements ChooseOne{
 
     public MarkOfNature(Player owner) {
 
-        super(0, "Innervate", "Give yourself two mana this turn.", owner,
+        super(3, "Mark of Nature", "Give a minion +4 attack or +4 health and taunt.", owner,
                 Rarity.BASIC, HeroClass.DRUID);
     }
 
@@ -38,10 +38,12 @@ public class MarkOfNature extends Spell implements ChooseOne{
         switch (answer) {
             case "1":
                 Minion minion = owner.promptAMinion(board, 3);
+                if (minion == null) return false;
                 minion.getEnchantments().add(new AttackBuff(minion, 4));
                 return true;
             case "2":
                 Minion minion1 = owner.promptAMinion(board, 0);
+                if (minion1 == null) return false;
                 minion1.getEnchantments().add(new HasTaunt(minion1));
                 minion1.getEnchantments().add(new HealthBuff(minion1, 4));
                 return true;

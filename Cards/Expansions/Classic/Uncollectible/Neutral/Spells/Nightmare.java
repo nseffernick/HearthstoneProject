@@ -28,8 +28,8 @@ public class Nightmare extends Spell {
 
     @Override
     public void castSpell(BoardState board) {
-        Player player = owner.promptTargetPlayer(board);
-        int index = owner.promptTargetIndex(board, 2);
+        Player player = owner.promptTargetPlayer(board, );
+        int index = owner.promptTargetIndex(board, );
         if (index == 10);
         else {
             Minion minion = player.getPlayerSide().get(index);

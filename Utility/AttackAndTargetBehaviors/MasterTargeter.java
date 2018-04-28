@@ -62,17 +62,17 @@ public class MasterTargeter {
             else if (where.equals("Hand")) {
                 side.addAll(player.getHand());
             }
-            for(int i = 0; i < side.size(); i++) {
-                if (side.get(i) == link); // is the minion the one with the aura
+            for (Card aSide : side) {
+                if (aSide == link) ; // is the minion the one with the aura
                 else {
                     if (tribe == null) {
-                        collection.add(side.get(i));
+                        collection.add(aSide);
                     }
                     else {
-                        if (side.get(i) instanceof Minion) {
-                            Minion minion = (Minion) side.get(i);
+                        if (aSide instanceof Minion) {
+                            Minion minion = (Minion) aSide;
                             if (minion.getTribe() == tribe) {
-                                collection.add(side.get(i));
+                                collection.add(aSide);
                             }
                         }
                     }

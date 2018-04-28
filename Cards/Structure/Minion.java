@@ -76,7 +76,7 @@ public abstract class Minion extends Card implements CanHaveEnchantments, Target
     public boolean isEnraged() { return enraged; }
 
     // Important that addHp is +=
-    public void addHp(int set, BoardState board) {
+    public void addHp(int set) {
         hp += set;
         enrageProc();
         if (set < 0) {
@@ -86,14 +86,13 @@ public abstract class Minion extends Card implements CanHaveEnchantments, Target
                     if (enchantments.getKeyword() == Keywords.AURA) {
                         for (Aura aura : owner.getAuras()) {
                             if (aura.getLink() == this) {
-                                owner.removeAura(aura, board);
-                                deathrattle(board);
+                                deathrattle();
                                 break;
                             }
                         }
                     }
                 }
-                owner.placeCardInGraveyard(this, board);
+                owner.placeCardInGraveyard(this);
             }
         }
         if (set > 0) {
@@ -185,11 +184,12 @@ public abstract class Minion extends Card implements CanHaveEnchantments, Target
         return false;
     }
 
-    public void destroy(BoardState board) {
-        owner.placeCardInGraveyard(this, board);
-        deathrattle(board);
+    public void destroy() {
+        owner.placeCardInGraveyard(this);
+        deathrattle();
     }
 
+    /* These are probably going to be removed*/
     public boolean isDead() {
         return hp <= 0;
     }
@@ -208,7 +208,7 @@ public abstract class Minion extends Card implements CanHaveEnchantments, Target
 
     public void onHit() {}
 
-    public void deathrattle(BoardState board) {}
+    public void deathrattle() {}
 
     public void enrage() {}
 

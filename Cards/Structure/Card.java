@@ -92,6 +92,7 @@ public abstract class Card {
         }
     }
 
+    /*
     protected void damageAllCharacters(BoardState board, int dmg) {
         Damaging.damageCharacter(board.getP1(), -1, dmg, board);
         Damaging.damageCharacter(board.getP2(), -1, dmg, board);
@@ -115,8 +116,9 @@ public abstract class Card {
             else Damaging.damageCharacter(board.getP2(), x, dmg, board);
         }
     }
+    */
 
-    public void silence(Minion minion, BoardState board) {
+    protected void silence(Minion minion, BoardState board) {
         for (Enchantments enchantment: minion.getEnchantments()) {
             if (enchantment instanceof HasAttacked);
             else if (enchantment instanceof HasSummonSickness);

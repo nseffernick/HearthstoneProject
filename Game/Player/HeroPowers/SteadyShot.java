@@ -3,6 +3,7 @@ package Game.Player.HeroPowers;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.UtilityMethods.UtilityMethods;
 
 /**
  * Created by Cheech on 3/29/2017.
@@ -15,7 +16,8 @@ public class SteadyShot extends HeroPower{
 
     @Override
     public boolean Cast(Player player, BoardState board) {
-        if(MasterTargeter.Main(player, -1, 2, null, false, board)) {
+        if (MasterTargeter.Main(UtilityMethods.findEnemy(board, player),
+                HERO_TARGET, 2, null, false, board)) {
             wasCast = true;
             return true;
         }

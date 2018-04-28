@@ -5,7 +5,6 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
-import Utility.Enchantments.Enchantments.Keywords.HasTaunt;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -42,8 +41,8 @@ public class AncientOfLore extends Minion implements ChooseOne{
                 owner.drawCard();
                 return true;
             case "2":
-                Player player = owner.promptTargetPlayer(board);
-                int index = owner.promptTargetIndex(board, 0);
+                Player player = owner.promptTargetPlayer(board, );
+                int index = owner.promptTargetIndex(board, );
                 MasterTargeter.Main(player, index, -5, null, false, board);
                 return true;
             case "cancel":

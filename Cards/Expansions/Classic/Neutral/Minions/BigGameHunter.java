@@ -49,7 +49,7 @@ public class BigGameHunter extends Minion {
         }
         Player targetPlayer = null;
         if (canTargetFriend && canTargetEnemy) {
-            targetPlayer = owner.promptTargetPlayer(board);
+            targetPlayer = owner.promptTargetPlayer(board, );
         }
         else if (canTargetFriend) {
             targetPlayer = owner;
@@ -65,7 +65,7 @@ public class BigGameHunter extends Minion {
         if (targetPlayer != null) {
             Minion minion;
             while (1 == 1) {
-                int index = owner.promptTargetIndex(board, 0);
+                int index = owner.promptTargetIndex(board, );
                 minion = targetPlayer.getPlayerSide().get(index);
                 if (minion.getAtk() >= 7) {
                     if (targetPlayer != owner && !minion.getEnchantments().contains(Keywords.STEALTH)) break;

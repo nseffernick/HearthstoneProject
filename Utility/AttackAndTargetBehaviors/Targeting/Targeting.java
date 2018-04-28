@@ -2,6 +2,10 @@ package Utility.AttackAndTargetBehaviors.Targeting;
 
 import Cards.Structure.Minion;
 import Game.Player.Player;
+import Utility.Enchantments.Enchantments.Keywords.HasElusive;
+import Utility.Enchantments.Enchantments.Keywords.HasImmune;
+import Utility.Enchantments.Enchantments.Keywords.HasTaunt;
+import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
@@ -11,23 +15,26 @@ import java.util.ArrayList;
  */
 public class Targeting {
 
+    //Constants
+    private static final int HERO = -1;
+
     // If a minion is attacking use this to check.
     public static boolean minionTargeting(Player target, int index, Minion minion) {
         if (minion.canAttack()) {
             if (thereAreMinions(target)) {
-                ArrayList<Integer> taunts = findKeyword(target, Keywords.TAUNT);
+                ArrayList<Integer> taunts = findKeyword(target, new HasTaunt(null));
                 if (!taunts.isEmpty()) {
                     return checkTauntMinions(taunts, index, target);
                 }
-                if (index == -1) {
+                else if (index == HERO) {
                     return checkImmuneHero(target);
                 }
                 else {
                     return true;
                 }
             }
-            else {
-                if (index == -1) {
+            else { // there are no minions
+                if (index == HERO) { //targeting the hero
                     return checkImmuneHero(target);
                 }
                 else {
@@ -42,34 +49,31 @@ public class Targeting {
         }
     }
 
+    // Targetting with a spell/battlecry
     public static boolean characterTargeting(Player target, int index, boolean battlecry) {
+        if (index == HERO) {
+            return checkImmuneHero(target);
+        }
         if (thereAreMinions(target)) {
-            ArrayList<Integer> elusives = findKeyword(target, Keywords.ELUSIVE);
+            ArrayList<Integer> elusives = findKeyword(target, new HasElusive(null));
             if (beingElusiveMatters(elusives, battlecry)) {
                 return checkElusiveMinions(elusives, index, target);
             }
-            if (index == -1) {
-                return checkImmuneHero(target);
-            }
             else {
-                return checkImmuneMinions(target, index);
+                Minion minion = target.getPlayerSide().get(index);
+                return checkImmuneMinions(minion);
             }
         }
         else {
-            if (index == -1) {
-                return checkImmuneHero(target);
-            }
-            else {
-                System.out.println("There are no minions on the board. (go face pls :(  )");
-                return false;
-            }
+            System.out.println("There are no minions on the board. (go face pls :(  )");
+            return false;
         }
     }
 
-    private static ArrayList<Integer> findKeyword(Player target, Keywords keyword) {
+    private static ArrayList<Integer> findKeyword(Player target, Enchantments enchantments) {
         ArrayList<Integer> minionIndexes = new ArrayList<>();
         for (Minion minion: target.getPlayerSide()) {
-            if (minion.getEnchantments().contains(keyword)) {
+            if (minion.checkForEnchantment(enchantments, minion.getEnchantments())) {
                 minionIndexes.add(target.getPlayerSide().indexOf(minion));
             }
         }
@@ -77,16 +81,15 @@ public class Targeting {
     }
 
     private static boolean checkImmuneHero(Player target) {
-        if (target.getHero().getProperties().contains(Keywords.IMMUNE)) {
+        if (target.getHero().checkForEnchantment(new HasImmune(target.getHero()), target.getHero().getEnchantments())) {
             System.out.println("The enemy is immune.");
             return false;
         }
         return true;
     }
 
-    private static boolean checkImmuneMinions(Player target, int index) {
-        if (target.getPlayerSide().get(index).getEnchantments()
-                .contains(Keywords.IMMUNE)) {
+    private static boolean checkImmuneMinions(Minion minion) {
+        if (minion.checkForEnchantment(new HasImmune(minion), minion.getEnchantments())) {
             System.out.println("The enemy is immune.");
             return false;
         }
@@ -102,12 +105,12 @@ public class Targeting {
             System.out.println("You cannot target this minion.");
             return false;
         }
-        return checkImmuneMinions(target, index);
+        return checkImmuneMinions(target.getPlayerSide().get(index));
     }
 
     private static boolean checkTauntMinions(ArrayList<Integer> taunts, int index, Player target) {
         if (taunts.contains(index)) {
-            return checkImmuneMinions(target, index);
+            return checkImmuneMinions(target.getPlayerSide().get(index));
         }
         System.out.println("You must attack the minion with taunt!");
         return false;

@@ -5,7 +5,6 @@ import Game.BoardState;
 import Game.Player.Player;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -33,6 +32,6 @@ public class TwilightDrake extends Minion {
     @Override
     public void battlecry(BoardState board, Player player, int position) {
         int healthIncrease = owner.getHand().size();
-        addHp(healthIncrease, board);
+        addHp(board, healthIncrease, );
     }
 }

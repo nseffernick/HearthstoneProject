@@ -8,7 +8,6 @@ import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.Enchantments.Structure.Keywords;
 
 import java.util.ArrayList;
 
@@ -37,6 +36,6 @@ public class ElvenArcher extends Minion {
     // Deal one damage
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        MasterTargeter.Main(player.promptTargetPlayer(board), player.promptTargetIndex(board, 0), 1, null, true, board);
+        MasterTargeter.Main(player.promptTargetPlayer(board, ), player.promptTargetIndex(board, ), 1, null, true, board);
     }
 }

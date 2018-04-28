@@ -4,6 +4,8 @@ import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Game.Player.*;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.Enchantments.Enchantments.Keywords.HasAttacked;
+import Utility.Enchantments.Enchantments.Keywords.HasSummonSickness;
 import Utility.Enchantments.Structure.Keywords;
 import Utility.UtilityMethods.UtilityMethods;
 
@@ -98,7 +100,7 @@ public class BoardState extends Observable {
      */
     private void startTurn(Player player) {
 
-        player.drawCard();
+        player.drawCard(this);
         if (!(player.getManaCrystals() == 10)) {
             player.addManaCrystals(1);
         }
@@ -106,7 +108,7 @@ public class BoardState extends Observable {
             int set = player.getManaCrystals() - player.getMana();
             player.addMana(set);
         }
-        player.checkBoardForDead(this);
+        player.checkBoardForDead();
     }
 
     private void helpMessage() {
@@ -188,7 +190,8 @@ public class BoardState extends Observable {
 
     private void removeAttackLimits(Player player) {
         for (Minion minion : player.getPlayerSide()) {
-            minion.getEnchantments().removeIf(keyword -> keyword == Keywords.HASATTACKED || keyword == Keywords.SUMMONSICKNESS);
+            //make legal
+            //minion.getEnchantments().removeIf(new HasAttacked(null) || new HasSummonSickness(null));
         }
         player.getHeroPower().refreshHeroPower();
     }

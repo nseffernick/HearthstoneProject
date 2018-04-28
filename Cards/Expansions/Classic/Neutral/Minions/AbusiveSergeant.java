@@ -6,7 +6,6 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
 
@@ -33,7 +32,7 @@ public class AbusiveSergeant extends Minion {
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        int index = owner.promptTargetIndex(board, 3);
+        int index = owner.promptTargetIndex(board, );
         if (index == 10);
         else if (Targeting.characterTargeting(owner, index, true)) {
             Minion minion = owner.getPlayerSide().get(index);

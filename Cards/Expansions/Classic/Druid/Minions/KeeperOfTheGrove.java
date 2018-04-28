@@ -4,6 +4,7 @@ import Cards.Structure.ChooseOne;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Game.Targetable;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -38,11 +39,12 @@ public class KeeperOfTheGrove extends Minion implements ChooseOne {
         String answer = owner.getPlayerInput().next("1|2|cancel");
         switch (answer) {
             case "1":
-                Minion minion = owner.promptAMinion(board, 0);
-                minion.addHp(-2, board);
+                Targetable target = owner.promptAMinion(board, 0);
+                target.addHp(-2);
                 return true;
             case "2":
-                Minion minion1 = owner.promptAMinion(board, 0);
+                Minion minion1 = owner.promptAMinion(board, 3);
+                if (minion1 == null) return false;
                 silence(minion1, board);
                 return true;
             case "cancel":

@@ -27,7 +27,6 @@ public class HealingTouch extends Spell {
 
     @Override
     public void castSpell(BoardState board) {
-        //TODO
-        owner.getHero().addHp(owner, 8);
+        owner.pro
     }
 }

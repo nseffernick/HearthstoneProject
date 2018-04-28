@@ -7,9 +7,8 @@ import Cards.Structure.Weapon;
 import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
-import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Game.Targetable;
 import Utility.Enchantments.Enchantments.Keywords.HasSummonSickness;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.UtilityMethods.UtilityMethods;
 import Utility.UtilityMethods.hsCeption;
 
@@ -29,6 +28,12 @@ public class Player {
     private final int STARTING_MANA = 0;
     private final int BOARD_SLOTS = 7;
     private final int MAX_HAND_SIZE = 10;
+    private final int MAX_MANA_POOL = 10;
+    private final int INVALID_INDEX = 10;
+    //private final int ANY_TARGET = 0;
+    private final int FRIENDLY_TARGET = 1;
+    private final int ENEMY_TARGET = 2;
+    private final int HERO_TARGET = -1;
 
     // State
     private int manaCrystals; // Max mana
@@ -66,6 +71,8 @@ public class Player {
         rng.shuffle(deck);
     }
 
+    //TODO idea add system that notifies minions/heros in order when something happens
+
     /**
      * Initializes deck
      * @param decklist
@@ -80,6 +87,11 @@ public class Player {
         return deck;
     }
 
+    /**
+     * Creates a card addes to deck
+     * @param deck
+     * @param card
+     */
     private void makeCardFromClass(LinkedList<Card> deck, String card) {
         try {
             Class newCard = Class.forName(card);
@@ -98,6 +110,7 @@ public class Player {
 
     /*
     Various getters and setters
+    Prolly should get rid of these at some point
      */
     public int getManaCrystals() {
         return manaCrystals;
@@ -158,17 +171,37 @@ public class Player {
     }
 
     public void addManaCrystals(int set) {
-        if (manaCrystals < 10) {
+        if (manaCrystals < MAX_MANA_POOL) { //must be less than 10
             int totalMana = manaCrystals + set;
-            if (totalMana > 10 ) {
-                set = totalMana - 10;
+            if (totalMana > MAX_MANA_POOL ) {
+                set = totalMana - MAX_MANA_POOL;
             }
             manaCrystals += set;
         }
     }
 
-    public void addToHand(Card card) {
-        if (hand.size() < 10) {
+    /**
+     * Draws card from deck
+     * Accounts for max hand size of 10
+     * @param board
+     */
+    public void drawCard(BoardState board) {
+        if (!deck.isEmpty()) {
+            Card card = deck.remove();
+            addToHand(card);
+        }
+        else {
+            fatigue += 1;
+            hero.addHp(-fatigue);
+        }
+    }
+
+    /**
+     * Card is put into hand
+     * @param card
+     */
+    private void addToHand(Card card) {
+        if (hand.size() < MAX_HAND_SIZE) {
             hand.add(card);
             updateCardCostFromHand();
         }
@@ -187,31 +220,32 @@ public class Player {
         int mullCount = 0;
 
         if (player == board.getP1()) {
-            firstPlayerMulligan(chooseCard, i, pos, mullCount);
+            firstPlayerMulligan(chooseCard, i, pos, mullCount, board);
         }
 
         else {
-            secondPlayerMulligan(chooseCard, i, pos, mullCount);
+            secondPlayerMulligan(chooseCard, i, pos, mullCount, board);
         }
     }
 
-    private void secondPlayerMulligan(Scanner chooseCard, int i, int pos, int mullCount) {
+    private void secondPlayerMulligan(Scanner chooseCard, int i, int pos, int mullCount, BoardState board) {
         int[] intArr = {12, 21, 23, 232};
         System.out.println("You are going second.");
-        drawCard();
-        drawCard();
-        drawCard();
-        drawCard();
+        drawCard(board);
+        drawCard(board);
+        drawCard(board);
+        drawCard(board);
         mullCount = getMullCount(chooseCard, i, pos, mullCount, intArr);
-        drawAndMullBackCards(mullCount, intArr);
+        drawAndMullBackCards(mullCount, intArr, board);
         rng.shuffle(this.deck);
         System.out.println(hand);
     }
 
-    private void drawAndMullBackCards(int mullCount, int[] intArr) {
+
+    private void drawAndMullBackCards(int mullCount, int[] intArr, BoardState board) {
         int pos;
         while (mullCount > 0){
-            drawCard();
+            drawCard(board);
             mullCount -= 1;
         }
         pos = 0;
@@ -243,14 +277,14 @@ public class Player {
         return mullCount;
     }
 
-    private void firstPlayerMulligan(Scanner chooseCard, int i, int pos, int mullCount) {
+    private void firstPlayerMulligan(Scanner chooseCard, int i, int pos, int mullCount, BoardState board) {
         int[] intArr = {12, 21, 23};
         System.out.println("You are going first.");
-        drawCard();
-        drawCard();
-        drawCard();
+        drawCard(board);
+        drawCard(board);
+        drawCard(board);
         mullCount = getMullCount(chooseCard, i, pos, mullCount, intArr);
-        drawAndMullBackCards(mullCount, intArr);
+        drawAndMullBackCards(mullCount, intArr, board);
         rng.shuffle(this.deck);
         System.out.println(hand);
     }
@@ -267,6 +301,7 @@ public class Player {
         return choose.next();
     }
 
+    /* Prolly getting rid of the idea of auras just kind of dumb
     private void applyAura(Aura aura, BoardState board) {
 
         LinkedList<Card> where = determineAffectedCards(aura, board);
@@ -320,14 +355,6 @@ public class Player {
 
     }
 
-    private int getIncrement(String[] text) {
-        int increment = Integer.parseInt(text[2]);
-        if(text[1].charAt(0) ==  '-') {
-            increment = increment - (2*increment);
-        }
-        return increment;
-    }
-
     public void removeAura(Aura aura, BoardState board) {
         if (checkForAura(aura));
         else {
@@ -347,6 +374,17 @@ public class Player {
         auras.add(aura);
         applyAura(aura, board);
     }
+    */
+
+    /*                                           What is this for
+    private int getIncrement(String[] text) {
+        int increment = Integer.parseInt(text[2]);
+        if(text[1].charAt(0) ==  '-') {
+            increment = increment - (2*increment);
+        }
+        return increment;
+    }
+    */
 
     /**
      * Pre-Condition gives a correct index
@@ -356,23 +394,24 @@ public class Player {
      * @param card - card player is playing from hand
      */
     public void playCard(Card card, int index, BoardState board) {
-
         if (!(card.getCost() > mana)) {
-            if (playerSide.size() < BOARD_SLOTS) {
-                hand.remove(card);
-                updateCardCostFromHand();
-                // If card is a minion
-                if (card instanceof Minion) {
+            // If card is a minion
+            if (card instanceof Minion) {
+                if (playerSide.size() < BOARD_SLOTS) {
+                    hand.remove(card);
                     playMinion(card, index, board);
                 }
-                // If card is a spell
-                else if (card instanceof Spell) {
-                    Spell spell = (Spell) (card);
-                }
-                // If card is a weapon
-                else if (card instanceof Weapon) {
-                    Weapon weapon = (Weapon) (card);
-                }
+                System.out.println("The board is full");
+            }
+            // If card is a spell
+            else if (card instanceof Spell) {
+                hand.remove(card);
+                Spell spell = (Spell) (card);
+            }
+            // If card is a weapon
+            else if (card instanceof Weapon) {
+                hand.remove(card);
+                Weapon weapon = (Weapon) (card);
             }
         }
         else {
@@ -394,7 +433,7 @@ public class Player {
         updateCardCostFromBoard(board);
         procFromCardPlayed(minion, board);
         procFromMinionSummoned(minion, board);
-        checkBoardForDead(board);
+        checkBoardForDead();
     }
 
     /**
@@ -414,38 +453,22 @@ public class Player {
         }
     }
 
-    /**
-     * Draws card from deck
-     * Accounts for max hand size of 10
-     */
-    public void drawCard() {
-        if (!deck.isEmpty()) {
-            Card card = deck.remove();
-            addToHand(card);
-        }
-        else {
-            fatigue += 1;
-            hero.addHp(this, -fatigue);
-        }
-    }
-
-    public void checkBoardForDead(BoardState board) {
+    public void checkBoardForDead() {
         for (Minion minion : playerSide) {
             if (minion.isDead()) {
-                placeCardInGraveyard(minion, board);
+                placeCardInGraveyard(minion);
             }
         }
     }
 
-    public void placeCardInGraveyard(Card card, BoardState board) {
+    public void placeCardInGraveyard(Card card) {
         if (card instanceof Minion) {
-            placeMinionInGraveyard((Minion) card, board);
+            placeMinionInGraveyard((Minion) card);
         }
     }
 
-    private void placeMinionInGraveyard(Minion card, BoardState board) {
+    private void placeMinionInGraveyard(Minion card) {
         playerSide.remove(card);
-        updateCardCostFromBoard(board);
         Object card1 = constructDefaultCard(card);
         if (card1 instanceof Card) {
             Card card2 = (Card) (card1);
@@ -498,51 +521,57 @@ public class Player {
         System.out.println(name + " discarded " + card.getName() + "!");
     }
 
+    /**
+     * Transforming a minion, important to know that it doesn't get put into graveyard
+     * @param originalMinion
+     * @param newMinion
+     */
     public void transform(Minion originalMinion, Minion newMinion) {
         int index = playerSide.indexOf(originalMinion);
         playerSide.set(index, newMinion);
     }
 
-    public Player promptTargetPlayer(BoardState board) {
-        System.out.println("Will your target be the enemy, " + UtilityMethods.findEnemy(board, this).name +
-        ", or yourself");
-        System.out.println("Valid Responses are 'me' and 'enemy'");
-        System.out.print(">");
-        String aString = playerInput.next("(me)|(enemy)");
-        System.out.println();
-        Player targetPlayer;
-        if (aString.equals("me")) {
-            targetPlayer = this;
+    /*  LIKE I DONT KNOW WHY I NEED ALL OF THIS SEEMS LIKE IT COULD BE MORE GENERAL */
+    /**
+     * Ask for a player, reason we need targetType, and that this method is private
+     * is that different spells/targetable actions can only affect the enemy/friendlies
+     * @param board
+     * @param targetType
+     * @return
+     */
+    public Player promptTargetPlayer(BoardState board, int targetType) {
+        Player player;
+        if (targetType == FRIENDLY_TARGET) {
+            player = this;
+        }
+        else if (targetType == ENEMY_TARGET) {
+            player = UtilityMethods.findEnemy(board, this);
         }
         else {
-            targetPlayer = UtilityMethods.findEnemy(board, this);
+            System.out.println("Will your target be the enemy, " + UtilityMethods.findEnemy(board, this).name +
+                    ", or yourself");
+            System.out.println("Valid Responses are 'me' and 'enemy'");
+            System.out.print(">");
+            String aString = playerInput.next("(me)|(enemy)");
+            System.out.println();
+            if (aString.equals("me")) {
+                player = this;
+            }
+            else {
+                player = UtilityMethods.findEnemy(board, this);
+            }
         }
-        return targetPlayer;
+        return player;
     }
 
-    public int promptTargetIndex(BoardState board, int targetType) {
+    /**
+     * Where a player asks for a target, whether it be for a battlecry/spell
+     * @param board
+     * @param player
+     * @return
+     */
+    public int promptTargetIndex(BoardState board, Player player) {
         // Conditions where the battlecry won't work
-        // Enemy Minions
-        if (targetType == 1) {
-            if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty()) {
-                System.out.println("There are no valid targets.");
-                return 10;
-            }
-        }
-        // Friendly Minions
-        else if (targetType == 2) {
-            if (playerSide.isEmpty()) {
-                System.out.println("There are no valid targets");
-                return 10;
-            }
-        }
-        // All Board
-        else if (targetType == 3) {
-            if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty() && playerSide.isEmpty()) {
-                System.out.println("There are no valid targets");
-                return 10;
-            }
-        }
         board.peekYourHand(this);
         board.peekBoard(this);
         System.out.println();
@@ -550,24 +579,138 @@ public class Player {
         System.out.println("0 to target the hero, 1-7 left to target minions ");
         System.out.print("> ");
         int targetIndex = playerInput.nextInt() - 1;
+        if (targetIndex < -1 || targetIndex > player.getPlayerSide().size() - 1) {
+            return INVALID_INDEX;
+        }
         System.out.println();
         return targetIndex;
     }
 
-    public Minion promptAMinion(BoardState board, int targetType) {
-        Player player = promptTargetPlayer(board);
-        int index = promptTargetIndex(board, targetType);
-        if (index == 10) {
+    /**
+     * Checks if there a minions on the board
+     * @param board
+     * @param targetType
+     * @return
+     */
+    private boolean canTargetMinion(BoardState board, int targetType) {
+        if (board.isBoardEmpty()) {
+            System.out.println("There are minions to target.");
+            return false;
+        }
+        else if (targetType == FRIENDLY_TARGET) {
+            if (playerSide.isEmpty()) {
+                System.out.println("There are no minions to target.");
+                return false;
+            }
+        }
+        else if (targetType == ENEMY_TARGET) {
+            if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty()) {
+                System.out.println("There are no minions to target.");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Finds the minion at a certain index from a certain player
+     * @param board
+     * @param targetType
+     * @return a mionion
+     */
+    private Minion targetAMinion(BoardState board, int targetType) {
+        Player player = promptTargetPlayer(board, targetType);
+        int index = targetMinionIndex(board, player);
+        if (index == INVALID_INDEX) {//what do case
             return null;
         }
         return player.getPlayerSide().get(index);
     }
 
+    /**
+     * Allows player to pick index of minion
+     * @param board
+     * @param player
+     * @return
+     */
+    private int targetMinionIndex(BoardState board, Player player) {
+        board.peekYourHand(this);
+        board.peekBoard(this);
+        System.out.println();
+        System.out.println("What index would you like to target:");
+        System.out.println("1-7 left to right to target minions. (Invalid index will cancel cast/battlecry)");
+        System.out.print("> ");
+        int targetIndex = playerInput.nextInt() - 1;
+        if (targetIndex < 0 || targetIndex > player.getPlayerSide().size() - 1) {
+            return INVALID_INDEX;
+        }
+        System.out.println();
+        return targetIndex;
+    }
+
+    /**
+     * Returns a minion that is targeted
+     * @param board
+     * @param targetType
+     * @return
+     */
+    public Minion promptAMinion(BoardState board, int targetType) {
+        if (canTargetMinion(board, targetType)) {
+            return targetAMinion(board, targetType);
+        }
+        return null;
+    }
+
+    /**
+     * Prompts for any target
+     * @param board
+     * @param targetType
+     * @return
+     */
+    public Targetable promptATarget(BoardState board, int targetType) {
+        if (targetType == FRIENDLY_TARGET) {
+            int index = promptTargetIndex(board, this);
+            if (index == INVALID_INDEX) { // What do we do when invalid
+                return null;
+            }
+            else if (index == HERO_TARGET) {
+                return hero;
+            }
+            else {
+                return playerSide.get(index);
+            }
+        }
+        else if (targetType == ENEMY_TARGET) {
+            int index = promptTargetIndex(board, UtilityMethods.findEnemy(board, this));
+            if (index == INVALID_INDEX) {
+                return null;
+            }
+            else if (index == HERO_TARGET) {
+                return UtilityMethods.findEnemy(board, this).getHero();
+            }
+            else {
+                return UtilityMethods.findEnemy(board, this).getPlayerSide().get(index);
+            }
+        }
+        else {
+            Player player = promptTargetPlayer(board, targetType);
+            int index = promptTargetIndex(board, player);
+            if (index == INVALID_INDEX) {
+                return null;
+            }
+            else if (index == HERO_TARGET) {
+                return player.getHero();
+            }
+            else {
+                return player.playerSide.get(index);
+            }
+        }
+    }
+    //end game
     public void concede() {
         System.out.println("Well fought, I concede");
         System.out.println(name + " concedes!");
-        int hpLeft = hero.getArmor() + hero.getHp();
-        hero.addHp(this, -hpLeft);
+        //TODO end game
     }
 
     /**
