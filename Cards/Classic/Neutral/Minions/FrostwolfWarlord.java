@@ -42,4 +42,14 @@ public class FrostwolfWarlord extends Minion {
     public void onTurnStart() {
 
     }
+
+    @Override
+    public void battlecry() {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            int set = findPlayer(1).getPlayerSide().size();
+            addAtk(set);
+            addMaxHP(set);
+            addHp(set);
+        }
+    }
 }

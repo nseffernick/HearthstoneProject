@@ -1,6 +1,9 @@
 package Cards.Classic.Neutral.Minions;
 
+import Cards.Classic.Uncollectible.Tokens.MurlocScout;
 import Cards.Minion;
+import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Keywords.Keywords;
 import Utility.Rarities.Rarity;
@@ -42,5 +45,12 @@ public class MurlocTidehunter extends Minion {
     @Override
     public void onTurnStart() {
 
+    }
+
+    // Summon a 1/1 murloc
+    public void battlecry(Player player, int index) {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            findPlayer(1).summonCard(new MurlocScout());
+        }
     }
 }

@@ -29,5 +29,7 @@ public enum Keywords {
     ELECOMBO,
     CHOOSEONE,
     OVERLOAD,
+    CANTATTACK,
+    AURA,
     DELTACOST;
 }

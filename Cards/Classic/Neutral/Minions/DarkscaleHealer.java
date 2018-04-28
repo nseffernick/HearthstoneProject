@@ -1,6 +1,7 @@
 package Cards.Classic.Neutral.Minions;
 
 import Cards.Minion;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -43,5 +44,13 @@ public class DarkscaleHealer extends Minion {
     @Override
     public void onTurnStart() {
 
+    }
+
+    // Heal all friendly characters for two health
+    @Override
+    public void battlecry() {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            MasterTargeter.TargetAll(true, findPlayer(1), -2);
+        }
     }
 }

@@ -1,6 +1,9 @@
 package Cards.Classic.Neutral.Minions;
 
+import Cards.Classic.Uncollectible.Tokens.MechanicalDragonling;
 import Cards.Minion;
+import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
@@ -43,5 +46,12 @@ public class DragonlingMechanic extends Minion {
     @Override
     public void onTurnStart() {
 
+    }
+
+    // Summon a 2/1 dragonling
+    public void battlecry(Player player, int index) {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            findPlayer(1).summonCard(new MechanicalDragonling());
+        }
     }
 }

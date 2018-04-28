@@ -42,4 +42,10 @@ public class NoviceEngineer extends Minion {
     public void onTurnStart() {
 
     }
+
+    public void battlecry() {
+        if (properties.contains(Keywords.BATTLECRY)) {
+            findPlayer(1).drawCard();
+        }
+    }
 }
