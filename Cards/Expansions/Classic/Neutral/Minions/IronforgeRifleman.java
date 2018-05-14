@@ -3,7 +3,11 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Game.Targetable;
+import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.AttackAndTargetBehaviors.Targeting.TargetType;
+import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -37,6 +41,12 @@ public class IronforgeRifleman extends Minion {
     // Deal one damage
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        MasterTargeter.Main(player.promptTargetPlayer(board, ), player.promptTargetIndex(board, ), 1, null, true, board);
+        Targetable target;
+        while (1==1) {
+            target = getOwner().promptATarget(board, TargetType.ANY);
+            if (Targeting.characterTargeting(target, true)) {
+                Damaging.damageCharacter(1, target);
+            }
+        }
     }
 }

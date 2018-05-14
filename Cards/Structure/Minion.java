@@ -67,6 +67,8 @@ public abstract class Minion extends Card implements CanHaveEnchantments, Target
         return atk;
     }
 
+    public int getIndex() { return getOwner().getPlayerSide().indexOf(this); }
+
     public Tribe getTribe() {
         return tribe;
     }

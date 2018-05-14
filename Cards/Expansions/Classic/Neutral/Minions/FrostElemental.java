@@ -3,6 +3,7 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.Targeting.TargetType;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.Enchantments.Enchantments.Keywords.HasFreeze;
 import Utility.Enchantments.Structure.Enchantments;
@@ -37,9 +38,9 @@ public class FrostElemental extends Minion {
         Player playerTarget = null;
         int index = -2;
         while (1 == 1) {
-            playerTarget = owner.promptTargetPlayer(board, );
-            index = owner.promptTargetIndex(board, );
-            if (Targeting.characterTargeting(playerTarget, index, true)) {
+            playerTarget = owner.promptTargetPlayer(board, TargetType.ANY);
+            index = owner.promptTargetIndex(board, playerTarget);
+            if (Targeting.characterTargeting(, playerTarget, true)) {
                 break;
             }
         }

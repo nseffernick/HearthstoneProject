@@ -9,8 +9,8 @@ import Game.Player.Player;
  */
 public class Inferno extends HeroPower{
 
-    public Inferno() {
-        super();
+    public Inferno(Player owner) {
+        super(owner);
     }
 
     @Override

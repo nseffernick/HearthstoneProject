@@ -1,8 +1,8 @@
 package Utility.AttackAndTargetBehaviors.Damaging;
 
 import Cards.Structure.Minion;
-import Game.BoardState;
-import Game.Player.Player;
+import Game.Player.Hero;
+import Game.Targetable;
 import Utility.Enchantments.Enchantments.Keywords.HasImmune;
 
 /**
@@ -19,31 +19,33 @@ public class Damaging {
      * For now will be only for things that deal damage,
      * and can target anything, so fireblast and a lot of spells.
      *
-     * @param target
-     * @param index
      * @param dmg
+     * @param target
      */
-    public static void damageCharacter(Player target, int index, int dmg, BoardState board) {
-        if (index == HERO) {
-            if (!target.getHero().getEnchantments().contains(new HasImmune(null))) {
-                target.getHero().addHp(-dmg);
+    public static void damageCharacter(int dmg, Targetable target) {
+        if (target.getIndex() == HERO) {
+            Hero heroTarget = (Hero)(target);
+            if (heroTarget.getEnchantments().contains(new HasImmune(null))) {
+                heroTarget.addHp(-dmg);
             }
         }
         else { // Is a minion
-            if (!target.getPlayerSide().get(index).getEnchantments().contains(new HasImmune(null))) {
-                target.getPlayerSide().get(index).addHp(-dmg);
+            Minion minionTarget = (Minion)(target);
+            if (!minionTarget.getEnchantments().contains(new HasImmune(null))) {
+                minionTarget.addHp(-dmg);
             }
         }
     }
     
-    public static void minionCombat(Player target, int index, Minion minion, BoardState board) {
-        if (index == HERO) {
-            target.getHero().addHp(-minion.getAtk());
+    public static void minionCombat(Targetable target, Minion minion) {
+        if (target.getIndex() == HERO) {
+            Hero heroTarget = (Hero)(target);
+            heroTarget.addHp(-minion.getAtk());
         }
         else {
             int atkingDmg = -minion.getAtk();
-            int defendingDmg = -target.getPlayerSide().get(index).getAtk();
-            target.getPlayerSide().get(index).addHp(atkingDmg);
+            int defendingDmg = -target.getAtk();
+            target.addHp(atkingDmg);
             minion.addHp(defendingDmg);
         }
     }

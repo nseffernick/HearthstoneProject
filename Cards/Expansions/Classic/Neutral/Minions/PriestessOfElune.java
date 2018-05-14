@@ -35,6 +35,6 @@ public class PriestessOfElune extends Minion {
     // Deal three damage to hero
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        MasterTargeter.Main(owner, -1, 4, null, true, board);
+        MasterTargeter.Main(4, null, true, );
     }
 }

@@ -6,10 +6,8 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -39,6 +37,6 @@ public class Nightblade extends Minion {
     // Deal three damage to hero
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        MasterTargeter.Main(UtilityMethods.findEnemy(board, player), -1, -3, null, true, board);
+        MasterTargeter.Main(-3, null, true, );
     }
 }

@@ -28,29 +28,29 @@ public abstract class Enchantments {
 
     protected void damageToAllMinions(BoardState board, int dmg) {
         for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {
-            Damaging.damageCharacter(board.getP1(), i, dmg, board);
+            Damaging.damageCharacter(dmg, board.getP1().getPlayerSide().get(i));
         }
         for (int x = 0; x < board.getP2().getPlayerSide().size(); x++) {
-            Damaging.damageCharacter(board.getP2(), x, dmg, board);
+            Damaging.damageCharacter(dmg, board.getP2().getPlayerSide().get(x));
         }
     }
 
     protected void damageAllCharacters(BoardState board, int dmg) {
-        Damaging.damageCharacter(board.getP1(), -1, -dmg, board);
-        Damaging.damageCharacter(board.getP2(), -1, -dmg, board);
+        Damaging.damageCharacter(-dmg, board.getP1().getHero());
+        Damaging.damageCharacter(-dmg, board.getP2().getHero());
         damageToAllMinions(board, dmg);
     }
 
     protected void damageAllCharactersExceptThis(BoardState board, int dmg, Minion thisMinion) {
-        Damaging.damageCharacter(board.getP1(), -1, dmg, board);
-        Damaging.damageCharacter(board.getP2(), -1, dmg, board);
+        Damaging.damageCharacter(dmg, board.getP1().getHero());
+        Damaging.damageCharacter(dmg, board.getP1().getHero());
         for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {
             if (board.getP1().getPlayerSide().get(i) == thisMinion);
-            else Damaging.damageCharacter(board.getP1(), i, dmg, board);
+            else Damaging.damageCharacter(dmg, board.getP1().getPlayerSide().get(i));
         }
         for (int x = 0; x < board.getP2().getPlayerSide().size(); x++) {
             if (board.getP2().getPlayerSide().get(x) == thisMinion);
-            else Damaging.damageCharacter(board.getP2(), x, dmg, board);
+            else Damaging.damageCharacter(dmg, board.getP2().getPlayerSide().get(x));
         }
     }
 

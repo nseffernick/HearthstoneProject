@@ -9,14 +9,14 @@ import Utility.AttackAndTargetBehaviors.MasterTargeter;
  */
 public class DieInsect extends HeroPower{
 
-    public DieInsect() {
-        super();
+    public DieInsect(Player owner) {
+        super(owner);
     }
 
     @Override
     public boolean Cast(Player player, BoardState board) {
         int random = player.getRng().randomNum(player.getPlayerSide().size());
-        if (MasterTargeter.Main(player, random, 8, null, false, board)) {
+        if (MasterTargeter.Main(8, null, false, )) {
             wasCast = true;
             return true;
         }

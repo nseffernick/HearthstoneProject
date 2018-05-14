@@ -9,15 +9,15 @@ import Utility.AttackAndTargetBehaviors.MasterTargeter;
  */
 public class LesserHeal extends HeroPower {
 
-    public LesserHeal() {
-        super();
+    public LesserHeal(Player owner) {
+        super(owner);
     }
 
     @Override
     public boolean Cast(Player player, BoardState board) {
         Player targetPlayer = player.promptTargetPlayer(board, ANY_TARGET);
         int index = player.promptTargetIndex(board, targetPlayer);
-        if (MasterTargeter.Main(targetPlayer, index, -2, null, false, board)) {
+        if (MasterTargeter.Main(-2, null, false, )) {
             wasCast = true;
             return true;
         }

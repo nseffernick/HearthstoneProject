@@ -34,7 +34,7 @@ public class DarkIronDwarf extends Minion {
     public void battlecry(BoardState board, Player player, int position) {
         int index = owner.promptTargetIndex(board, );
         if (index == 10);
-        else if (Targeting.characterTargeting(owner, index, true)) {
+        else if (Targeting.characterTargeting(, owner, true)) {
             Minion minion = owner.getPlayerSide().get(index);
         }
     }

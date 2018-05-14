@@ -5,6 +5,7 @@ import Cards.Structure.Minion;
 import Cards.Structure.Spell;
 import Game.BoardState;
 import Game.Player.Player;
+import Game.Targetable;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.Enchantments.Structure.Keywords;
@@ -45,8 +46,19 @@ public class Demolisher extends Minion {
         public void enchant(BoardState board, Minion minion, Spell spell) {
             if (link instanceof Minion) {
                 Minion minionLink = (Minion) link;
-                int index = minionLink.getOwner().getRng().randomNum(UtilityMethods.findEnemy(board, minionLink.getOwner()).getPlayerSide().size()) - 1;
-                Damaging.damageCharacter(UtilityMethods.findEnemy(board, minionLink.getOwner()), index, 2, board);
+                int index = minionLink.getOwner().getRng().randomNum(UtilityMethods.
+                        findEnemy(board, minionLink.getOwner()).getPlayerSide().size());
+                Targetable target;
+                if (index == 0) {
+                    target = UtilityMethods.
+                            findEnemy(board, minionLink.getOwner())
+                            .getHero();
+                }
+                else {
+                    target = UtilityMethods.findEnemy(board, minionLink.getOwner())
+                            .getPlayerSide().get(index);
+                }
+                Damaging.damageCharacter(2, target);
             }
         }
 

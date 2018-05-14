@@ -39,7 +39,7 @@ public class CrazedAlchemist extends Minion {
         while (1 == 1) {
             targetPlayer = owner.promptTargetPlayer(board, );
             index = owner.promptTargetIndex(board, );
-            if (Targeting.characterTargeting(targetPlayer, index, true)) {
+            if (Targeting.characterTargeting(, targetPlayer, true)) {
                 break;
             }
         }

@@ -9,15 +9,15 @@ import Utility.AttackAndTargetBehaviors.MasterTargeter;
  */
 public class MindShatter extends HeroPower {
 
-    public MindShatter() {
-        super();
+    public MindShatter(Player owner) {
+        super(owner);
     }
 
     @Override
     public boolean Cast(Player player, BoardState board) {
         Player targetPlayer = player.promptTargetPlayer(board, ANY_TARGET);
         int index = player.promptTargetIndex(board, targetPlayer);
-        if(MasterTargeter.Main(targetPlayer, index, 3, null, false, board)) {
+        if(MasterTargeter.Main(3, null, false, )) {
             wasCast = true;
             return true;
         }

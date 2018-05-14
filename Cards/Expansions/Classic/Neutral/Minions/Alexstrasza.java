@@ -4,6 +4,7 @@ import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
+import Utility.AttackAndTargetBehaviors.Targeting.TargetType;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
 import Utility.Rarities.Rarity;
@@ -32,11 +33,11 @@ public class Alexstrasza extends Minion {
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        Player targetPlayer = owner.promptTargetPlayer(board, );
+        Player targetPlayer = owner.promptTargetPlayer(board, TargetType.ANY);
         if (targetPlayer.getHero().getMaxHP() < 15) {
             targetPlayer.getHero().setMaxHP(15);
         }
         int dmg = targetPlayer.getHero().getHp() - 15;
-        MasterTargeter.Main(targetPlayer, -1, dmg, null, true, board);
+        MasterTargeter.Main(dmg, null, true, targetPlayer.getHero());
     }
 }

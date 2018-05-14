@@ -15,15 +15,19 @@ public abstract class HeroPower {
     protected final int HERO_TARGET = -1;
     protected int cost;
     protected boolean wasCast;
+    protected Player owner;
 
-    public HeroPower() {
+    public HeroPower(Player owner) {
         this.cost = 2;
         this.wasCast = false;
+        this.owner = owner;
     }
 
     public int getCost() {
         return cost;
     }
+
+    public Player getOwner() { return owner; }
 
     public boolean getWasCast() {
         return wasCast;

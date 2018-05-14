@@ -9,8 +9,8 @@ import Game.Player.Player;
  */
 public class Reinforce extends HeroPower {
 
-    public Reinforce() {
-        super();
+    public Reinforce(Player owner) {
+        super(owner);
     }
 
     @Override

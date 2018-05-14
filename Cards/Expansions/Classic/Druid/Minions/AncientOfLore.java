@@ -43,7 +43,7 @@ public class AncientOfLore extends Minion implements ChooseOne{
             case "2":
                 Player player = owner.promptTargetPlayer(board, );
                 int index = owner.promptTargetIndex(board, );
-                MasterTargeter.Main(player, index, -5, null, false, board);
+                MasterTargeter.Main(-5, null, false, );
                 return true;
             case "cancel":
                 return false;

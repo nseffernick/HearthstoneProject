@@ -44,7 +44,7 @@ public class KnifeJuggler extends Minion {
         @Override
         public void enchant(BoardState board, Minion minion, Spell spell) {
             int index = owner.getRng().randomNum(UtilityMethods.findEnemy(board, owner).getPlayerSide().size()) - 1;
-            Damaging.damageCharacter(UtilityMethods.findEnemy(board, owner), index, 1, board);
+            Damaging.damageCharacter(1, , board);
         }
 
         @Override

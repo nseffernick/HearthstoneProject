@@ -25,6 +25,8 @@ import java.util.ArrayList;
  */
 public class Hero implements CanHaveEnchantments, Targetable {
 
+    private final static int HERO_INDEX = -1;
+
     // State
     private Weapon weapon;
     private ArrayList<Enchantments> enchantments;
@@ -178,6 +180,8 @@ public class Hero implements CanHaveEnchantments, Targetable {
         return atk;
     }
 
+    public int getIndex() { return HERO_INDEX;}
+
     public ArrayList<Enchantments> getEnchantments() {
         return enchantments;
     }
@@ -200,6 +204,11 @@ public class Hero implements CanHaveEnchantments, Targetable {
                 minion.healProc();
             }
         }
+    }
+
+    @Override
+    public Player getOwner() {
+        return link;
     }
 
     public void addAtk(int set) { atk += set; }

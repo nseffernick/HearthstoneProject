@@ -38,10 +38,10 @@ public class EarthenRingFarseer extends Minion {
         while (1 == 1) {
             targetPlayer = owner.promptTargetPlayer(board, );
             index = owner.promptTargetIndex(board, );
-            if (Targeting.characterTargeting(targetPlayer, index, true)) {
+            if (Targeting.characterTargeting(, targetPlayer, true)) {
                 break;
             }
         }
-        Damaging.damageCharacter(targetPlayer, index, -3, board);
+        Damaging.damageCharacter(-3, , board);
     }
 }

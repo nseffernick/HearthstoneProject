@@ -9,8 +9,8 @@ import Game.Player.Player;
  */
 public class TheTidalHand extends HeroPower {
 
-    public TheTidalHand() {
-        super();
+    public TheTidalHand(Player owner) {
+        super(owner);
     }
 
     @Override

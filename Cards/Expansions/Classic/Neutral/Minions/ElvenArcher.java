@@ -36,6 +36,6 @@ public class ElvenArcher extends Minion {
     // Deal one damage
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        MasterTargeter.Main(player.promptTargetPlayer(board, ), player.promptTargetIndex(board, ), 1, null, true, board);
+        MasterTargeter.Main(1, null, true, );
     }
 }

@@ -9,8 +9,8 @@ import Game.Player.Player;
  */
 public class ArmorUp extends HeroPower {
 
-    public ArmorUp() {
-        super();
+    public ArmorUp(Player owner) {
+        super(owner);
     }
 
     @Override

@@ -8,8 +8,8 @@ import Game.Player.Player;
  */
 public class Shapeshift extends HeroPower {
 
-    public Shapeshift() {
-        super();
+    public Shapeshift(Player owner) {
+        super(owner);
     }
 
     @Override

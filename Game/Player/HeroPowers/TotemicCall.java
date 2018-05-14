@@ -16,8 +16,8 @@ import java.util.ArrayList;
  */
 public class TotemicCall extends HeroPower {
 
-    public TotemicCall() {
-        super();
+    public TotemicCall(Player owner) {
+        super(owner);
     }
 
     @Override

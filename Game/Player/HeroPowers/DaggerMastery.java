@@ -9,8 +9,8 @@ import Game.Player.Player;
  */
 public class DaggerMastery extends HeroPower {
 
-    public DaggerMastery() {
-        super();
+    public DaggerMastery(Player owner) {
+        super(owner);
     }
 
     @Override

@@ -1,14 +1,11 @@
 package Utility.AttackAndTargetBehaviors;
 
-import Cards.Structure.Card;
 import Game.BoardState;
 import Game.Player.Player;
 import Cards.Structure.Minion;
+import Game.Targetable;
 import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
-import Utility.Tribes.Tribe;
-
-import java.util.LinkedList;
 
 /**
  * Created by Cheech on 3/30/2017. nxs1720
@@ -17,11 +14,10 @@ import java.util.LinkedList;
  */
 public class MasterTargeter {
 
-    public static boolean Main(Player player, int index, int dmg,
-                            Minion minion, boolean battlecry, BoardState board) {
+    public static boolean Main(int dmg, Minion minion, boolean battlecry, Targetable target) {
         if (dmg == 0) {
-            if (Targeting.minionTargeting(player, index, minion)) {
-                Damaging.minionCombat(player, index, minion, board);
+            if (Targeting.minionTargeting(target, minion)) {
+                Damaging.minionCombat(target, minion);
                 return true;
             }
             else {
@@ -29,8 +25,8 @@ public class MasterTargeter {
             }
         }
         else {
-            if (Targeting.characterTargeting(player, index, battlecry)) {
-                Damaging.damageCharacter(player, index, dmg, board);
+            if (Targeting.characterTargeting(target, battlecry)) {
+                Damaging.damageCharacter(dmg, target);
                 return true;
             }
             else {
@@ -41,45 +37,11 @@ public class MasterTargeter {
 
     public static void TargetAll(boolean withHero, Player player, int dmg, BoardState board) {
         if (withHero) {
-            Damaging.damageCharacter(player, -1, dmg, board);
+            Damaging.damageCharacter(dmg, player.getHero());
         }
         for (int i = 0; i < player.getPlayerSide().size(); i++) {
-            Damaging.damageCharacter(player, i, dmg, board);
+            Damaging.damageCharacter(dmg, player.getPlayerSide().get(i));
         }
-    }
-
-    public static LinkedList<Card> CustomTarget(Player player, String where,
-                                                Tribe tribe, Minion link) {
-
-        LinkedList<Card> collection = new LinkedList<>();
-
-        if (player == null);
-        else {
-            LinkedList<Card> side = new LinkedList<>();
-            if (where.equals("Board")) {
-                side.addAll(player.getPlayerSide());
-            }
-            else if (where.equals("Hand")) {
-                side.addAll(player.getHand());
-            }
-            for (Card aSide : side) {
-                if (aSide == link) ; // is the minion the one with the aura
-                else {
-                    if (tribe == null) {
-                        collection.add(aSide);
-                    }
-                    else {
-                        if (aSide instanceof Minion) {
-                            Minion minion = (Minion) aSide;
-                            if (minion.getTribe() == tribe) {
-                                collection.add(aSide);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return collection;
     }
 
 }

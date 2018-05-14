@@ -8,6 +8,7 @@ import Game.Auras.Aura;
 import Game.BoardState;
 import Game.Player.HeroPowers.HeroPower;
 import Game.Targetable;
+import Utility.AttackAndTargetBehaviors.Targeting.TargetType;
 import Utility.Enchantments.Enchantments.Keywords.HasSummonSickness;
 import Utility.UtilityMethods.UtilityMethods;
 import Utility.UtilityMethods.hsCeption;
@@ -30,9 +31,6 @@ public class Player {
     private final int MAX_HAND_SIZE = 10;
     private final int MAX_MANA_POOL = 10;
     private final int INVALID_INDEX = 10;
-    //private final int ANY_TARGET = 0;
-    private final int FRIENDLY_TARGET = 1;
-    private final int ENEMY_TARGET = 2;
     private final int HERO_TARGET = -1;
 
     // State
@@ -539,12 +537,12 @@ public class Player {
      * @param targetType
      * @return
      */
-    public Player promptTargetPlayer(BoardState board, int targetType) {
+    public Player promptTargetPlayer(BoardState board, TargetType targetType) {
         Player player;
-        if (targetType == FRIENDLY_TARGET) {
+        if (targetType == TargetType.FRIENDLY) {
             player = this;
         }
-        else if (targetType == ENEMY_TARGET) {
+        else if (targetType == TargetType.ENEMY) {
             player = UtilityMethods.findEnemy(board, this);
         }
         else {
@@ -576,7 +574,7 @@ public class Player {
         board.peekBoard(this);
         System.out.println();
         System.out.println("What index would you like to target:");
-        System.out.println("0 to target the hero, 1-7 left to target minions ");
+        System.out.println("0 to target the hero, 1-7 left to right to target minions ");
         System.out.print("> ");
         int targetIndex = playerInput.nextInt() - 1;
         if (targetIndex < -1 || targetIndex > player.getPlayerSide().size() - 1) {
@@ -592,19 +590,25 @@ public class Player {
      * @param targetType
      * @return
      */
-    private boolean canTargetMinion(BoardState board, int targetType) {
+    private boolean canTargetMinion(BoardState board, TargetType targetType) {
         if (board.isBoardEmpty()) {
             System.out.println("There are minions to target.");
             return false;
         }
-        else if (targetType == FRIENDLY_TARGET) {
+        else if (targetType == TargetType.FRIENDLY) {
             if (playerSide.isEmpty()) {
                 System.out.println("There are no minions to target.");
                 return false;
             }
         }
-        else if (targetType == ENEMY_TARGET) {
+        else if (targetType == TargetType.ENEMY) {
             if (UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty()) {
+                System.out.println("There are no minions to target.");
+                return false;
+            }
+        }
+        else if (targetType == TargetType.ANY) {
+            if (playerSide.isEmpty() && UtilityMethods.findEnemy(board, this).getPlayerSide().isEmpty()) {
                 System.out.println("There are no minions to target.");
                 return false;
             }
@@ -618,7 +622,7 @@ public class Player {
      * @param targetType
      * @return a mionion
      */
-    private Minion targetAMinion(BoardState board, int targetType) {
+    private Minion targetAMinion(BoardState board, TargetType targetType) {
         Player player = promptTargetPlayer(board, targetType);
         int index = targetMinionIndex(board, player);
         if (index == INVALID_INDEX) {//what do case
@@ -654,7 +658,7 @@ public class Player {
      * @param targetType
      * @return
      */
-    public Minion promptAMinion(BoardState board, int targetType) {
+    public Minion promptAMinion(BoardState board, TargetType targetType) {
         if (canTargetMinion(board, targetType)) {
             return targetAMinion(board, targetType);
         }
@@ -663,12 +667,13 @@ public class Player {
 
     /**
      * Prompts for any target
+     * Must include heros
      * @param board
      * @param targetType
      * @return
      */
-    public Targetable promptATarget(BoardState board, int targetType) {
-        if (targetType == FRIENDLY_TARGET) {
+    public Targetable promptATarget(BoardState board, TargetType targetType) {
+        if (targetType == TargetType.FRIENDLY) {
             int index = promptTargetIndex(board, this);
             if (index == INVALID_INDEX) { // What do we do when invalid
                 return null;
@@ -680,7 +685,7 @@ public class Player {
                 return playerSide.get(index);
             }
         }
-        else if (targetType == ENEMY_TARGET) {
+        else if (targetType == TargetType.ENEMY) {
             int index = promptTargetIndex(board, UtilityMethods.findEnemy(board, this));
             if (index == INVALID_INDEX) {
                 return null;

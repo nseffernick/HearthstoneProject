@@ -10,14 +10,14 @@ import Utility.UtilityMethods.UtilityMethods;
  */
 public class SteadyShot extends HeroPower{
 
-    public SteadyShot() {
-        super();
+    public SteadyShot(Player owner) {
+        super(owner);
     }
 
     @Override
     public boolean Cast(Player player, BoardState board) {
-        if (MasterTargeter.Main(UtilityMethods.findEnemy(board, player),
-                HERO_TARGET, 2, null, false, board)) {
+        if (MasterTargeter.Main(
+                2, null, false, UtilityMethods.findEnemy(board, getOwner()).getHero())) {
             wasCast = true;
             return true;
         }

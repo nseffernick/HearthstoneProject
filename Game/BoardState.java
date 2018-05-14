@@ -4,9 +4,6 @@ import Cards.Structure.Card;
 import Cards.Structure.Minion;
 import Game.Player.*;
 import Utility.AttackAndTargetBehaviors.MasterTargeter;
-import Utility.Enchantments.Enchantments.Keywords.HasAttacked;
-import Utility.Enchantments.Enchantments.Keywords.HasSummonSickness;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.Observable;
@@ -263,7 +260,7 @@ public class BoardState extends Observable {
             Minion minion;
             try {
                 minion = player.getPlayerSide().get(Integer.parseInt(fields[1]) - 1);
-                MasterTargeter.Main(UtilityMethods.findEnemy(this, player), Integer.parseInt(fields[2]) - 1, 0, minion, false, this);
+                MasterTargeter.Main(0, minion, false, );
             }
             catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid Index, Most likely issue: Size needs to be greater than index.");

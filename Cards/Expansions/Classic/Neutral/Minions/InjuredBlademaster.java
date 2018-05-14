@@ -32,6 +32,6 @@ public class InjuredBlademaster extends Minion {
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        addHp(board, , -4, );
+        this.addHp(-4);
     }
 }

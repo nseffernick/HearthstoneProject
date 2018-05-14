@@ -8,8 +8,8 @@ import Game.Player.Player;
  */
 public class LifeTap extends HeroPower {
 
-    public LifeTap() {
-        super();
+    public LifeTap(Player owner) {
+        super(owner);
     }
 
     @Override

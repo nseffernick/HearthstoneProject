@@ -3,12 +3,13 @@ package Cards.Expansions.Classic.Neutral.Minions;
 import Cards.Structure.Minion;
 import Game.BoardState;
 import Game.Player.Player;
+import Utility.AttackAndTargetBehaviors.Targeting.TargetType;
+import Utility.AttackAndTargetBehaviors.Targeting.Targeting;
+import Utility.Enchantments.Enchantments.Keywords.HasTaunt;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 import Utility.Tribes.Tribe;
-import Utility.UtilityMethods.UtilityMethods;
 
 import java.util.ArrayList;
 
@@ -34,31 +35,26 @@ public class TheBlackKnight extends Minion {
 
     @Override
     public void battlecry(BoardState board, Player player, int position) {
-        boolean canTargetEnemy = false;
-        for (Minion minion : UtilityMethods.findEnemy(board, owner).getPlayerSide()) {
-            if (minion.getEnchantments().contains(Keywords.TAUNT) && !minion.getEnchantments().contains(Keywords.STEALTH)) {
-                canTargetEnemy = true;
+        boolean canTarget = false;
+        for (int i = 0; i < this.getOwner().getPlayerSide().size(); i++) {
+            if (this.getOwner().getPlayerSide().get(i).getEnchantments().contains(new HasTaunt(null)) &&
+                    Targeting.characterTargeting(this, true)) {
+                chooseMinionToDestroy(board);
             }
         }
-        Player targetPlayer = null;
-        if (canTargetEnemy) {
-            targetPlayer = UtilityMethods.findEnemy(board, owner);
-        }
-        chooseMinionToDestroy(board, targetPlayer);
+
     }
 
-    private void chooseMinionToDestroy(BoardState board, Player targetPlayer) {
-        if (targetPlayer != null) {
-            Minion minion;
-            while (1 == 1) {
-                int index = owner.promptTargetIndex(board, );
-                minion = targetPlayer.getPlayerSide().get(index);
-                if (minion.getEnchantments().contains(Keywords.TAUNT) && !minion.getEnchantments().contains(Keywords.STEALTH)) {
-                    break;
-                }
-                System.out.println("Invalid minion, please choose another.\n");
+    private void chooseMinionToDestroy(BoardState board) {
+        Minion minion;
+        while (1 == 1) {
+            minion = getOwner().promptAMinion(board, TargetType.ANY);
+            if (minion.getEnchantments().contains(new HasTaunt(null)) &&
+                    Targeting.characterTargeting(minion, true)) {
+                minion.destroy();
+                break;
             }
-            minion.destroy(board);
+            System.out.println("Invalid minion, please choose another.\n");
         }
     }
 }

@@ -9,15 +9,15 @@ import Utility.AttackAndTargetBehaviors.MasterTargeter;
  */
 public class Fireblast extends HeroPower {
 
-    public Fireblast() {
-        super();
+    public Fireblast(Player owner) {
+        super(owner);
     }
 
     @Override
     public boolean Cast(Player player, BoardState board) {
         Player targetPlayer = player.promptTargetPlayer(board, ANY_TARGET);
         int index = player.promptTargetIndex(board, targetPlayer);
-        if (MasterTargeter.Main(targetPlayer, index, 1, null, false , board)) {
+        if (MasterTargeter.Main(1, null, false, )) {
             wasCast = true;
             return true;
         }

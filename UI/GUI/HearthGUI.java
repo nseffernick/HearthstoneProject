@@ -73,21 +73,10 @@ public class HearthGUI extends Application implements Observer {
          */
         @Override
         public void update(Observable o, Object arg) {
-            /*
-            int i = 0;
-            String textIter = "";
-            while(i < model.appointmentsOn(model.currDate).size())  {
-                textIter += model.appointmentsOn(model.currDate).get(i).toString()
-                        + "\n";
-                i += 1;
-            }
-            this.appointmentsList.setText(textIter);
-            this.appointmentsList.setEditable(false);
-            */
+
         }
 
         public static void main(String[] args) throws Exception {
-            // If there is no file make a standard month
             HearthGUI.launch(args);
         }
 

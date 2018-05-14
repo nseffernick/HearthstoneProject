@@ -8,7 +8,6 @@ import Game.Player.Player;
 import Utility.AttackAndTargetBehaviors.Damaging.Damaging;
 import Utility.Enchantments.Structure.Enchantments;
 import Utility.HeroClasses.HeroClass;
-import Utility.Enchantments.Structure.Keywords;
 import Utility.Rarities.Rarity;
 
 import java.util.ArrayList;
@@ -37,15 +36,15 @@ public class YseraAwakens extends Spell implements BenefitsFromSpellDamage {
     }
 
     private void damageAllButYseras(BoardState board, int dmg) {
-        Damaging.damageCharacter(board.getP1(), -1, dmg, board);
-        Damaging.damageCharacter(board.getP2(), -1, dmg, board);
+        Damaging.damageCharacter(dmg, board.getP1().getHero());
+        Damaging.damageCharacter(dmg, board.getP2().getHero());
         for (int i = 0; i < board.getP1().getPlayerSide().size(); i++) {
             if (board.getP1().getPlayerSide().get(i) instanceof Ysera);
-            else Damaging.damageCharacter(board.getP1(), i, dmg, board);
+            else Damaging.damageCharacter(dmg, board.getP1().getPlayerSide().get(i));
         }
         for (int x = 0; x < board.getP2().getPlayerSide().size(); x++) {
             if (board.getP2().getPlayerSide().get(x) instanceof Ysera);
-            else Damaging.damageCharacter(board.getP2(), x, dmg, board);
+            else Damaging.damageCharacter(dmg, board.getP2().getPlayerSide().get(x));
         }
     }
 }

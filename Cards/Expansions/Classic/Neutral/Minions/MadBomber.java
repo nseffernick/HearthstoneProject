@@ -38,17 +38,17 @@ public class MadBomber extends Minion {
             int numTargets = owner.getPlayerSide().size() + owner.getPlayerSide().size() + 2;
             int index = owner.getRng().randomNum(numTargets) - 2;
             if (index == -2) {
-                Damaging.damageCharacter(UtilityMethods.findEnemy(board, player), -1, 1, board);
+                Damaging.damageCharacter(1, , board);
             }
             else if (index == -1) {
-                Damaging.damageCharacter(owner, -1, 1, board);
+                Damaging.damageCharacter(1, , board);
             }
             else if (index < UtilityMethods.findEnemy(board, player).getPlayerSide().size()) {
-                Damaging.damageCharacter(UtilityMethods.findEnemy(board, player), index, 1, board);
+                Damaging.damageCharacter(1, , board);
             }
             else {
                 index -= UtilityMethods.findEnemy(board, player).getPlayerSide().size();
-                Damaging.damageCharacter(owner, index, 1, board);
+                Damaging.damageCharacter(1, , board);
             }
             numBombs -= 1;
             owner.checkBoardForDead();
